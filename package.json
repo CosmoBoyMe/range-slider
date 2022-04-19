@@ -1,0 +1,35 @@
+{
+  "name": "sl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "style": "stylelint \"**/*.scss\" -- fix",
+    "lint": "eslint \"*/**/*.{js,ts}\" --quiet --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "prettier": "2.6.2",
+    "stylelint": "^14.7.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-standard": "^25.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-order": "^5.0.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "npm run lint",
+    "**/*.scss": "npm run style"
+  }
+}
