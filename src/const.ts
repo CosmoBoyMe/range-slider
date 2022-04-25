@@ -4,4 +4,16 @@ const enum ObserverTypes {
     OPTIONS_CHANGED = 'OPTIONS_CHANGED',
 }
 
-export { ObserverTypes };
+const DEFAULT_OPTIONS = {
+  min: 0,
+  max: 10,
+  step: 1,
+  scaleCounts: 11,
+  vertical: true,
+  scale: true,
+  tooltip: true,
+  progress: true,
+  values: [5, 6],
+};
+
+export { ObserverTypes, DEFAULT_OPTIONS };
