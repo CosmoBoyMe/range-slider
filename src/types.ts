@@ -10,4 +10,6 @@ interface IOptions {
     values: number[];
 }
 
-export type { IOptions };
+type valuePayload = { value: number, index: number }
+
+export type { IOptions, valuePayload };
