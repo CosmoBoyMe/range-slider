@@ -10,6 +10,12 @@ interface IOptions {
     values: number[];
 }
 
-type valuePayload = { value: number, index: number }
+interface ITrackArguments {
+  element : HTMLElement;
+  isVertical: boolean;
+  handleTrackClick: (event: MouseEvent) => void;
+}
 
-export type { IOptions, valuePayload };
+export type {
+  IOptions, ITrackArguments,
+};

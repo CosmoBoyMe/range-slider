@@ -9,11 +9,16 @@ const DEFAULT_OPTIONS = {
   max: 10,
   step: 1,
   scaleCounts: 11,
+  values: [5, 6],
   vertical: true,
   scale: true,
   tooltip: true,
   progress: true,
-  values: [5, 6],
 };
 
-export { ObserverTypes, DEFAULT_OPTIONS };
+const enum CSS_CLASSES {
+    TRACK = 'js-track',
+    TRACK_VERTICAL = 'js-track--vertical',
+}
+
+export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES };
