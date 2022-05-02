@@ -19,6 +19,8 @@ const DEFAULT_OPTIONS = {
 const enum CSS_CLASSES {
     TRACK = 'js-track',
     TRACK_VERTICAL = 'js-track--vertical',
+    PROGRESS = 'js-progress',
+    PROGRESS_VERTICAL = 'js-progress--vertical',
 }
 
 export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES };

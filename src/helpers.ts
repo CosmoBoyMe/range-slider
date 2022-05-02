@@ -12,6 +12,12 @@ const getClosestValue = (min: number, max:number, value:number, step:number): nu
   return Math.round(newValue * 100) / 100;
 };
 
+const getPercentOfValue = (value: number, min: number, max: number): number => {
+  const percent = ((value - min) / (max - min)) * 100;
+  return percent;
+};
+
 export {
   getClosestValue,
+  getPercentOfValue,
 };

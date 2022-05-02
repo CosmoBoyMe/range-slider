@@ -10,6 +10,15 @@ interface IOptions {
     values: number[];
 }
 
+interface IPropgessArguments {
+  rootElement: HTMLElement,
+  values: number[],
+  min: number,
+  max: number,
+  range:boolean,
+  vertical: boolean
+}
+
 interface ITrackArguments {
   element : HTMLElement;
   isVertical: boolean;
@@ -17,5 +26,5 @@ interface ITrackArguments {
 }
 
 export type {
-  IOptions, ITrackArguments,
+  IOptions, IPropgessArguments, ITrackArguments,
 };
