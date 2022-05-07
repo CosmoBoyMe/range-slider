@@ -12,8 +12,9 @@ class Model extends Observer {
     this.init();
   }
 
-  public getOptions() {
-    return this.options;
+  public getOptions(): IOptions {
+    const { options } = this;
+    return JSON.parse(JSON.stringify(options));
   }
 
   public updateValue({ value, index }: {value: number, index: number}) {
@@ -35,8 +36,8 @@ class Model extends Observer {
   private normalizeOptions() {
     this.normalizeMax();
     this.normalizeScaleCounts();
-    this.normalizeValues();
     this.normalizeStep();
+    this.normalizeValues();
   }
 
   private normalizeScaleCounts() {
@@ -72,7 +73,9 @@ class Model extends Observer {
   private normalizeStep() {
     const { step, min, max } = this.options;
     const range = Math.abs(max - min);
-    if (step > range) {
+    if (step === 0) {
+      this.options.step = 1;
+    } else if (step > range) {
       this.options.step = range;
     }
   }
