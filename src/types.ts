@@ -19,6 +19,15 @@ interface IPropgessArguments {
   vertical: boolean
 }
 
+interface IScaleArguments {
+  rootDom: HTMLElement;
+  min: number;
+  max: number;
+  step: number;
+  scaleCounts: number;
+  vertical: boolean;
+  handleScalePointClick: (event: MouseEvent) => void,
+}
 interface ITrackArguments {
   element : HTMLElement;
   isVertical: boolean;
@@ -26,5 +35,5 @@ interface ITrackArguments {
 }
 
 export type {
-  IOptions, IPropgessArguments, ITrackArguments,
+  IOptions, IPropgessArguments, ITrackArguments, IScaleArguments,
 };
