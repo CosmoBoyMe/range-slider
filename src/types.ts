@@ -34,6 +34,11 @@ interface ITrackArguments {
   handleTrackClick: (event: MouseEvent) => void;
 }
 
+interface ITooltipArguments {
+  rootElement: HTMLElement,
+  value: number,
+  isVertical: boolean,
+}
 export type {
-  IOptions, IPropgessArguments, ITrackArguments, IScaleArguments,
+  IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
 };
