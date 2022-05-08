@@ -28,6 +28,16 @@ interface IScaleArguments {
   vertical: boolean;
   handleScalePointClick: (event: MouseEvent) => void,
 }
+interface IThumbArguments {
+  rootElement: HTMLElement;
+  value: number;
+  min: number;
+  max: number;
+  index: number;
+  isVertical: boolean;
+  enableTooltip: boolean;
+  handleThumbMouseDown: (event: MouseEvent, index: number) => void;
+}
 interface ITrackArguments {
   element : HTMLElement;
   isVertical: boolean;
@@ -41,4 +51,5 @@ interface ITooltipArguments {
 }
 export type {
   IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
+  IThumbArguments,
 };
