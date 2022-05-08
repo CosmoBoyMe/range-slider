@@ -17,6 +17,7 @@ const DEFAULT_OPTIONS = {
 };
 
 const enum CSS_CLASSES {
+    SLIDER = 'js-custom-slider',
     TRACK = 'js-track',
     TRACK_VERTICAL = 'js-track--vertical',
     THUMB = 'js-thumb',
