@@ -15,15 +15,15 @@ class Presenter {
     this.bind();
   }
 
-  public getModelInstance() {
+  public getModelInstance():Model {
     return this.modelInstance;
   }
 
-  public getViewInstance() {
+  public getViewInstance():View {
     return this.viewInstance;
   }
 
-  private bind() {
+  private bind():void {
     this.modelInstance.subscribe(ObserverTypes.OPTIONS_CHANGED, (data: IOptions) => {
       this.viewInstance.updateOptions(data);
     });

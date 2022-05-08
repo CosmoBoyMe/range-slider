@@ -52,7 +52,7 @@ class Thumb {
     this.render();
   }
 
-  public getElement() {
+  public getElement():HTMLDivElement {
     return this.thumbEl;
   }
 

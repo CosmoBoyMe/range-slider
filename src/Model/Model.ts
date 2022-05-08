@@ -17,30 +17,30 @@ class Model extends Observer {
     return JSON.parse(JSON.stringify(options));
   }
 
-  public updateValue({ value, index }: {value: number, index: number}) {
+  public updateValue({ value, index }: {value: number, index: number}):void {
     this.options.values[index] = value;
     const newValue = this.options.values[index];
     this.notify(ObserverTypes.VALUE_UPDATED, { value: newValue, index });
   }
 
-  public updateOptions(newOptions: Partial<IOptions>) {
+  public updateOptions(newOptions: Partial<IOptions>):void {
     this.options = { ...this.options, ...newOptions };
     this.normalizeOptions();
     this.notify(ObserverTypes.OPTIONS_CHANGED, this.options);
   }
 
-  private init() {
+  private init():void {
     this.normalizeOptions();
   }
 
-  private normalizeOptions() {
+  private normalizeOptions():void {
     this.normalizeMax();
     this.normalizeScaleCounts();
     this.normalizeStep();
     this.normalizeValues();
   }
 
-  private normalizeScaleCounts() {
+  private normalizeScaleCounts():void {
     const {
       min, max, step, scaleCounts,
     } = this.options;
@@ -52,7 +52,7 @@ class Model extends Observer {
     this.options.scaleCounts = normalizedScaleCounts;
   }
 
-  private normalizeMax() {
+  private normalizeMax():void {
     const { min, max, step } = this.options;
     if (min > max) {
       this.options.max = min + step;
@@ -61,7 +61,7 @@ class Model extends Observer {
     }
   }
 
-  private normalizeValues() {
+  private normalizeValues():void {
     const {
       min, max, step, values,
     } = this.options;
@@ -70,7 +70,7 @@ class Model extends Observer {
     this.options.values = normalizedValues;
   }
 
-  private normalizeStep() {
+  private normalizeStep():void {
     const { step, min, max } = this.options;
     const range = Math.abs(max - min);
     if (step === 0) {

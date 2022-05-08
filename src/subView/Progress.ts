@@ -30,21 +30,21 @@ class Progress {
     this.init();
   }
 
-  public updateValues(newValues: number[]) {
+  public updateValues(newValues: number[]): void {
     this.values = newValues;
     this.updateProgressLenght();
     this.updatePosition();
   }
 
-  public destroy() {
+  public destroy():void {
     this.progressEl.remove();
   }
 
-  public getElement() {
+  public getElement():HTMLDivElement {
     return this.progressEl;
   }
 
-  private updateProgressLenght() {
+  private updateProgressLenght():void {
     const {
       progressEl, values, min, max, range, vertical,
     }: Progress = this;
@@ -63,7 +63,7 @@ class Progress {
       : (progressEl.style.width = `${progressLenghtInPercent}%`);
   }
 
-  private toggleVerticalClass(this: Progress) {
+  private toggleVerticalClass(this: Progress):void {
     const { progressEl, vertical } = this;
     if (vertical) {
       progressEl.classList.add(CSS_CLASSES.PROGRESS_VERTICAL);
@@ -72,7 +72,7 @@ class Progress {
     }
   }
 
-  private updatePosition() {
+  private updatePosition():void {
     const {
       min, max, values, progressEl, range, vertical,
     }: Progress = this;
@@ -89,7 +89,7 @@ class Progress {
     }
   }
 
-  private init() {
+  private init():void {
     const { progressEl }: Progress = this;
     progressEl.classList.add(CSS_CLASSES.PROGRESS);
     this.updateProgressLenght();

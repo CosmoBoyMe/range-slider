@@ -40,15 +40,16 @@ class Scale {
     this.render();
   }
 
-  public destroy() {
+  public destroy():void {
     this.scaleEl.remove();
   }
 
-  public getElement() {
+  public getElement():HTMLDivElement {
     return this.scaleEl;
   }
 
-  private createScalePoint(pointValue:number, min:number, max: number, vertical: boolean) {
+  private createScalePoint(pointValue:number, min:number, max: number, vertical: boolean)
+  :HTMLDivElement {
     const pointEl = document.createElement('div');
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
@@ -83,7 +84,7 @@ class Scale {
     return values;
   }
 
-  private deleteScalePointsWhenPointOverlap(this: Scale) {
+  private deleteScalePointsWhenPointOverlap(this: Scale):void {
     const { scaleEl } = this;
     const allPoints = [...scaleEl.children];
     allPoints.forEach((item, index) => {
@@ -106,7 +107,7 @@ class Scale {
     });
   }
 
-  private render() {
+  private render():void {
     const {
       rootDom,
       scaleEl,

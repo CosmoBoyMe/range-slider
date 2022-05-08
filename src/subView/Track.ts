@@ -17,19 +17,19 @@ class Track {
     this.render();
   }
 
-  public getElement() {
+  public getElement():HTMLDivElement {
     return this.trackElement;
   }
 
-  public toggleVeticalClass() {
+  public toggleVeticalClass():void {
     this.trackElement.classList.toggle(CSS_CLASSES.TRACK_VERTICAL);
   }
 
-  public destroy() {
+  public destroy():void {
     this.trackElement.remove();
   }
 
-  private render() {
+  private render():void {
     const { trackElement, element } = this;
 
     trackElement.classList.add(CSS_CLASSES.TRACK);

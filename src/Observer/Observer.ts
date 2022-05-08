@@ -1,11 +1,11 @@
 import { ObserverTypes } from '../const';
 
-type observerFn <T>= (data: T) => void;
+import type { observerFn, observers } from '../types';
 
 class Observer {
-  observers:Record<string, observerFn<any>[]> = {};
+  observers:observers = {};
 
-  public getObservers() {
+  public getObservers():observers {
     return this.observers;
   }
 
