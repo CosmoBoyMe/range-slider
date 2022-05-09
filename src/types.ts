@@ -49,7 +49,13 @@ interface ITooltipArguments {
   value: number,
   isVertical: boolean,
 }
+interface IViewInstances {
+  track: Track | null,
+  thumbs: Thumb[],
+  progress: Progress | null,
+  scale: Scale | null
+}
 export type {
   IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
-  IThumbArguments,
+  IThumbArguments, IViewInstances,
 };
