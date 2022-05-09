@@ -19,7 +19,7 @@ class Scale {
 
   vertical: boolean;
 
-  handleScalePointClick: (event: MouseEvent) => void;
+  handleScaleClick: (event: MouseEvent) => void;
 
   constructor({
     rootDom,
@@ -28,7 +28,7 @@ class Scale {
     step,
     scaleCounts,
     vertical,
-    handleScalePointClick,
+    handleScaleClick,
   }: IScaleArguments) {
     this.rootDom = rootDom;
     this.min = min;
@@ -36,7 +36,7 @@ class Scale {
     this.step = step;
     this.vertical = vertical;
     this.scaleCounts = scaleCounts;
-    this.handleScalePointClick = handleScalePointClick;
+    this.handleScaleClick = handleScaleClick;
     this.render();
   }
 
@@ -48,8 +48,9 @@ class Scale {
     return this.scaleEl;
   }
 
-  private createScalePoint(pointValue:number, min:number, max: number, vertical: boolean)
+  private createScalePoint(pointValue:number)
   :HTMLDivElement {
+    const { min, max, vertical } = this;
     const pointEl = document.createElement('div');
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
@@ -60,7 +61,6 @@ class Scale {
     } else {
       pointEl.style.left = `${valuePercent}%`;
     }
-    pointEl.addEventListener('click', this.handleScalePointClick);
     return pointEl;
   }
 
@@ -111,7 +111,8 @@ class Scale {
     const {
       rootDom,
       scaleEl,
-      scaleCounts, min, max, vertical,
+      scaleCounts,
+      vertical,
     } = this;
 
     scaleEl.classList.add(CSS_CLASSES.SCALE);
@@ -123,14 +124,12 @@ class Scale {
     for (let i = 0; i < scaleCounts; i += 1) {
       const scalePoint = this.createScalePoint(
         scaleValues[i],
-        min,
-        max,
-        vertical,
       );
       scalePoints.push(scalePoint);
     }
 
     scaleEl.append(...scalePoints);
+    scaleEl.addEventListener('click', this.handleScaleClick);
     rootDom.append(scaleEl);
     this.deleteScalePointsWhenPointOverlap();
   }

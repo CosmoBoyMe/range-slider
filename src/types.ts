@@ -26,7 +26,7 @@ interface IScaleArguments {
   step: number;
   scaleCounts: number;
   vertical: boolean;
-  handleScalePointClick: (event: MouseEvent) => void,
+  handleScaleClick: (event: MouseEvent) => void,
 }
 interface IThumbArguments {
   rootElement: HTMLElement;
