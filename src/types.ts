@@ -55,7 +55,9 @@ interface IViewInstances {
   progress: Progress | null,
   scale: Scale | null
 }
+type onChangeOptionsFn = (data: IOptions) => unknown
 export type {
   IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
   IThumbArguments, IViewInstances,
+  onChangeOptionsFn,
 };
