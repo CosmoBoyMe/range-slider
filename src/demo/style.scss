@@ -1,0 +1,19 @@
+.container  {
+  max-width: 1440px;
+  margin: 100px auto;
+}
+
+.demo {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+
+  margin-bottom: 100px;
+  column-gap: 100px;
+}
+
+.slider {
+  width: 300px;
+  height: 300px;
+}
