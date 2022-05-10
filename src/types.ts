@@ -36,7 +36,7 @@ interface IThumbArguments {
   index: number;
   isVertical: boolean;
   enableTooltip: boolean;
-  handleThumbMouseDown: (event: MouseEvent, index: number) => void;
+  handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 }
 interface ITrackArguments {
   element : HTMLElement;

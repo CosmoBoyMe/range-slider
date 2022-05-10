@@ -24,7 +24,7 @@ class Thumb {
 
   private tooltipInstance: Tooltip | null = null;
 
-  handleThumbMouseDown: (event: MouseEvent, index: number) => void;
+  handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 
   constructor(
     {
@@ -32,7 +32,7 @@ class Thumb {
       value,
       min,
       max,
-      handleThumbMouseDown,
+      handleThumbPointerDown,
       index,
       isVertical,
       enableTooltip,
@@ -42,7 +42,7 @@ class Thumb {
     this.value = value;
     this.min = min;
     this.max = max;
-    this.handleThumbMouseDown = handleThumbMouseDown;
+    this.handleThumbPointerDown = handleThumbPointerDown;
     this.index = index;
     this.enableTooltip = enableTooltip;
     this.isVertical = isVertical;
@@ -87,7 +87,7 @@ class Thumb {
 
   private render():void {
     const {
-      rootElement, thumbEl, handleThumbMouseDown, index, isVertical,
+      rootElement, thumbEl, handleThumbPointerDown, index, isVertical,
     }: Thumb = this;
     thumbEl.classList.add(CSS_CLASSES.THUMB);
 
@@ -96,7 +96,7 @@ class Thumb {
     }
 
     this.updatePosition();
-    thumbEl.addEventListener('pointerdown', (event) => handleThumbMouseDown(event, index));
+    thumbEl.addEventListener('pointerdown', (event) => handleThumbPointerDown(event, index));
 
     rootElement.append(thumbEl);
   }

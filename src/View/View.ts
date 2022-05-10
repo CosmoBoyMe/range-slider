@@ -99,23 +99,23 @@ class View extends Observer {
     this.progessInstance?.destroy();
   }
 
-  private handleThumbMouseDown(event: MouseEvent, index:number):void {
+  private handleThumbPointerDown(event: MouseEvent, index:number):void {
     event.preventDefault();
-    const onMouseMove = ({ clientX, clientY }: PointerEvent) => {
+    const handlerDocumentPointerMove = ({ clientX, clientY }: PointerEvent) => {
       const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
       if (currentValue !== this.options.values[index]) {
         this.notify(ObserverTypes.UPDATE_VALUE, { value: currentValue, index });
       }
     };
 
-    const onMouseUp = ():void => {
-      document.removeEventListener('pointerup', onMouseUp);
-      document.removeEventListener('pointermove', onMouseMove);
+    const handlerDocumentPointerUp = ():void => {
+      document.removeEventListener('pointerup', handlerDocumentPointerUp);
+      document.removeEventListener('pointermove', handlerDocumentPointerMove);
     };
 
-    document.addEventListener('pointermove', onMouseMove);
+    document.addEventListener('pointermove', handlerDocumentPointerMove);
 
-    document.addEventListener('pointerup', onMouseUp);
+    document.addEventListener('pointerup', handlerDocumentPointerUp);
     const { target } = event;
     if (target) {
       (target as HTMLDivElement).ondragstart = () => false;
@@ -198,7 +198,7 @@ class View extends Observer {
         value,
         min,
         max,
-        handleThumbMouseDown: this.handleThumbMouseDown.bind(this),
+        handleThumbPointerDown: this.handleThumbPointerDown.bind(this),
         index,
         isVertical: vertical,
         enableTooltip: tooltip,
