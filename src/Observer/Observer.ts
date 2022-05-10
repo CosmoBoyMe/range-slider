@@ -9,7 +9,7 @@ class Observer {
     return this.observers;
   }
 
-  subscribe<T>(type:ObserverTypes, observer:observerFn<T>):void {
+  public subscribe<T>(type:ObserverTypes, observer:observerFn<T>):void {
     if (!this.observers[type]) {
       this.observers[type] = [observer];
     } else {
@@ -17,7 +17,7 @@ class Observer {
     }
   }
 
-  notify<T>(type:ObserverTypes, data: T): boolean {
+  public notify<T>(type:ObserverTypes, data: T): boolean {
     if (this.observers[type]) {
       this.observers[type].forEach((observer) => observer(data));
       return true;
