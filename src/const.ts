@@ -32,4 +32,17 @@ const enum CSS_CLASSES {
     SCALE_POINT_VERTICAL = 'js-scale__point--vertical',
 }
 
-export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES };
+const enum panelClasses {
+  PANEL = 'js-panel',
+  PANEL_ITEM = 'js-panel__item',
+  PANEL_ITEM_INPUT = 'js-panel__item-input',
+  PANEL_NEW_ITEM_INPUT = 'js-panel__new-item_input',
+  PANEL_ITEM_CHECKBOX = 'js-panel__item-checkbox',
+  PANEL_ADD_NEW_THUMB_BTN = 'js-panel__add-new_thumb-btn',
+  PANEL_DELETE_THUMB_BTN = 'js-panel__delete-thumb-btn',
+  PANEL_SWITCH_CONTAINER = 'js-panel__switch-container'
+}
+
+export {
+  ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES, panelClasses,
+};

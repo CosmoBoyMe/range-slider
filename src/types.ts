@@ -1,3 +1,7 @@
+import type {
+  Progress, Scale, Thumb, Track,
+} from './subView/index';
+
 interface IOptions {
     min: number;
     max: number;
@@ -28,6 +32,7 @@ interface IScaleArguments {
   vertical: boolean;
   handleScaleClick: (event: MouseEvent) => void,
 }
+
 interface IThumbArguments {
   rootElement: HTMLElement;
   value: number;
@@ -38,6 +43,7 @@ interface IThumbArguments {
   enableTooltip: boolean;
   handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 }
+
 interface ITrackArguments {
   element : HTMLElement;
   isVertical: boolean;
@@ -49,15 +55,34 @@ interface ITooltipArguments {
   value: number,
   isVertical: boolean,
 }
+
 interface IViewInstances {
   track: Track | null,
   thumbs: Thumb[],
   progress: Progress | null,
   scale: Scale | null
 }
+
+interface IValuesInput {
+  name: keyof IOptions,
+  text: string,
+  value: number,
+  index: number
+}
+
+type valuePayload = { value: number, index: number };
+
+type Entries<T> = {
+    [K in keyof T]: [K, T[K]];
+  }[keyof T][];
+
+type observerFn <T>= (data: T) => void;
+type observers = Record<string, observerFn<any>[]>
 type onChangeOptionsFn = (data: IOptions) => unknown
+
 export type {
   IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
   IThumbArguments, IViewInstances,
-  onChangeOptionsFn,
+  valuePayload, Entries, observerFn, observers,
+  onChangeOptionsFn, IValuesInput,
 };
