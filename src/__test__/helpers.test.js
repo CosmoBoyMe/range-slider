@@ -19,7 +19,7 @@ describe('getPercentOfValue func:', () => {
 describe('getClosestValue func:', () => {
   test('closest value shold be min value', () => {
     const closestValue = getClosestValue(5, 10, 1, 1);
-    expect(closestValue).toBe(5);
+    expect(closestValue).toBe(4);
   });
   test('closest value shold be max value', () => {
     const closestValue = getClosestValue(0, 10, 20, 1);
