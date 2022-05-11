@@ -10,7 +10,8 @@
     "test": "jest",
     "style": "stylelint \"**/*.scss\" --fix",
     "lint": "eslint \"*/**/*.{js,ts}\" --quiet --fix",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.3",
+    "pre-commit": "^1.2.2",
     "prettier": "2.6.2",
     "sass": "^1.50.1",
     "sass-loader": "^12.6.0",
