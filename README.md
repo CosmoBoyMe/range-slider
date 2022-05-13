@@ -1,5 +1,10 @@
 # Range slider
 
+## [DEMO](https://cosmoboyme.github.io/range-slider/)
+
+## Библеотеки
+JQuery: 3.6.0
+
 ## Команды
     Установка зависимойстей
 ```
