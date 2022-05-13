@@ -1,6 +1,6 @@
 import type {
   Progress, Scale, Thumb, Track,
-} from './subView/index';
+} from './View/subView/index';
 
 interface IOptions {
     min: number;

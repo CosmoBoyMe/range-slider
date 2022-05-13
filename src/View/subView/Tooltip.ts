@@ -1,6 +1,6 @@
-import { CSS_CLASSES } from '../const';
+import { CSS_CLASSES } from '../../const';
 
-import type { ITooltipArguments } from '../types';
+import type { ITooltipArguments } from '../../types';
 
 class Tooltip {
   private rootElement: HTMLElement;

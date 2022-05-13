@@ -8,7 +8,7 @@ import { Observer } from '../Observer/Observer';
 
 import {
   Scale, Track, Thumb, Progress,
-} from '../subView/index';
+} from './subView/index';
 
 class View extends Observer {
   private sliderElement: HTMLDivElement = document.createElement('div');

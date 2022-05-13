@@ -1,5 +1,5 @@
-import { CSS_CLASSES } from '../const';
-import type { ITrackArguments } from '../types';
+import { CSS_CLASSES } from '../../const';
+import type { ITrackArguments } from '../../types';
 
 class Track {
   private element: HTMLElement;

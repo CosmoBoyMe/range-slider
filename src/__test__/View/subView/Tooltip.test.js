@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { Tooltip } from '../../subView/Tooltip';
+
+import { Tooltip } from '../../../View/subView';
 
 describe('Track class:', () => {
   let rootElement;

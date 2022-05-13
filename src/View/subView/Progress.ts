@@ -1,7 +1,7 @@
-import { getPercentOfValue } from '../helpers';
-import { CSS_CLASSES } from '../const';
+import { getPercentOfValue } from '../../helpers';
+import { CSS_CLASSES } from '../../const';
 
-import type { IPropgessArguments } from '../types';
+import type { IPropgessArguments } from '../../types';
 
 class Progress {
   private rootElement: HTMLElement;

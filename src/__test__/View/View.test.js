@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 
-import { View } from '../View/View';
+import { View } from '../../View/View';
 
-import { ObserverTypes } from '../const';
+import { ObserverTypes } from '../../const';
 
 describe('View class:', () => {
   const defaultOptions = {

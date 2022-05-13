@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import '@testing-library/jest-dom';
-import { Scale } from '../../subView';
+
+import { Scale } from '../../../View/subView';
 
 describe('Scale class:', () => {
   let rootElement;

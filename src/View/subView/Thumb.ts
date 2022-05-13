@@ -1,9 +1,9 @@
 import { Tooltip } from './Tooltip';
 
-import { getPercentOfValue } from '../helpers';
-import { CSS_CLASSES } from '../const';
+import { getPercentOfValue } from '../../helpers';
+import { CSS_CLASSES } from '../../const';
 
-import type { IThumbArguments } from '../types';
+import type { IThumbArguments } from '../../types';
 
 class Thumb {
   private rootElement: HTMLElement;

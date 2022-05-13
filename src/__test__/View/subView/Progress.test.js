@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { Progress } from '../../subView';
+import { Progress } from '../../../View/subView';
 
 describe('Progress class', () => {
   let rootElement = document.createElement('div');

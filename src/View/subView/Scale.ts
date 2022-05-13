@@ -1,8 +1,8 @@
-import { getPercentOfValue, getClosestValue } from '../helpers';
+import { getPercentOfValue, getClosestValue } from '../../helpers';
 
-import { CSS_CLASSES } from '../const';
+import { CSS_CLASSES } from '../../const';
 
-import type { IScaleArguments } from '../types';
+import type { IScaleArguments } from '../../types';
 
 class Scale {
   rootDom: HTMLElement;

@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { Track } from '../../subView';
+
+import { Track } from '../../../View/subView';
 
 describe('Track class:', () => {
   let rootElement;
