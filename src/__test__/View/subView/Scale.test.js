@@ -2,6 +2,7 @@
 import '@testing-library/jest-dom';
 
 import { Scale } from '../../../View/subView';
+import { CSS_CLASSES } from '../../../const';
 
 describe('Scale class:', () => {
   let rootElement;
@@ -17,6 +18,7 @@ describe('Scale class:', () => {
       step: 1,
       scaleCounts: 10,
       vertical: false,
+      scale: true,
       handleScalePointClick: (event) => undefined,
     });
     scaleEl = scale.getElement();
@@ -42,10 +44,38 @@ describe('Scale class:', () => {
       handleScalePointClick: (event) => undefined,
     });
     const scaleVerticalElemenet = scaleVertical.getElement();
-    expect(scaleVerticalElemenet).toHaveClass('js-scale--vertical');
+    expect(scaleVerticalElemenet).toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
   });
 
   test('scale element must not have vertical class', () => {
-    expect(scaleEl).not.toHaveClass('js-scale--vertical');
+    expect(scaleEl).not.toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
+  });
+
+  test('deleteScalePointsWhenPointOverlap: should not delete point if not overlap', () => {
+    const firstPoint = document.createElement('div');
+    firstPoint.classList.add(CSS_CLASSES.SCALE_POINT);
+    firstPoint.getBoundingClientRect = () => ({
+      top: 100,
+      bottom: 100,
+      left: 100,
+      right: 100,
+    });
+    scaleEl.append(firstPoint);
+    scale.deleteScalePointsWhenPointOverlap();
+    expect(scaleEl).toContainElement(firstPoint);
+  });
+
+  test('deleteScalePointsWhenPointOverlap: should delete overlap point', () => {
+    const customPoint = document.createElement('div');
+    customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
+    customPoint.getBoundingClientRect = () => ({
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    });
+    scaleEl.append(customPoint);
+    scale.deleteScalePointsWhenPointOverlap();
+    expect(scaleEl).not.toContainElement(customPoint);
   });
 });

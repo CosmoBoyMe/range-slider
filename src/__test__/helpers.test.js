@@ -54,6 +54,11 @@ describe('findNearestIndexToValue func:', () => {
     const nearestIndex = findNearestIndexToValue(array, 5);
     expect(nearestIndex).toBe(0);
   });
+  test('must return the last matching index', () => {
+    const array = [5, 5, 5, 5, 5, 5];
+    const nearestIndex = findNearestIndexToValue(array, 7);
+    expect(nearestIndex).toBe(5);
+  });
 });
 
 describe('getClosestNumberToStep func:', () => {

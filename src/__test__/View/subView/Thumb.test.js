@@ -2,16 +2,16 @@
 import '@testing-library/jest-dom';
 
 import { Thumb } from '../../../View/subView';
+import { CSS_CLASSES } from '../../../const';
 
 describe('Thumb class:', () => {
   let rootElement;
+  let thumbInstance;
+  let thumbEl;
 
   beforeEach(() => {
     rootElement = document.createElement('div');
-  });
-
-  test('root element shold contain thumb element', () => {
-    const thumb = new Thumb({
+    thumbInstance = new Thumb({
       rootElement,
       value: 5,
       min: 1,
@@ -21,22 +21,15 @@ describe('Thumb class:', () => {
       isVertical: true,
       enableTooltip: true,
     });
-    const thumbEl = thumb.getElement();
+    thumbEl = thumbInstance.getElement();
+  });
+
+  test('root element should contain thumb element', () => {
     expect(rootElement).toContainElement(thumbEl);
   });
 
   test('root element to be empty element', () => {
-    const thumb = new Thumb({
-      rootElement,
-      value: 5,
-      min: 1,
-      max: 10,
-      index: 0,
-      handleThumbMouseDown: (event, index) => undefined,
-      isVertical: true,
-      enableTooltip: true,
-    });
-    thumb.destroy();
+    thumbInstance.destroy();
     expect(rootElement).toBeEmptyDOMElement();
   });
 
@@ -59,36 +52,15 @@ describe('Thumb class:', () => {
   });
 
   test('thumb must update tooltip content text', () => {
-    const thumb = new Thumb({
-      rootElement,
-      value: 5,
-      min: 1,
-      max: 10,
-      index: 0,
-      handleThumbMouseDown: (event, index) => undefined,
-      isVertical: true,
-      enableTooltip: true,
-    });
-    const tooltipElement = rootElement.querySelector('.js-tooltip');
+    const tooltipElement = rootElement.querySelector(`.${CSS_CLASSES.TOOLTIP}`);
     expect(tooltipElement).toHaveTextContent(5);
-    thumb.updateValue(10);
+    thumbInstance.updateValue(10);
     expect(tooltipElement).toHaveTextContent(10);
   });
 
   test('thumb must contain tooltip', () => {
-    const thumb = new Thumb({
-      rootElement,
-      value: 5,
-      min: 1,
-      max: 10,
-      index: 0,
-      handleThumbMouseDown: (event, index) => undefined,
-      isVertical: true,
-      enableTooltip: true,
-    });
-    const thumbElement = thumb.getElement();
-    const tooltipElement = thumbElement.querySelector('.js-tooltip');
-    expect(thumbElement).toContainElement(tooltipElement);
+    const tooltipElement = thumbEl.querySelector(`.${CSS_CLASSES.TOOLTIP}`);
+    expect(thumbEl).toContainElement(tooltipElement);
   });
 
   test('thumb must not contain tooltip', () => {
@@ -103,23 +75,14 @@ describe('Thumb class:', () => {
       enableTooltip: false,
     });
     const thumbElement = thumb.getElement();
-    const tooltipElement = thumbElement.querySelector('.js-tooltip');
+    const tooltipElement = thumbElement.querySelector(
+      `.${CSS_CLASSES.TOOLTIP}`
+    );
     expect(thumbElement).not.toContainElement(tooltipElement);
   });
 
   test('thumb element must have vertical class', () => {
-    const thumb = new Thumb({
-      rootElement,
-      value: 5,
-      min: 1,
-      max: 10,
-      index: 0,
-      handleThumbMouseDown: (event, index) => undefined,
-      isVertical: true,
-      enableTooltip: false,
-    });
-    const thumbElement = thumb.getElement();
-    expect(thumbElement).toHaveClass('js-thumb--vertical');
+    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_VERTICAL);
   });
 
   test('thumb element must not have vertical class', () => {
@@ -134,6 +97,18 @@ describe('Thumb class:', () => {
       enableTooltip: false,
     });
     const thumbElement = thumb.getElement();
-    expect(thumbElement).not.toHaveClass('js-thumb--vertical');
+    expect(thumbElement).not.toHaveClass(CSS_CLASSES.THUMB_VERTICAL);
+  });
+
+  test('setActiveClass: should add active class', () => {
+    thumbInstance.addActiveClass();
+    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+  });
+
+  test('removeActiveClass: should remove active class', () => {
+    thumbInstance.addActiveClass();
+    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    thumbInstance.removeActiveClass();
+    expect(thumbEl).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
   });
 });

@@ -1,8 +1,10 @@
 import '@testing-library/jest-dom';
 
 import { View } from '../../View/View';
+import { Model } from '../../Model/Model';
+import { Presenter } from '../../Presenter/Presenter';
 
-import { ObserverTypes } from '../../const';
+import { ObserverTypes, CSS_CLASSES } from '../../const';
 
 describe('View class:', () => {
   const defaultOptions = {
@@ -23,10 +25,22 @@ describe('View class:', () => {
     step: 5,
     scaleCounts: 11,
     vertical: false,
-    scale: true,
+    scale: false,
     tooltip: true,
     progress: false,
     values: [-5, 0, 10, 15],
+  };
+
+  const optionWithOneValue = {
+    min: 0,
+    max: 10,
+    step: 1,
+    scaleCounts: 11,
+    vertical: false,
+    scale: true,
+    tooltip: false,
+    progress: false,
+    values: [1],
   };
 
   let view;
@@ -60,21 +74,49 @@ describe('View class:', () => {
     expect(element).not.toBeEmptyDOMElement;
   });
 
-  test('click on track', () => {
+  test('pointerdown on track should update value', () => {
     const trackInstance = view.getAllInstance().track;
     const trackElement = trackInstance.getElement();
     const cb = jest.fn();
     view.subscribe(ObserverTypes.UPDATE_VALUE, cb);
-    trackElement.dispatchEvent(new Event('click'));
+    trackElement.dispatchEvent(new Event('pointerdown'));
     expect(cb).toBeCalled();
   });
 
-  test('check click on scale', () => {
+  test('check click on scale with range values', () => {
     const scaleInstance = view.getAllInstance().scale;
     const scaleElement = scaleInstance.getElement();
+    const scalePointElement = scaleElement.querySelector(
+      `.${CSS_CLASSES.SCALE_POINT}`
+    );
     const cb = jest.fn();
     view.subscribe(ObserverTypes.UPDATE_VALUE, cb);
-    scaleElement.dispatchEvent(new Event('click'));
+    scaleElement.dispatchEvent(new MouseEvent('click'));
+    expect(cb).not.toBeCalled();
+    scalePointElement.dispatchEvent(
+      new MouseEvent('click', {
+        bubbles: true,
+      })
+    );
+    expect(cb).toBeCalled();
+  });
+
+  test('check click on scale with one value', () => {
+    const viewInstance = new View(element, optionWithOneValue);
+    const scaleInstance = viewInstance.getAllInstance().scale;
+    const scaleElement = scaleInstance.getElement();
+    const scalePointElement = scaleElement.querySelector(
+      `.${CSS_CLASSES.SCALE_POINT}`
+    );
+    const cb = jest.fn();
+    viewInstance.subscribe(ObserverTypes.UPDATE_VALUE, cb);
+    scaleElement.dispatchEvent(new MouseEvent('click'));
+    expect(cb).not.toBeCalled();
+    scalePointElement.dispatchEvent(
+      new MouseEvent('click', {
+        bubbles: true,
+      })
+    );
     expect(cb).toBeCalled();
   });
 
@@ -87,9 +129,160 @@ describe('View class:', () => {
     thumbElement.dispatchEvent(new Event('pointerdown'));
     expect(cb).not.toBeCalled();
     document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 50, clientY: 50 }),
+      new MouseEvent('pointermove', { clientX: 50, clientY: 50 })
     );
     expect(cb).toBeCalled();
+  });
+
+  test('thumb value should be limited by prev thumb value', () => {
+    const model = new Model();
+    const modelOptions = model.getOptions();
+    const viewInstance = new View(element, modelOptions);
+    const presenter = new Presenter(model, viewInstance);
+    const thumbsInstances = viewInstance.getAllInstance().thumbs;
+    const secondThumbElement = thumbsInstances[1].getElement();
+    const sliderElement = viewInstance.getSliderElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 100,
+    });
+    sliderElement.getBoundingClientRect = () => ({
+      left: 100,
+      right: 200,
+      top: 100,
+      bottom: 200,
+    });
+    secondThumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(
+      new MouseEvent('pointermove', { clientX: 1000, clientY: 1000 })
+    );
+    const viewOptions = viewInstance.getOptions();
+    expect(viewOptions.values[1]).toBe(5);
+  });
+
+  test('thumb value should be limited by next thumb value', () => {
+    const model = new Model();
+    const modelOptions = model.getOptions();
+    const viewInstance = new View(element, modelOptions);
+    const presenter = new Presenter(model, viewInstance);
+    const thumbsInstances = viewInstance.getAllInstance().thumbs;
+    const firstThumbElement = thumbsInstances[0].getElement();
+    const sliderElement = viewInstance.getSliderElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 100,
+    });
+    sliderElement.getBoundingClientRect = () => ({
+      left: 100,
+      right: 200,
+      top: 100,
+      bottom: 200,
+    });
+    firstThumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(
+      new MouseEvent('pointermove', { clientX: 0, clientY: 0 })
+    );
+    const viewOptions = viewInstance.getOptions();
+    expect(viewOptions.values[0]).toBe(6);
+  });
+
+  test('ondragstart event on thumb should be false', () => {
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const thumbElement = thumbsInstances[0].getElement();
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    expect(thumbElement.ondragstart()).toBe(false);
+  });
+
+  test('thumb value should not update if value is same', () => {
+    const model = new Model();
+    const viewInstance = new View(element, optionWithOneValue);
+    const presenter = new Presenter(model, viewInstance);
+    const sliderElement = viewInstance.getSliderElement();
+    const thumbsInstances = viewInstance.getAllInstance().thumbs;
+    const thumbElement = thumbsInstances[0].getElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      value: 10,
+    });
+    sliderElement.getBoundingClientRect = () => ({
+      left: 0,
+      right: 10,
+      top: 0,
+      bottom: 10,
+    });
+    const cb = jest.fn();
+    viewInstance.subscribe(ObserverTypes.UPDATE_VALUE, cb);
+    expect(cb).not.toBeCalled();
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(
+      new MouseEvent('pointermove', { clientX: 1, clientY: 1 })
+    );
+    const viewOptions = viewInstance.getOptions();
+    expect(viewOptions.values[0]).toBe(1);
+    expect(cb).not.toBeCalled();
+    document.dispatchEvent(
+      new MouseEvent('pointermove', { clientX: 10, clientY: 10 })
+    );
+    expect(cb).toBeCalled();
+    expect(viewInstance.getOptions().values[0]).toBe(10);
+  });
+
+  test('toggleActiveThumb: first thumb with max value should have active class', () => {
+    const model = new Model({ values: [10, 10] });
+    const modelOptions = model.getOptions();
+    const viewInstance = new View(element, modelOptions);
+    const presenter = new Presenter(model, viewInstance);
+    const thumbsInstances = viewInstance.getAllInstance().thumbs;
+    const firstThumbElement = thumbsInstances[0].getElement();
+    const secondThumbElement = thumbsInstances[1].getElement();
+    expect(firstThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(secondThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+  });
+
+  test('toggleActiveThumb: clicked thumb should have active class', () => {
+    const model = new Model();
+    const modelOptions = model.getOptions();
+    const viewInstance = new View(element, modelOptions);
+    const presenter = new Presenter(model, viewInstance);
+    const thumbsInstances = viewInstance.getAllInstance().thumbs;
+    const firstThumbElement = thumbsInstances[0].getElement();
+    const secondThumbElement = thumbsInstances[1].getElement();
+    model.updateValue({ value: 5, index: 1 });
+    expect(firstThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(secondThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    model.updateValue({ value: 7, index: 1 });
+    expect(firstThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(secondThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+  });
+
+  test('document pointer move and pointer up should remove after thumb pointer up', () => {
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const thumbElement = thumbsInstances[0].getElement();
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    const cb = jest.fn();
+    document.removeEventListener = cb;
+    document.dispatchEvent(new Event('pointerup'));
+    expect(cb).toHaveBeenCalled();
+  });
+
+  test('thumb value should be limited by next thumb value', () => {
+    const sliderElement = view.getSliderElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 100,
+    });
+    sliderElement.getBoundingClientRect = () => ({
+      left: 100,
+      right: 200,
+      top: 100,
+      bottom: 200,
+    });
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const thumbElement = thumbsInstances[1].getElement();
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(
+      new MouseEvent('pointermove', { clientX: 1000, clientY: 1000 })
+    );
   });
 
   test('check click on thumb vertical', () => {
@@ -102,23 +295,26 @@ describe('View class:', () => {
     thumbElement.dispatchEvent(new Event('pointerdown'));
     expect(cb).not.toBeCalled();
     document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 100, clientY: 100 }),
+      new MouseEvent('pointermove', { clientX: 100, clientY: 100 })
     );
     expect(cb).toBeCalled();
   });
 
   test('getCurrentValueFromCoords method', () => {
-    const e = view.getSliderElement();
-    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', { configurable: true, value: 100 });
-    e.getBoundingClientRect = () => ({
+    const sliderElement = view.getSliderElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 100,
+    });
+    sliderElement.getBoundingClientRect = () => ({
       top: 100,
       bottom: 200,
     });
-    const x = view.getCurrentValueFromCoords(0, 150);
-    expect(x).toBe(5);
-    const x1 = view.getCurrentValueFromCoords(0, 0);
-    expect(x1).toBe(10);
-    const x2 = view.getCurrentValueFromCoords(0, 9999999);
-    expect(x2).toBe(0);
+    const firstExpectedValue = view.getCurrentValueFromCoords(0, 150);
+    expect(firstExpectedValue).toBe(5);
+    const secondExpectedValue = view.getCurrentValueFromCoords(0, 0);
+    expect(secondExpectedValue).toBe(10);
+    const thirdExpectedValue = view.getCurrentValueFromCoords(0, 9999999);
+    expect(thirdExpectedValue).toBe(0);
   });
 });
