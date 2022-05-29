@@ -1,28 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
-let mode = 'development';
-if (process.env.NODE_ENV === 'production') {
-  mode = 'production';
-}
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  mode,
+  mode: 'production',
   target: 'web',
 
-  devServer: {
-    historyApiFallback: true,
-    static: path.resolve(__dirname, './src'),
-    open: true,
-    compress: true,
-    port: 8080,
-  },
-
   entry: {
-    main: path.resolve(__dirname, './src/demo/index.ts'),
+    main: path.resolve(__dirname, './src/index.ts'),
   },
 
   output: {
@@ -35,8 +22,6 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
 
-  devtool: 'source-map',
-
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -46,22 +31,6 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'style/[name].[contenthash].css',
-    }),
-
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/demo/index.pug'), // шаблон
-    }),
-
-    new FaviconsWebpackPlugin({
-      logo: path.resolve(__dirname, './src/assets/favicons/favicon.svg'),
-      outputPath: path.resolve(__dirname, './dist/assets/favicons'),
-      prefix: 'assets/favicons/',
-      inject: true,
-      favicons: {
-        icons: {
-          appleStartup: false,
-        },
-      },
     }),
   ],
 
@@ -81,7 +50,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -120,13 +89,6 @@ module.exports = {
         generator: {
           filename: 'fonts/[name][ext][query]',
         },
-      },
-      // pug
-
-      {
-        test: /\.pug$/,
-        exclude: /(node_modules|bower_components)/,
-        use: ['pug-loader'],
       },
     ],
   },
