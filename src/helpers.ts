@@ -1,4 +1,9 @@
-const getClosestValue = (min: number, max:number, value:number, step:number): number => {
+const getClosestValue = (
+  min: number,
+  max: number,
+  value: number,
+  step: number
+): number => {
   if (value <= min) {
     return min;
   }
@@ -13,15 +18,29 @@ const getClosestValue = (min: number, max:number, value:number, step:number): nu
   return Math.round(newValue * 100) / 100;
 };
 
-const findNearestIndexToValue = (arr:number[], value: number): number => {
+const findNearestIndexToValue = (arr: number[], value: number): number => {
   if (arr.length === 0) {
     return -1;
   }
-  const nearestValue = arr.reduce((prev, curr) => (Math.abs(curr - value) < Math.abs(prev - value)
-    ? curr
-    : prev));
+  const nearestValue = arr.reduce((prev, curr) =>
+    Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+  );
 
-  return arr.indexOf(nearestValue);
+  const allIndexOfNearestValue = arr.reduce<number[]>((prev, curr, index) => {
+    if (curr === nearestValue) {
+      prev.push(index);
+      return prev;
+    }
+    return prev;
+  }, []);
+
+  if (allIndexOfNearestValue.length === 1) {
+    return allIndexOfNearestValue[0];
+  }
+  if (value > nearestValue) {
+    return allIndexOfNearestValue.length - 1;
+  }
+  return 0;
 };
 
 const getPercentOfValue = (value: number, min: number, max: number): number => {
@@ -29,7 +48,7 @@ const getPercentOfValue = (value: number, min: number, max: number): number => {
   return percent;
 };
 
-const getClosestNumberToStep = (value: number, step:number): number => {
+const getClosestNumberToStep = (value: number, step: number): number => {
   const newStep = Math.abs(step);
   const absValue = Math.abs(value);
 

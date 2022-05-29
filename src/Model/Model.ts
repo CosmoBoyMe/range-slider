@@ -17,67 +17,83 @@ class Model extends Observer {
     return JSON.parse(JSON.stringify(options));
   }
 
-  public updateValue({ value, index }: {value: number, index: number}):void {
-    this.options.values[index] = value;
-    const newValue = this.options.values[index];
-    this.notify(ObserverTypes.VALUE_UPDATED, { value: newValue, index });
+  public updateValue({ value, index }: { value: number; index: number }): void {
+    const { values } = this.options;
+    const newValues = [...values];
+    newValues[index] = value;
+    this.setNewOptions({ values: newValues });
+    this.notify(ObserverTypes.VALUE_UPDATED, { value, index });
   }
 
-  public updateOptions(newOptions: Partial<IOptions>):void {
-    this.options = { ...this.options, ...newOptions };
+  private setNewOptions(newOptions: Partial<IOptions>): void {
+    const oldOptions = JSON.parse(JSON.stringify(this.options));
+    this.options = { ...oldOptions, ...newOptions };
+  }
+
+  public updateOptions(newOptions: Partial<IOptions>): void {
+    this.setNewOptions(newOptions);
     this.normalizeOptions();
     this.notify(ObserverTypes.OPTIONS_CHANGED, this.options);
   }
 
-  private init():void {
+  private init(): void {
     this.normalizeOptions();
   }
 
-  private normalizeOptions():void {
-    this.normalizeMax();
-    this.normalizeScaleCounts();
-    this.normalizeStep();
-    this.normalizeValues();
+  private normalizeOptions(): void {
+    const max = this.normalizeMax();
+    const scaleCounts = this.normalizeScaleCounts();
+    const step = this.normalizeStep();
+    const values = this.normalizeValues();
+    const normalizedOptions = {
+      max,
+      scaleCounts,
+      step,
+      values,
+    };
+    this.setNewOptions(normalizedOptions);
   }
 
-  private normalizeScaleCounts():void {
-    const {
-      min, max, step, scaleCounts,
-    } = this.options;
+  private normalizeScaleCounts(): number {
+    const { min, max, step, scaleCounts } = this.options;
     const range = Math.abs(max - min);
     const maxScaleCounts = range / step + 1;
     const normalizedScaleCounts = Math.round(
-      maxScaleCounts < scaleCounts ? maxScaleCounts : scaleCounts,
+      maxScaleCounts < scaleCounts ? maxScaleCounts : scaleCounts
     );
-    this.options.scaleCounts = normalizedScaleCounts;
+    return normalizedScaleCounts;
   }
 
-  private normalizeMax():void {
+  private normalizeMax(): number {
     const { min, max, step } = this.options;
     if (min > max) {
-      this.options.max = min + step;
-    } if (min === max) {
-      this.options.max = min + step;
+      return min + step;
     }
+    if (min === max) {
+      return min + step;
+    }
+    return max;
   }
 
-  private normalizeValues():void {
-    const {
-      min, max, step, values,
-    } = this.options;
-    const normalizedValues = values.map((value) => getClosestValue(min, max, value, step));
-
-    this.options.values = normalizedValues;
+  private normalizeValues(): number[] {
+    const { min, max, step, values } = this.options;
+    const normalizedValues = values.map((value) =>
+      getClosestValue(min, max, value, step)
+    );
+    const sortedValues = normalizedValues.sort((a, b) => a - b);
+    return sortedValues;
   }
 
-  private normalizeStep():void {
+  private normalizeStep(): number {
     const { step, min, max } = this.options;
     const range = Math.abs(max - min);
     if (step === 0) {
-      this.options.step = 1;
-    } else if (step > range) {
-      this.options.step = range;
+      return 1;
     }
+    if (step > range) {
+      return range;
+    }
+    return step;
   }
 }
 

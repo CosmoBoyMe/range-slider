@@ -40,16 +40,15 @@ class Scale {
     this.render();
   }
 
-  public destroy():void {
+  public destroy(): void {
     this.scaleEl.remove();
   }
 
-  public getElement():HTMLDivElement {
+  public getElement(): HTMLDivElement {
     return this.scaleEl;
   }
 
-  private createScalePoint(pointValue:number)
-  :HTMLDivElement {
+  private createScalePoint(pointValue: number): HTMLDivElement {
     const { min, max, vertical } = this;
     const pointEl = document.createElement('div');
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
@@ -65,11 +64,9 @@ class Scale {
   }
 
   private getScaleValues(): number[] {
-    const {
-      min, max, scaleCounts, step,
-    } = this;
+    const { min, max, scaleCounts, step } = this;
 
-    const values:number[] = [];
+    const values: number[] = [];
     const partsCountWithoutStart = scaleCounts - 1;
     const partStep = (max - min) / partsCountWithoutStart;
     for (let i = 0; i <= partsCountWithoutStart; i += 1) {
@@ -84,7 +81,7 @@ class Scale {
     return values;
   }
 
-  private deleteScalePointsWhenPointOverlap(this: Scale):void {
+  private deleteScalePointsWhenPointOverlap(this: Scale): void {
     const { scaleEl } = this;
     const allPoints = [...scaleEl.children];
     allPoints.forEach((item, index) => {
@@ -92,13 +89,13 @@ class Scale {
       for (let i = index + 1; i < allPoints.length; i += 1) {
         const nextItem = allPoints[i];
         const nextItemRect = nextItem.getBoundingClientRect();
-        const isOverplap = !(
-          currentItemRect.top > nextItemRect.bottom
-          || currentItemRect.right < nextItemRect.left
-          || currentItemRect.bottom < nextItemRect.top
-          || currentItemRect.left > nextItemRect.right
+        const isOverlap = !(
+          currentItemRect.top > nextItemRect.bottom ||
+          currentItemRect.right < nextItemRect.left ||
+          currentItemRect.bottom < nextItemRect.top ||
+          currentItemRect.left > nextItemRect.right
         );
-        if (isOverplap) {
+        if (isOverlap) {
           if (scaleEl.contains(nextItem)) {
             scaleEl.removeChild(nextItem);
           }
@@ -107,13 +104,8 @@ class Scale {
     });
   }
 
-  private render():void {
-    const {
-      rootDom,
-      scaleEl,
-      scaleCounts,
-      vertical,
-    } = this;
+  private render(): void {
+    const { rootDom, scaleEl, scaleCounts, vertical } = this;
 
     scaleEl.classList.add(CSS_CLASSES.SCALE);
     if (vertical) {
@@ -122,9 +114,7 @@ class Scale {
     const scaleValues = this.getScaleValues();
     const scalePoints = [];
     for (let i = 0; i < scaleCounts; i += 1) {
-      const scalePoint = this.createScalePoint(
-        scaleValues[i],
-      );
+      const scalePoint = this.createScalePoint(scaleValues[i]);
       scalePoints.push(scalePoint);
     }
 

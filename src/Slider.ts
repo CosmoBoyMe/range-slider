@@ -9,24 +9,27 @@ import { ObserverTypes } from './const';
 import type { IOptions, onChangeOptionsFn } from './types';
 
 class Slider {
-  modelInstance:Model;
+  modelInstance: Model;
 
   viewInstance: View;
 
-  preseneterInstance: Presenter;
+  presenterInstance: Presenter;
 
   constructor(domRoot: HTMLElement, options: Partial<IOptions> = {}) {
     this.modelInstance = new Model(options);
     const modelOptions = this.modelInstance.getOptions();
     this.viewInstance = new View(domRoot, modelOptions);
-    this.preseneterInstance = new Presenter(this.modelInstance, this.viewInstance);
+    this.presenterInstance = new Presenter(
+      this.modelInstance,
+      this.viewInstance
+    );
   }
 
-  public updateOptions(newOptions: Partial<IOptions>):void {
+  public updateOptions(newOptions: Partial<IOptions>): void {
     this.modelInstance.updateOptions(newOptions);
   }
 
-  public onChangeOptions(fn: onChangeOptionsFn):void {
+  public onChangeOptions(fn: onChangeOptionsFn): void {
     const notifyFn = () => {
       fn(this.getOptions());
     };
@@ -35,7 +38,7 @@ class Slider {
     this.modelInstance.subscribe(ObserverTypes.VALUE_UPDATED, notifyFn);
   }
 
-  public getOptions():IOptions {
+  public getOptions(): IOptions {
     return this.modelInstance.getOptions();
   }
 }

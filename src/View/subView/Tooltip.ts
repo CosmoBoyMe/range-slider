@@ -18,28 +18,28 @@ class Tooltip {
     this.render();
   }
 
-  public destroy():void {
+  public destroy(): void {
     this.tooltipEl.remove();
   }
 
-  public getElement():HTMLDivElement {
+  public getElement(): HTMLDivElement {
     return this.tooltipEl;
   }
 
-  public updateValue(newValue: number):void {
+  public updateValue(newValue: number): void {
     this.value = newValue;
     this.updateInnerText();
   }
 
-  public toggleVerticalClass():void {
+  public toggleVerticalClass(): void {
     this.tooltipEl.classList.toggle(CSS_CLASSES.TOOLTIP_VERTICAL);
   }
 
-  private updateInnerText():void {
+  private updateInnerText(): void {
     this.tooltipEl.textContent = String(this.value);
   }
 
-  private render():void {
+  private render(): void {
     const { tooltipEl } = this;
     tooltipEl.classList.add(CSS_CLASSES.TOOLTIP);
     tooltipEl.textContent = String(this.value);

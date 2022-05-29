@@ -17,25 +17,25 @@ class Track {
     this.render();
   }
 
-  public getElement():HTMLDivElement {
+  public getElement(): HTMLDivElement {
     return this.trackElement;
   }
 
-  public toggleVeticalClass():void {
+  public toggleVerticalClass(): void {
     this.trackElement.classList.toggle(CSS_CLASSES.TRACK_VERTICAL);
   }
 
-  public destroy():void {
+  public destroy(): void {
     this.trackElement.remove();
   }
 
-  private render():void {
+  private render(): void {
     const { trackElement, element } = this;
 
     trackElement.classList.add(CSS_CLASSES.TRACK);
-    trackElement.addEventListener('click', this.handleTrackClick);
+    trackElement.addEventListener('pointerdown', this.handleTrackClick);
     if (this.isVertical) {
-      this.toggleVeticalClass();
+      this.toggleVerticalClass();
     }
     element.append(trackElement);
   }

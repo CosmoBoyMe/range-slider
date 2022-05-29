@@ -1,7 +1,7 @@
 import { getPercentOfValue } from '../../helpers';
 import { CSS_CLASSES } from '../../const';
 
-import type { IPropgessArguments } from '../../types';
+import type { IProgressArguments } from '../../types';
 
 class Progress {
   private rootElement: HTMLElement;
@@ -19,8 +19,13 @@ class Progress {
   private progressEl: HTMLDivElement = document.createElement('div');
 
   constructor({
-    rootElement, values, min, max, range, vertical,
-  }: IPropgessArguments) {
+    rootElement,
+    values,
+    min,
+    max,
+    range,
+    vertical,
+  }: IProgressArguments) {
     this.rootElement = rootElement;
     this.values = values;
     this.min = min;
@@ -32,38 +37,37 @@ class Progress {
 
   public updateValues(newValues: number[]): void {
     this.values = newValues;
-    this.updateProgressLenght();
+    this.updateProgressLength();
     this.updatePosition();
   }
 
-  public destroy():void {
+  public destroy(): void {
     this.progressEl.remove();
   }
 
-  public getElement():HTMLDivElement {
+  public getElement(): HTMLDivElement {
     return this.progressEl;
   }
 
-  private updateProgressLenght():void {
-    const {
-      progressEl, values, min, max, range, vertical,
-    }: Progress = this;
-    let progressLenghtInPercent;
+  private updateProgressLength(): void {
+    const { progressEl, values, min, max, range, vertical }: Progress = this;
+    let progressLengthInPercent;
     if (range) {
       const minValue = Math.min(...values);
       const maxValue = Math.max(...values);
       const minValueInPercent = getPercentOfValue(minValue, min, max);
       const maxValueInPercent = getPercentOfValue(maxValue, min, max);
-      progressLenghtInPercent = maxValueInPercent - minValueInPercent;
+      progressLengthInPercent = maxValueInPercent - minValueInPercent;
     } else {
-      progressLenghtInPercent = getPercentOfValue(values[0], min, max);
+      progressLengthInPercent = getPercentOfValue(values[0], min, max);
     }
 
-    vertical ? (progressEl.style.height = `${progressLenghtInPercent}%`)
-      : (progressEl.style.width = `${progressLenghtInPercent}%`);
+    vertical
+      ? (progressEl.style.height = `${progressLengthInPercent}%`)
+      : (progressEl.style.width = `${progressLengthInPercent}%`);
   }
 
-  private toggleVerticalClass(this: Progress):void {
+  private toggleVerticalClass(this: Progress): void {
     const { progressEl, vertical } = this;
     if (vertical) {
       progressEl.classList.add(CSS_CLASSES.PROGRESS_VERTICAL);
@@ -72,10 +76,8 @@ class Progress {
     }
   }
 
-  private updatePosition():void {
-    const {
-      min, max, values, progressEl, range, vertical,
-    }: Progress = this;
+  private updatePosition(): void {
+    const { min, max, values, progressEl, range, vertical }: Progress = this;
     if (range) {
       const minValue = Math.min(...values);
       const positionInPercent = getPercentOfValue(minValue, min, max);
@@ -89,10 +91,10 @@ class Progress {
     }
   }
 
-  private init():void {
+  private init(): void {
     const { progressEl }: Progress = this;
     progressEl.classList.add(CSS_CLASSES.PROGRESS);
-    this.updateProgressLenght();
+    this.updateProgressLength();
     this.updatePosition();
     this.rootElement.append(progressEl);
     this.toggleVerticalClass();

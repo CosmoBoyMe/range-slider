@@ -15,25 +15,34 @@ class Presenter {
     this.bind();
   }
 
-  public getModelInstance():Model {
+  public getModelInstance(): Model {
     return this.modelInstance;
   }
 
-  public getViewInstance():View {
+  public getViewInstance(): View {
     return this.viewInstance;
   }
 
-  private bind():void {
-    this.modelInstance.subscribe(ObserverTypes.OPTIONS_CHANGED, (data: IOptions) => {
-      this.viewInstance.updateOptions(data);
-    });
-    this.viewInstance.subscribe(ObserverTypes.UPDATE_VALUE, (payload: valuePayload) => {
-      this.modelInstance.updateValue(payload);
-    });
+  private bind(): void {
+    this.modelInstance.subscribe(
+      ObserverTypes.OPTIONS_CHANGED,
+      (data: IOptions) => {
+        this.viewInstance.updateOptions(data);
+      }
+    );
+    this.viewInstance.subscribe(
+      ObserverTypes.UPDATE_VALUE,
+      (payload: valuePayload) => {
+        this.modelInstance.updateValue(payload);
+      }
+    );
 
-    this.modelInstance.subscribe(ObserverTypes.VALUE_UPDATED, (payload: valuePayload) => {
-      this.viewInstance.updateValue(payload);
-    });
+    this.modelInstance.subscribe(
+      ObserverTypes.VALUE_UPDATED,
+      (payload: valuePayload) => {
+        this.viewInstance.updateValue(payload);
+      }
+    );
   }
 }
 
