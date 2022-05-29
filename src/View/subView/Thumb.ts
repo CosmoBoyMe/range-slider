@@ -26,18 +26,16 @@ class Thumb {
 
   handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 
-  constructor(
-    {
-      rootElement,
-      value,
-      min,
-      max,
-      handleThumbPointerDown,
-      index,
-      isVertical,
-      enableTooltip,
-    }: IThumbArguments,
-  ) {
+  constructor({
+    rootElement,
+    value,
+    min,
+    max,
+    handleThumbPointerDown,
+    index,
+    isVertical,
+    enableTooltip,
+  }: IThumbArguments) {
     this.rootElement = rootElement;
     this.value = value;
     this.min = min;
@@ -47,24 +45,28 @@ class Thumb {
     this.enableTooltip = enableTooltip;
     this.isVertical = isVertical;
     if (this.enableTooltip) {
-      this.tooltipInstance = new Tooltip({ rootElement: this.thumbEl, value, isVertical });
+      this.tooltipInstance = new Tooltip({
+        rootElement: this.thumbEl,
+        value,
+        isVertical,
+      });
     }
     this.render();
   }
 
-  public getElement():HTMLDivElement {
+  public getElement(): HTMLDivElement {
     return this.thumbEl;
   }
 
-  public destroy():void {
+  public destroy(): void {
     this.thumbEl.remove();
   }
 
-  public getValue():number {
+  public getValue(): number {
     return this.value;
   }
 
-  public updateValue(newValue: number):void {
+  public updateValue(newValue: number): void {
     this.value = newValue;
     if (this.tooltipInstance) {
       this.tooltipInstance.updateValue(newValue);
@@ -72,22 +74,24 @@ class Thumb {
     this.updatePosition();
   }
 
-  private updatePosition():void {
-    const {
-      value, min, max, isVertical, thumbEl,
-    } = this;
+  private updatePosition(): void {
+    const { value, min, max, isVertical, thumbEl } = this;
     isVertical
       ? (thumbEl.style.bottom = `${getPercentOfValue(value, min, max)}%`)
       : (thumbEl.style.left = `${getPercentOfValue(value, min, max)}%`);
   }
 
-  private toggleVerticalClass():void {
+  private toggleVerticalClass(): void {
     this.thumbEl.classList.toggle(CSS_CLASSES.THUMB_VERTICAL);
   }
 
-  private render():void {
+  private render(): void {
     const {
-      rootElement, thumbEl, handleThumbPointerDown, index, isVertical,
+      rootElement,
+      thumbEl,
+      handleThumbPointerDown,
+      index,
+      isVertical,
     }: Thumb = this;
     thumbEl.classList.add(CSS_CLASSES.THUMB);
 
@@ -96,7 +100,9 @@ class Thumb {
     }
 
     this.updatePosition();
-    thumbEl.addEventListener('pointerdown', (event) => handleThumbPointerDown(event, index));
+    thumbEl.addEventListener('pointerdown', (event) =>
+      handleThumbPointerDown(event, index)
+    );
 
     rootElement.append(thumbEl);
   }

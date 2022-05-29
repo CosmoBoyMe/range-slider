@@ -6,9 +6,7 @@ import { ObserverTypes, CSS_CLASSES } from '../const';
 
 import { Observer } from '../Observer/Observer';
 
-import {
-  Scale, Track, Thumb, Progress,
-} from './subView/index';
+import { Scale, Track, Thumb, Progress } from './subView/index';
 
 class View extends Observer {
   private sliderElement: HTMLDivElement = document.createElement('div');
@@ -19,7 +17,7 @@ class View extends Observer {
 
   private thumbsInstance: Thumb[] = [];
 
-  private progessInstance: Progress | null = null;
+  private progressInstance: Progress | null = null;
 
   private scaleInstance: Scale | null = null;
 
@@ -35,16 +33,16 @@ class View extends Observer {
     return {
       track: this.track,
       thumbs: this.thumbsInstance,
-      progress: this.progessInstance,
+      progress: this.progressInstance,
       scale: this.scaleInstance,
     };
   }
 
-  public updateValue({ value, index }: {value: number, index: number}): void {
+  public updateValue({ value, index }: { value: number; index: number }): void {
     this.options.values[index] = value;
     this.thumbsInstance[index].updateValue(value);
-    if (this.progessInstance) {
-      this.progessInstance.updateValues(this.options.values);
+    if (this.progressInstance) {
+      this.progressInstance.updateValues(this.options.values);
     }
   }
 
@@ -62,10 +60,8 @@ class View extends Observer {
     return this.sliderElement;
   }
 
-  private getCurrentValueFromCoords(clientX:number, clientY:number): number {
-    const {
-      min, max, step, vertical,
-    } = this.options;
+  private getCurrentValueFromCoords(clientX: number, clientY: number): number {
+    const { min, max, step, vertical } = this.options;
     const coords = vertical ? clientY : clientX;
     const startEdgeCoords = vertical
       ? this.sliderElement.getBoundingClientRect().bottom
@@ -93,10 +89,10 @@ class View extends Observer {
 
   private destroyAllInstances(): void {
     this.track?.destroy();
-    this.progessInstance?.destroy();
+    this.progressInstance?.destroy();
     this.thumbsInstance.forEach((thumbInstance) => thumbInstance.destroy());
     this.scaleInstance?.destroy();
-    this.progessInstance?.destroy();
+    this.progressInstance?.destroy();
   }
 
   private handleThumbPointerDown(event: MouseEvent, index:number):void {
@@ -108,7 +104,7 @@ class View extends Observer {
       }
     };
 
-    const handlerDocumentPointerUp = ():void => {
+    const handlerDocumentPointerUp = (): void => {
       document.removeEventListener('pointerup', handlerDocumentPointerUp);
       document.removeEventListener('pointermove', handlerDocumentPointerMove);
     };
@@ -122,7 +118,7 @@ class View extends Observer {
     }
   }
 
-  public handleTrackClick(event: MouseEvent):void {
+  public handleTrackClick(event: MouseEvent): void {
     const { clientX, clientY } = event;
     const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
     this.updateClickedValue(currentValue);
@@ -136,7 +132,7 @@ class View extends Observer {
     }
   }
 
-  private updateClickedValue(value: number):void {
+  private updateClickedValue(value: number): void {
     const { values } = this.options;
     let handleIndex = 0;
 
@@ -170,7 +166,7 @@ class View extends Observer {
     const trackElement = this.track.getElement();
 
     if (progress) {
-      this.progessInstance = new Progress({
+      this.progressInstance = new Progress({
         rootElement: trackElement,
         values,
         min,
@@ -193,16 +189,17 @@ class View extends Observer {
     }
 
     this.thumbsInstance = values.map(
-      (value, index) => new Thumb({
-        rootElement: trackElement,
-        value,
-        min,
-        max,
-        handleThumbPointerDown: this.handleThumbPointerDown.bind(this),
-        index,
-        isVertical: vertical,
-        enableTooltip: tooltip,
-      }),
+      (value, index) =>
+        new Thumb({
+          rootElement: trackElement,
+          value,
+          min,
+          max,
+          handleThumbPointerDown: this.handleThumbPointerDown.bind(this),
+          index,
+          isVertical: vertical,
+          enableTooltip: tooltip,
+        })
     );
   }
 }

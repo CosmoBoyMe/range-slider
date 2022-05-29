@@ -1,26 +1,24 @@
-import type {
-  Progress, Scale, Thumb, Track,
-} from './View/subView/index';
+import type { Progress, Scale, Thumb, Track } from './View/subView/index';
 
 interface IOptions {
-    min: number;
-    max: number;
-    step: number;
-    scaleCounts: number;
-    vertical: boolean;
-    scale: boolean;
-    tooltip: boolean;
-    progress: boolean;
-    values: number[];
+  min: number;
+  max: number;
+  step: number;
+  scaleCounts: number;
+  vertical: boolean;
+  scale: boolean;
+  tooltip: boolean;
+  progress: boolean;
+  values: number[];
 }
 
-interface IPropgessArguments {
-  rootElement: HTMLElement,
-  values: number[],
-  min: number,
-  max: number,
-  range:boolean,
-  vertical: boolean
+interface IProgressArguments {
+  rootElement: HTMLElement;
+  values: number[];
+  min: number;
+  max: number;
+  range: boolean;
+  vertical: boolean;
 }
 
 interface IScaleArguments {
@@ -30,7 +28,7 @@ interface IScaleArguments {
   step: number;
   scaleCounts: number;
   vertical: boolean;
-  handleScaleClick: (event: MouseEvent) => void,
+  handleScaleClick: (event: MouseEvent) => void;
 }
 
 interface IThumbArguments {
@@ -45,44 +43,53 @@ interface IThumbArguments {
 }
 
 interface ITrackArguments {
-  element : HTMLElement;
+  element: HTMLElement;
   isVertical: boolean;
   handleTrackClick: (event: MouseEvent) => void;
 }
 
 interface ITooltipArguments {
-  rootElement: HTMLElement,
-  value: number,
-  isVertical: boolean,
+  rootElement: HTMLElement;
+  value: number;
+  isVertical: boolean;
 }
 
 interface IViewInstances {
-  track: Track | null,
-  thumbs: Thumb[],
-  progress: Progress | null,
-  scale: Scale | null
+  track: Track | null;
+  thumbs: Thumb[];
+  progress: Progress | null;
+  scale: Scale | null;
 }
 
 interface IValuesInput {
-  name: keyof IOptions,
-  text: string,
-  value: number,
-  index: number
+  name: keyof IOptions;
+  text: string;
+  value: number;
+  index: number;
 }
 
-type valuePayload = { value: number, index: number };
+type valuePayload = { value: number; index: number };
 
 type Entries<T> = {
-    [K in keyof T]: [K, T[K]];
-  }[keyof T][];
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
 
-type observerFn <T>= (data: T) => void;
-type observers = Record<string, observerFn<any>[]>
-type onChangeOptionsFn = (data: IOptions) => unknown
+type observerFn<T> = (data: T) => void;
+type observers = Record<string, observerFn<any>[]>;
+type onChangeOptionsFn = (data: IOptions) => unknown;
 
 export type {
-  IOptions, IPropgessArguments, ITrackArguments, IScaleArguments, ITooltipArguments,
-  IThumbArguments, IViewInstances,
-  valuePayload, Entries, observerFn, observers,
-  onChangeOptionsFn, IValuesInput,
+  IOptions,
+  IProgressArguments,
+  ITrackArguments,
+  IScaleArguments,
+  ITooltipArguments,
+  IThumbArguments,
+  IViewInstances,
+  valuePayload,
+  Entries,
+  observerFn,
+  observers,
+  onChangeOptionsFn,
+  IValuesInput,
 };
