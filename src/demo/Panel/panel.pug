@@ -1,0 +1,28 @@
+include ../components/button/button.pug
+include ../components/input-field/input-field.pug
+include ../components/toggle-field/toggle-field.pug
+
+mixin panel({ min=0, max=10, step=1, scaleCounts=11, values=[5, 6], vertical=true, scale=true, tooltip=true, progress=true } = {})
+  .panel
+    .panel__fields
+      .js-panel__input-field-min
+        +input-field('min value', min)
+      .js-panel__input-field-max
+        +input-field('max value', max)
+      .js-panel__input-field-step
+        +input-field('step', step)
+      .js-panel__input-field-scale-counts
+        +input-field('scale counts', scaleCounts)
+    .panel__thumbs-values.js-panel__thumbs-values
+      each value in values
+        .js-panel__thumbs-value-field
+          +input-field('value', value)
+    .panel__toggles
+      .js-panel__toggle-field-vertical
+        +toggle-field('vertical', vertical)
+      .js-panel__toggle-field-scale
+        +toggle-field('scale', scale)
+      .js-panel__toggle-field-tooltip
+        +toggle-field('tooltip', tooltip)
+      .js-panel__toggle-field-progress
+        +toggle-field('progress', progress)

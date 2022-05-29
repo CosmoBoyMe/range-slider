@@ -1,0 +1,27 @@
+include ./Panel/panel.pug
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Range slider
+    script(src='https://code.jquery.com/jquery-3.6.0.slim.min.js' integrity='sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=' crossorigin='anonymous')
+  body
+    .container
+      .demo
+        .slider
+        +panel({ tooltip: false, progress: false, scale: false, vertical: false})
+      .demo
+        .slider
+        +panel({ min: -100, max: 30, step: 10, values: [10]})
+      .demo
+        .slider
+        +panel({ min: -100,max: -10,step: 0.33,vertical: false, scaleCounts: 2, progress: false, values: [-33.01, -55.12] })
+      .demo
+        .slider
+        +panel({ min: -1000, max: 10000, step: 0.33, scaleCounts: 5, tooltip: false, vertical: false, scale: true, values: [33, 5000, 3000, 6534, 4043]})
+      .demo
+        .slider
+        +panel({values: [1]})

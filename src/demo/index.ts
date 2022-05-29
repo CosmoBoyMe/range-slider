@@ -1,28 +1,34 @@
 import './style.scss';
+import './components/button/button.scss';
+import './components/input-field/input-field.scss';
+import './components/toggle-field/toggle-field.scss';
 
 import '../index';
 
-import { Panel } from '../Panel/Panel';
+import { Panel } from './Panel/Panel';
 import { Slider } from '../Slider';
 
 import type { IOptions } from '../types';
 
-const demoElements = document.querySelectorAll('.demo') as NodeListOf<HTMLElement>;
+const demoElements = document.querySelectorAll(
+  '.demo'
+) as NodeListOf<HTMLElement>;
 
-const customOptionsFirst:Partial<IOptions> = {
+const customOptionsFirst: Partial<IOptions> = {
   tooltip: false,
   progress: false,
   scale: false,
   vertical: false,
 };
 
-const customOptionsSecond:Partial<IOptions> = {
+const customOptionsSecond: Partial<IOptions> = {
   min: -100,
   max: 30,
   step: 10,
   values: [10],
 };
-const customOptionsThird:Partial<IOptions> = {
+
+const customOptionsThird: Partial<IOptions> = {
   min: -100,
   max: -10,
   step: 0.33,
@@ -32,7 +38,7 @@ const customOptionsThird:Partial<IOptions> = {
   values: [-33.01, -55.12],
 };
 
-const customOptionsFourth:Partial<IOptions> = {
+const customOptionsFourth: Partial<IOptions> = {
   min: -1000,
   max: 10000,
   step: 0.33,
@@ -43,7 +49,7 @@ const customOptionsFourth:Partial<IOptions> = {
   values: [33, 5000, 3000, 6534, 4043],
 };
 
-const customOptionsFive = {};
+const customOptionsFive = { values: [1] };
 
 const optionsArray = [
   customOptionsFirst,
@@ -55,7 +61,8 @@ const optionsArray = [
 
 demoElements.forEach((item, index) => {
   const sliderEl = item.querySelector('.slider') as HTMLElement;
+  const panelEl = item.querySelector('.panel') as HTMLElement;
   const slider = $(sliderEl).rangeSlider(optionsArray[index]) as Slider;
   // eslint-disable-next-line no-new
-  new Panel(item, slider);
+  new Panel(panelEl, slider);
 });

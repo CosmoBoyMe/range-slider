@@ -1,0 +1,6 @@
+mixin toggle-field(text='', checked=false)
+  .toggle 
+    label.toggle__label
+      span.toggle__text= text
+      input.toggle__input.toggle__input_visually_hidden(type="checkbox", checked=checked)
+      span.toggle__slider
