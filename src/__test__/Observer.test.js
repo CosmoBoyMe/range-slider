@@ -10,7 +10,7 @@ describe('Observer class', () => {
     observer = new Observer();
   });
 
-  test('shold get observers', () => {
+  test('should get observers', () => {
     const firstSubscriberFn = () => {};
     const secondSubscriberFn = () => {};
     observer.subscribe(firstSubscriberType, firstSubscriberFn);
@@ -28,7 +28,9 @@ describe('Observer class', () => {
     const secondSubscriberFn = () => {};
     observer.subscribe(firstSubscriberType, firstSubscriberFn);
     observer.subscribe(firstSubscriberType, secondSubscriberFn);
-    const expected = { [firstSubscriberType]: [firstSubscriberFn, secondSubscriberFn] };
+    const expected = {
+      [firstSubscriberType]: [firstSubscriberFn, secondSubscriberFn],
+    };
     expect(observer.getObservers()).toEqual(expected);
   });
 

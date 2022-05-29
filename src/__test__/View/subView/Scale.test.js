@@ -43,8 +43,8 @@ describe('Scale class:', () => {
       vertical: true,
       handleScalePointClick: (event) => undefined,
     });
-    const scaleVerticalElemenet = scaleVertical.getElement();
-    expect(scaleVerticalElemenet).toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
+    const scaleVerticalElement = scaleVertical.getElement();
+    expect(scaleVerticalElement).toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
   });
 
   test('scale element must not have vertical class', () => {

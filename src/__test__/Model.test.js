@@ -24,32 +24,32 @@ const zeroStepOptions = {
 };
 
 describe('Model:', () => {
-  test('shold be default options', () => {
+  test('should be default options', () => {
     const model = new Model();
     const modelOptions = model.getOptions();
     expect(defaultOptions).toEqual(modelOptions);
   });
 
-  test('values shold updated', () => {
+  test('values should updated', () => {
     const model = new Model();
     model.updateValue({ value: 3, index: 0 });
     const modelOptions = model.getOptions();
     expect(modelOptions.values).toEqual([3, 6]);
   });
 
-  test('step shold normalized ', () => {
+  test('step should normalized ', () => {
     const model = new Model(invalidOptions);
     const modelOptions = model.getOptions();
     expect(modelOptions.step).toBe(10);
   });
 
-  test('step shold be not 0', () => {
+  test('step should be not 0', () => {
     const model = new Model(zeroStepOptions);
     const modelOptions = model.getOptions();
     expect(modelOptions.step).toBe(1);
   });
 
-  test('max value shold be equal min value', () => {
+  test('max value should be equal min value', () => {
     const model = new Model({ min: 10, max: 10 });
     const modelOptions = model.getOptions();
     expect(modelOptions.max).toBe(11);
@@ -62,7 +62,7 @@ describe('Model:', () => {
     expect(modelOptions.max).toBe(21);
   });
 
-  test('min and max shold be updated', () => {
+  test('min and max should be updated', () => {
     const model = new Model();
     const oldOptions = model.getOptions();
     model.updateOptions({ min: 55, max: 70 });

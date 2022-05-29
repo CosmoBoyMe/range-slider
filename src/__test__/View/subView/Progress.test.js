@@ -7,11 +7,14 @@ describe('Progress class', () => {
   let progressEl;
   beforeEach(() => {
     rootElement = document.createElement('div');
-    progress = new Progress(
-      {
-        rootElement, values: [10], min: 0, max: 20, range: false, vertical: false,
-      },
-    );
+    progress = new Progress({
+      rootElement,
+      values: [10],
+      min: 0,
+      max: 20,
+      range: false,
+      vertical: false,
+    });
     progressEl = progress.getElement();
   });
 
@@ -35,11 +38,14 @@ describe('Progress class', () => {
   });
 
   test('progress element must update progress height', () => {
-    const verticalProgress = new Progress(
-      {
-        rootElement, values: [10], min: 0, max: 20, range: false, vertical: true,
-      },
-    );
+    const verticalProgress = new Progress({
+      rootElement,
+      values: [10],
+      min: 0,
+      max: 20,
+      range: false,
+      vertical: true,
+    });
     const verticalProgressEl = verticalProgress.getElement();
     const { height } = verticalProgressEl.style;
     const parsedHeight = Number(parseInt(height, 10));
@@ -51,11 +57,14 @@ describe('Progress class', () => {
   });
 
   test('progress element must update progress width by range', () => {
-    const rangeProgress = new Progress(
-      {
-        rootElement, values: [5, 10], min: 0, max: 20, range: true, vertical: false,
-      },
-    );
+    const rangeProgress = new Progress({
+      rootElement,
+      values: [5, 10],
+      min: 0,
+      max: 20,
+      range: true,
+      vertical: false,
+    });
     const rangeProgressEl = rangeProgress.getElement();
 
     const { width } = rangeProgressEl.style;
@@ -68,11 +77,14 @@ describe('Progress class', () => {
   });
 
   test('progress element must update progress height by range', () => {
-    const verticalAndRangeProgress = new Progress(
-      {
-        rootElement, values: [5, 10], min: 0, max: 20, range: true, vertical: true,
-      },
-    );
+    const verticalAndRangeProgress = new Progress({
+      rootElement,
+      values: [5, 10],
+      min: 0,
+      max: 20,
+      range: true,
+      vertical: true,
+    });
     const verticalAndRangeProgressEl = verticalAndRangeProgress.getElement();
 
     const { height } = verticalAndRangeProgressEl.style;

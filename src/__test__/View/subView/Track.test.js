@@ -8,20 +8,24 @@ describe('Track class:', () => {
     rootElement = document.createElement('div');
   });
 
-  test('shold destroy element', () => {
-    const track = new Track(
-      { element: rootElement, isVertical: false, handleTrackClick: (event) => undefined },
-    );
+  test('should destroy element', () => {
+    const track = new Track({
+      element: rootElement,
+      isVertical: false,
+      handleTrackClick: () => undefined,
+    });
     const trackElement = track.getElement();
     track.destroy();
 
     expect(rootElement).not.toContainElement(trackElement);
   });
 
-  test('shold be in root element', () => {
-    const track = new Track(
-      { element: rootElement, isVertical: true, handleTrackClick: (event) => undefined },
-    );
+  test('should be in root element', () => {
+    const track = new Track({
+      element: rootElement,
+      isVertical: true,
+      handleTrackClick: () => undefined,
+    });
     const trackElement = track.getElement();
 
     expect(rootElement).toContainElement(trackElement);

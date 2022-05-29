@@ -23,7 +23,7 @@ describe('Presenter class:', () => {
     expect(presenter.getViewInstance()).toBeInstanceOf(View);
   });
 
-  test('shold subscribe to model', () => {
+  test('should subscribe to model', () => {
     const spyPresenterBind = jest.spyOn(presenter, 'bind');
     const spyModelSubscribe = jest.spyOn(model, 'subscribe');
     expect(spyPresenterBind).not.toHaveBeenCalled();
@@ -33,7 +33,7 @@ describe('Presenter class:', () => {
     expect(spyModelSubscribe).toHaveBeenCalled();
   });
 
-  test('shold subscribe to view', () => {
+  test('should subscribe to view', () => {
     const spyPresenterBind = jest.spyOn(presenter, 'bind');
     const spyViewSubscribe = jest.spyOn(view, 'subscribe');
     expect(spyPresenterBind).not.toHaveBeenCalled();
@@ -43,21 +43,21 @@ describe('Presenter class:', () => {
     expect(spyViewSubscribe).toHaveBeenCalled();
   });
 
-  test('shold call updateOptions method by view if model updated', () => {
+  test('should call updateOptions method by view if model updated', () => {
     const spy = jest.spyOn(view, 'updateOptions');
     expect(spy).not.toHaveBeenCalled();
     model.updateOptions({});
     expect(spy).toHaveBeenCalled();
   });
 
-  test('shold call updateValue method by model if view change', () => {
+  test('should call updateValue method by model if view change', () => {
     const spy = jest.spyOn(model, 'updateValue');
     expect(spy).not.toHaveBeenCalled();
     view.notify(ObserverTypes.UPDATE_VALUE, { value: 5, index: 0 });
     expect(spy).toHaveBeenCalled();
   });
 
-  test('shold call updateValue method by view if model value change', () => {
+  test('should call updateValue method by view if model value change', () => {
     const spy = jest.spyOn(view, 'updateValue');
     expect(spy).not.toHaveBeenCalled();
     model.updateValue({ value: 5, index: 0 });

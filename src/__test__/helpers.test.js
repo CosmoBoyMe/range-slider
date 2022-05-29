@@ -17,11 +17,11 @@ describe('getPercentOfValue func:', () => {
 });
 
 describe('getClosestValue func:', () => {
-  test('closest value shold be min value', () => {
+  test('closest value should be min value', () => {
     const closestValue = getClosestValue(5, 10, 1, 1);
     expect(closestValue).toBe(5);
   });
-  test('closest value shold be max value', () => {
+  test('closest value should be max value', () => {
     const closestValue = getClosestValue(0, 10, 20, 1);
     expect(closestValue).toBe(10);
   });
@@ -54,6 +54,7 @@ describe('findNearestIndexToValue func:', () => {
     const nearestIndex = findNearestIndexToValue(array, 5);
     expect(nearestIndex).toBe(0);
   });
+
   test('must return the last matching index', () => {
     const array = [5, 5, 5, 5, 5, 5];
     const nearestIndex = findNearestIndexToValue(array, 7);
@@ -62,12 +63,12 @@ describe('findNearestIndexToValue func:', () => {
 });
 
 describe('getClosestNumberToStep func:', () => {
-  test('value shold be closest to step', () => {
+  test('value should be closest to step', () => {
     const closestValue = getClosestNumberToStep(5, 1);
     expect(closestValue).toBe(5);
   });
 
-  test('shold work with decimal step', () => {
+  test('should work with decimal step', () => {
     expect(getClosestNumberToStep(5, 0.33)).toBe(4.95);
     expect(getClosestNumberToStep(0.55, 0.33)).toBe(0.66);
     expect(getClosestNumberToStep(10, 0.01)).toBe(10);
