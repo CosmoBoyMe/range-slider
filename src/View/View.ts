@@ -21,11 +21,15 @@ class View extends Observer {
 
   private scaleInstance: Scale | null = null;
 
+  private thumbWithMaxValueIndex = -1;
+
+  private lastClickedThumbIndex: number | null = null;
+
   constructor(domRoot: HTMLElement, options: IOptions) {
     super();
     this.sliderElement.classList.add(CSS_CLASSES.SLIDER);
     domRoot.append(this.sliderElement);
-    this.options = options;
+    this.options = JSON.parse(JSON.stringify(options));
     this.render();
   }
 
@@ -44,6 +48,7 @@ class View extends Observer {
     if (this.progressInstance) {
       this.progressInstance.updateValues(this.options.values);
     }
+    this.toggleActiveThumb(index);
   }
 
   public updateOptions(newOptions: IOptions): void {
@@ -69,7 +74,6 @@ class View extends Observer {
     const maxOffsetInPx = vertical
       ? this.sliderElement.offsetHeight
       : this.sliderElement.offsetWidth;
-
     let offsetInPx = vertical
       ? startEdgeCoords - coords
       : coords - startEdgeCoords;
@@ -95,11 +99,20 @@ class View extends Observer {
     this.progressInstance?.destroy();
   }
 
-  private handleThumbPointerDown(event: MouseEvent, index:number):void {
+  private handleThumbPointerDown(event: MouseEvent, index: number): void {
+    event.stopPropagation();
     event.preventDefault();
     const handlerDocumentPointerMove = ({ clientX, clientY }: PointerEvent) => {
-      const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-      if (currentValue !== this.options.values[index]) {
+      let currentValue = this.getCurrentValueFromCoords(clientX, clientY);
+      const { min, max, values } = this.options;
+      const prevThumbValue = values[index - 1] ?? min;
+      const nextThumbValue = values[index + 1] ?? max;
+      if (currentValue < prevThumbValue) {
+        currentValue = prevThumbValue;
+      } else if (currentValue > nextThumbValue) {
+        currentValue = nextThumbValue;
+      }
+      if (currentValue !== values[index]) {
         this.notify(ObserverTypes.UPDATE_VALUE, { value: currentValue, index });
       }
     };
@@ -124,10 +137,13 @@ class View extends Observer {
     this.updateClickedValue(currentValue);
   }
 
-  private handleScaleClick(event: MouseEvent):void {
+  private handleScaleClick(event: MouseEvent): void {
     const { target } = event;
-    if (target) {
-      const value = Number((target as HTMLDivElement).innerText);
+    const isTargetScalePoint = (target as HTMLDivElement).classList.contains(
+      CSS_CLASSES.SCALE_POINT
+    );
+    if (isTargetScalePoint) {
+      const value = Number((target as HTMLDivElement).textContent);
       this.updateClickedValue(value);
     }
   }
@@ -139,11 +155,39 @@ class View extends Observer {
     if (values.length > 1) {
       handleIndex = findNearestIndexToValue(values, value);
     }
-
     this.notify(ObserverTypes.UPDATE_VALUE, { value, index: handleIndex });
   }
 
-  private render():void {
+  private toggleActiveThumb(newClickedThumbIndex: null | number = null): void {
+    const { values, max } = this.options;
+    const { thumbWithMaxValueIndex } = this;
+    const setActiveClassToThumbWithMaxValue = () => {
+      const index = values.findIndex((value) => value === max);
+      if (index === -1) {
+        this.thumbsInstance[thumbWithMaxValueIndex]?.removeActiveClass();
+        this.thumbWithMaxValueIndex = index;
+      } else {
+        this.thumbsInstance[thumbWithMaxValueIndex]?.removeActiveClass();
+        this.thumbsInstance[index].addActiveClass();
+        this.thumbWithMaxValueIndex = index;
+      }
+    };
+
+    const setActiveClassToCurrentThumb = () => {
+      if (newClickedThumbIndex !== null) {
+        if (this.lastClickedThumbIndex !== null) {
+          this.thumbsInstance[this.lastClickedThumbIndex].removeActiveClass();
+        }
+        this.thumbsInstance[newClickedThumbIndex].addActiveClass();
+        this.lastClickedThumbIndex = newClickedThumbIndex;
+      }
+    };
+
+    setActiveClassToThumbWithMaxValue();
+    setActiveClassToCurrentThumb();
+  }
+
+  private render(): void {
     const {
       min,
       max,
@@ -201,6 +245,7 @@ class View extends Observer {
           enableTooltip: tooltip,
         })
     );
+    this.toggleActiveThumb();
   }
 }
 

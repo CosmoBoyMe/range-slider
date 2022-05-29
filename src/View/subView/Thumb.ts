@@ -81,6 +81,14 @@ class Thumb {
       : (thumbEl.style.left = `${getPercentOfValue(value, min, max)}%`);
   }
 
+  public addActiveClass(): void {
+    this.thumbEl.classList.add(CSS_CLASSES.THUMB_ACTIVE);
+  }
+
+  public removeActiveClass(): void {
+    this.thumbEl.classList.remove(CSS_CLASSES.THUMB_ACTIVE);
+  }
+
   private toggleVerticalClass(): void {
     this.thumbEl.classList.toggle(CSS_CLASSES.THUMB_VERTICAL);
   }
