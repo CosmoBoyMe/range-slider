@@ -130,7 +130,7 @@ describe('View class:', () => {
     thumbElement.dispatchEvent(new Event('pointerdown'));
     expect(cb).not.toBeCalled();
     document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 50, clientY: 50 })
+      new MouseEvent('pointerup', { clientX: 50, clientY: 50 })
     );
     expect(cb).toBeCalled();
   });
@@ -145,18 +145,14 @@ describe('View class:', () => {
     const sliderElement = viewInstance.getSliderElement();
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
       configurable: true,
-      value: 100,
+      value: 10,
     });
     sliderElement.getBoundingClientRect = () => ({
-      left: 100,
-      right: 200,
-      top: 100,
-      bottom: 200,
+      top: 0,
+      bottom: 10,
     });
     secondThumbElement.dispatchEvent(new Event('pointerdown'));
-    document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 1000, clientY: 1000 })
-    );
+    document.dispatchEvent(new MouseEvent('pointerup', { clientY: 10 }));
     const viewOptions = viewInstance.getOptions();
     expect(viewOptions.values[1]).toBe(5);
   });
@@ -171,36 +167,26 @@ describe('View class:', () => {
     const sliderElement = viewInstance.getSliderElement();
     Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
       configurable: true,
-      value: 100,
+      value: 10,
     });
     sliderElement.getBoundingClientRect = () => ({
-      left: 100,
-      right: 200,
-      top: 100,
-      bottom: 200,
+      top: 0,
+      bottom: 10,
     });
     firstThumbElement.dispatchEvent(new Event('pointerdown'));
-    document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 0, clientY: 0 })
-    );
+    document.dispatchEvent(new MouseEvent('pointerup', { clientY: 0 }));
     const viewOptions = viewInstance.getOptions();
     expect(viewOptions.values[0]).toBe(6);
   });
 
-  test('ondragstart event on thumb should be false', () => {
-    const thumbsInstances = view.getAllInstance().thumbs;
-    const thumbElement = thumbsInstances[0].getElement();
-    thumbElement.dispatchEvent(new Event('pointerdown'));
-    expect(thumbElement.ondragstart()).toBe(false);
-  });
-
-  test('thumb value should not update if value is same', () => {
-    const model = new Model();
-    const viewInstance = new View(element, optionWithOneValue);
+  test('thumb value should not limited if value is only one', () => {
+    const model = new Model(optionWithOneValue);
+    const modelOptions = model.getOptions();
+    const viewInstance = new View(element, modelOptions);
     const presenter = new Presenter(model, viewInstance);
-    const sliderElement = viewInstance.getSliderElement();
     const thumbsInstances = viewInstance.getAllInstance().thumbs;
     const thumbElement = thumbsInstances[0].getElement();
+    const sliderElement = viewInstance.getSliderElement();
     Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
       configurable: true,
       value: 10,
@@ -208,24 +194,42 @@ describe('View class:', () => {
     sliderElement.getBoundingClientRect = () => ({
       left: 0,
       right: 10,
+    });
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(new MouseEvent('pointerup', { clientX: 10 }));
+    const viewOptions = viewInstance.getOptions();
+    expect(viewOptions.values[0]).toBe(10);
+    thumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(new MouseEvent('pointerup', { clientX: 0 }));
+    const newViewOptions = viewInstance.getOptions();
+    expect(newViewOptions.values[0]).toBe(0);
+  });
+
+  test('thumb position should update by pointermove', () => {
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const sliderElement = view.getSliderElement();
+    const firstThumbElement = thumbsInstances[0].getElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 10,
+    });
+    sliderElement.getBoundingClientRect = () => ({
       top: 0,
       bottom: 10,
     });
-    const cb = jest.fn();
-    viewInstance.subscribe(ObserverTypes.UPDATE_VALUE, cb);
-    expect(cb).not.toBeCalled();
+    expect(firstThumbElement).toHaveStyle('bottom: 50%');
+    firstThumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(new MouseEvent('pointermove', { clientY: 10 }));
+    expect(firstThumbElement).toHaveStyle('bottom: 0%');
+    document.dispatchEvent(new MouseEvent('pointermove', { clientY: 7 }));
+    expect(firstThumbElement).toHaveStyle('bottom: 30%');
+  });
+
+  test('ondragstart event on thumb should be false', () => {
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const thumbElement = thumbsInstances[0].getElement();
     thumbElement.dispatchEvent(new Event('pointerdown'));
-    document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 1, clientY: 1 })
-    );
-    const viewOptions = viewInstance.getOptions();
-    expect(viewOptions.values[0]).toBe(1);
-    expect(cb).not.toBeCalled();
-    document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 10, clientY: 10 })
-    );
-    expect(cb).toBeCalled();
-    expect(viewInstance.getOptions().values[0]).toBe(10);
+    expect(thumbElement.ondragstart()).toBe(false);
   });
 
   test('toggleActiveThumb: first thumb with max value should have active class', () => {
@@ -266,26 +270,6 @@ describe('View class:', () => {
     expect(cb).toHaveBeenCalled();
   });
 
-  test('thumb value should be limited by next thumb value', () => {
-    const sliderElement = view.getSliderElement();
-    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
-      configurable: true,
-      value: 100,
-    });
-    sliderElement.getBoundingClientRect = () => ({
-      left: 100,
-      right: 200,
-      top: 100,
-      bottom: 200,
-    });
-    const thumbsInstances = view.getAllInstance().thumbs;
-    const thumbElement = thumbsInstances[1].getElement();
-    thumbElement.dispatchEvent(new Event('pointerdown'));
-    document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 1000, clientY: 1000 })
-    );
-  });
-
   test('check click on thumb vertical', () => {
     const customView = new View(element, customOptions);
     const thumbsInstances = customView.getAllInstance().thumbs;
@@ -296,7 +280,7 @@ describe('View class:', () => {
     thumbElement.dispatchEvent(new Event('pointerdown'));
     expect(cb).not.toBeCalled();
     document.dispatchEvent(
-      new MouseEvent('pointermove', { clientX: 100, clientY: 100 })
+      new MouseEvent('pointerup', { clientX: 100, clientY: 100 })
     );
     expect(cb).toBeCalled();
   });
@@ -317,5 +301,11 @@ describe('View class:', () => {
     expect(secondExpectedValue).toBe(10);
     const thirdExpectedValue = view.getCurrentValueFromCoords(0, 9999999);
     expect(thirdExpectedValue).toBe(0);
+  });
+
+  test('handleThumbPointerDown: target should be null', () => {
+    const event = new MouseEvent('pointerdown');
+    view.handleThumbPointerDown(event, 1);
+    expect(event.target).toBe(null);
   });
 });

@@ -3,6 +3,7 @@ import {
   getClosestValue,
   findNearestIndexToValue,
   getClosestNumberToStep,
+  getCurrentValueToStep,
 } from '../helpers';
 
 describe('getPercentOfValue func:', () => {
@@ -72,5 +73,25 @@ describe('getClosestNumberToStep func:', () => {
     expect(getClosestNumberToStep(5, 0.33)).toBe(4.95);
     expect(getClosestNumberToStep(0.55, 0.33)).toBe(0.66);
     expect(getClosestNumberToStep(10, 0.01)).toBe(10);
+  });
+});
+
+describe('getCurrentValueToStep func:', () => {
+  test('should return max value', () => {
+    const value = getCurrentValueToStep(0, 10, 15, 14, 1);
+    expect(value).toBe(10);
+  });
+  test('should return min value', () => {
+    const value = getCurrentValueToStep(0, 10, 0, -10, 1);
+    expect(value).toBe(0);
+  });
+  test('should return prev value', () => {
+    const value = getCurrentValueToStep(0, 10, 5.8, 5, 1);
+    expect(value).toBe(5);
+  });
+
+  test('should return smaller number to prev value', () => {
+    const value = getCurrentValueToStep(0, 10, 3.99, 5, 1);
+    expect(value).toBe(4);
   });
 });

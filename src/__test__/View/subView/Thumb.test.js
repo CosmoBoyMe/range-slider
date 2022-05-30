@@ -14,7 +14,7 @@ describe('Thumb class:', () => {
     thumbInstance = new Thumb({
       rootElement,
       value: 5,
-      min: 1,
+      min: 0,
       max: 10,
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
@@ -110,5 +110,38 @@ describe('Thumb class:', () => {
     expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
     thumbInstance.removeActiveClass();
     expect(thumbEl).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+  });
+
+  test('updatePosition: should update thumb position', () => {
+    thumbInstance.updatePosition(10);
+    expect(thumbEl).toHaveStyle('bottom: 100%');
+    thumbInstance.updatePosition(3);
+    expect(thumbEl).toHaveStyle('bottom: 30%');
+  });
+
+  test('updatePosition: should update thumb position by vertical', () => {
+    thumbInstance.updatePosition(10);
+    expect(thumbEl).toHaveStyle('bottom: 100%');
+    thumbInstance.updatePosition(3);
+    expect(thumbEl).toHaveStyle('bottom: 30%');
+  });
+
+  test('updatePosition: should update thumb position by horizontal', () => {
+    const thumb = new Thumb({
+      rootElement,
+      value: 5,
+      min: 0,
+      max: 10,
+      index: 0,
+      handleThumbMouseDown: (event, index) => undefined,
+      isVertical: false,
+      enableTooltip: false,
+    });
+    const thumbElement = thumb.getElement();
+    expect(thumbElement).toHaveStyle('left: 50%');
+    thumb.updatePosition(10);
+    expect(thumbElement).toHaveStyle('left: 100%');
+    thumb.updatePosition(3);
+    expect(thumbElement).toHaveStyle('left: 30%');
   });
 });
