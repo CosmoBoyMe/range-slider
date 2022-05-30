@@ -49,6 +49,12 @@ describe('Model:', () => {
     expect(modelOptions.step).toBe(1);
   });
 
+  test('scaleCounts must not be less than 0', () => {
+    const model = new Model({ scaleCounts: -20 });
+    const modelOptions = model.getOptions();
+    expect(modelOptions.scaleCounts).toBe(1);
+  });
+
   test('max value should be equal min value', () => {
     const model = new Model({ min: 10, max: 10 });
     const modelOptions = model.getOptions();

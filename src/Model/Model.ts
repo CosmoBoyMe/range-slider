@@ -42,8 +42,8 @@ class Model extends Observer {
 
   private normalizeOptions(): void {
     const max = this.normalizeMax();
-    const scaleCounts = this.normalizeScaleCounts();
     const step = this.normalizeStep();
+    const scaleCounts = this.normalizeScaleCounts();
     const values = this.normalizeValues();
     const normalizedOptions = {
       max,
@@ -56,6 +56,9 @@ class Model extends Observer {
 
   private normalizeScaleCounts(): number {
     const { min, max, step, scaleCounts } = this.options;
+    if (scaleCounts <= 0) {
+      return 1;
+    }
     const range = Math.abs(max - min);
     const maxScaleCounts = range / step + 1;
     const normalizedScaleCounts = Math.round(
@@ -87,7 +90,7 @@ class Model extends Observer {
   private normalizeStep(): number {
     const { step, min, max } = this.options;
     const range = Math.abs(max - min);
-    if (step === 0) {
+    if (step <= 0) {
       return 1;
     }
     if (step > range) {
