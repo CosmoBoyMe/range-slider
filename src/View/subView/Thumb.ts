@@ -74,8 +74,22 @@ class Thumb {
     this.updatePosition();
   }
 
-  private updatePosition(): void {
+  public updatePosition(currentValue?: number): void {
     const { value, min, max, isVertical, thumbEl } = this;
+    if (currentValue !== undefined) {
+      isVertical
+        ? (thumbEl.style.bottom = `${getPercentOfValue(
+            currentValue,
+            min,
+            max
+          )}%`)
+        : (thumbEl.style.left = `${getPercentOfValue(
+            currentValue,
+            min,
+            max
+          )}%`);
+      return;
+    }
     isVertical
       ? (thumbEl.style.bottom = `${getPercentOfValue(value, min, max)}%`)
       : (thumbEl.style.left = `${getPercentOfValue(value, min, max)}%`);

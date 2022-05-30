@@ -1,4 +1,8 @@
-import { getClosestValue, findNearestIndexToValue } from '../helpers';
+import {
+  getClosestValue,
+  findNearestIndexToValue,
+  getCurrentValueToStep,
+} from '../helpers';
 
 import { IOptions, IViewInstances } from '../types';
 
@@ -66,7 +70,7 @@ class View extends Observer {
   }
 
   private getCurrentValueFromCoords(clientX: number, clientY: number): number {
-    const { min, max, step, vertical } = this.options;
+    const { min, max, vertical } = this.options;
     const coords = vertical ? clientY : clientX;
     const startEdgeCoords = vertical
       ? this.sliderElement.getBoundingClientRect().bottom
@@ -87,8 +91,7 @@ class View extends Observer {
     }
     const valueInPercent = offsetInPx / (maxOffsetInPx / 100);
     const currentValue = (valueInPercent * (max - min)) / 100 + min;
-    const nearestValue = getClosestValue(min, max, currentValue, step);
-    return nearestValue;
+    return currentValue;
   }
 
   private destroyAllInstances(): void {
@@ -102,29 +105,54 @@ class View extends Observer {
   private handleThumbPointerDown(event: MouseEvent, index: number): void {
     event.stopPropagation();
     event.preventDefault();
-    const handlerDocumentPointerMove = ({ clientX, clientY }: PointerEvent) => {
-      let currentValue = this.getCurrentValueFromCoords(clientX, clientY);
+
+    const validateValue = (value: number): number => {
       const { min, max, values } = this.options;
       const prevThumbValue = values[index - 1] ?? min;
       const nextThumbValue = values[index + 1] ?? max;
-      if (currentValue < prevThumbValue) {
-        currentValue = prevThumbValue;
-      } else if (currentValue > nextThumbValue) {
-        currentValue = nextThumbValue;
+      if (value < prevThumbValue) {
+        return prevThumbValue;
       }
-      if (currentValue !== values[index]) {
-        this.notify(ObserverTypes.UPDATE_VALUE, { value: currentValue, index });
+      if (value > nextThumbValue) {
+        return nextThumbValue;
       }
+      return value;
     };
 
-    const handlerDocumentPointerUp = (): void => {
+    const handlerDocumentPointerMove = ({
+      clientX,
+      clientY,
+    }: PointerEvent): void => {
+      const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
+      const validatedValue = validateValue(currentValue);
+      const currentThumb = this.thumbsInstance[index];
+      currentThumb.updatePosition(validatedValue);
+    };
+
+    const handlerDocumentPointerUp = ({
+      clientX,
+      clientY,
+    }: PointerEvent): void => {
+      const { min, max, step, values } = this.options;
+      const valueFromCoords = this.getCurrentValueFromCoords(clientX, clientY);
+      const prevValue = values[index];
+      const currentValue = getCurrentValueToStep(
+        min,
+        max,
+        valueFromCoords,
+        prevValue,
+        step
+      );
+      const validatedValue = validateValue(currentValue);
+      this.notify(ObserverTypes.UPDATE_VALUE, { value: validatedValue, index });
+
       document.removeEventListener('pointerup', handlerDocumentPointerUp);
       document.removeEventListener('pointermove', handlerDocumentPointerMove);
     };
 
     document.addEventListener('pointermove', handlerDocumentPointerMove);
-
     document.addEventListener('pointerup', handlerDocumentPointerUp);
+
     const { target } = event;
     if (target) {
       (target as HTMLDivElement).ondragstart = () => false;
@@ -133,8 +161,10 @@ class View extends Observer {
 
   public handleTrackClick(event: MouseEvent): void {
     const { clientX, clientY } = event;
+    const { min, max, step } = this.options;
     const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-    this.updateClickedValue(currentValue);
+    const closestValue = getClosestValue(min, max, currentValue, step);
+    this.updateClickedValue(closestValue);
   }
 
   private handleScaleClick(event: MouseEvent): void {
