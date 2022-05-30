@@ -2,7 +2,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 let mode = 'development';
 if (process.env.NODE_ENV === 'production') {
@@ -51,17 +51,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/demo/index.pug'), // шаблон
     }),
-
-    new FaviconsWebpackPlugin({
-      logo: path.resolve(__dirname, './src/assets/favicons/favicon.svg'),
-      outputPath: path.resolve(__dirname, './dist/assets/favicons'),
-      prefix: 'assets/favicons/',
-      inject: true,
-      favicons: {
-        icons: {
-          appleStartup: false,
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'assets/favicons',
+          to: 'assets/favicons',
         },
-      },
+      ],
     }),
   ],
 
