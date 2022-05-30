@@ -61,13 +61,6 @@ interface IViewInstances {
   scale: Scale | null;
 }
 
-interface IValuesInput {
-  name: keyof IOptions;
-  text: string;
-  value: number;
-  index: number;
-}
-
 type valuePayload = { value: number; index: number };
 
 type Entries<T> = {
@@ -91,5 +84,4 @@ export type {
   observerFn,
   observers,
   onChangeOptionsFn,
-  IValuesInput,
 };

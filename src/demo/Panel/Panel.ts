@@ -2,7 +2,7 @@ import './style.scss';
 
 import { Slider } from '../../Slider';
 
-import type { IOptions, Entries, IValuesInput } from '../../types';
+import type { IOptions, Entries } from '../../types';
 
 import { panelClasses } from '../../const';
 
@@ -40,57 +40,57 @@ class Panel {
     const { panelEl } = this;
 
     const minField = panelEl.querySelector(
-      '.js-panel__input-field-min'
+      `.${panelClasses.MIN_FIELD}`
     ) as HTMLElement;
     const minInput = minField.querySelector('input') as HTMLInputElement;
 
     const maxField = panelEl.querySelector(
-      '.js-panel__input-field-max'
+      `.${panelClasses.MAX_FIELD}`
     ) as HTMLElement;
     const maxInput = maxField.querySelector('input') as HTMLInputElement;
 
     const stepField = panelEl.querySelector(
-      '.js-panel__input-field-step'
+      `.${panelClasses.STEP_FIELD}`
     ) as HTMLElement;
     const stepInput = stepField.querySelector('input') as HTMLInputElement;
 
     const scaleCountsField = panelEl.querySelector(
-      '.js-panel__input-field-scale-counts'
+      `.${panelClasses.SCALE_COUNTS_FIELD}`
     ) as HTMLElement;
     const scaleCountsInput = scaleCountsField.querySelector(
       'input'
     ) as HTMLInputElement;
 
     const thumbsValuesField = panelEl.querySelector(
-      '.js-panel__thumbs-values'
+      `.${panelClasses.THUMB_VALUES}`
     ) as HTMLElement;
     const thumbsValuesInputs = thumbsValuesField.querySelectorAll(
       'input'
     ) as NodeListOf<HTMLInputElement>;
 
     const verticalToggleField = panelEl.querySelector(
-      '.js-panel__toggle-field-vertical'
+      `.${panelClasses.TOGGLE_VERTICAL_FIELD}`
     ) as HTMLElement;
     const verticalToggleInput = verticalToggleField.querySelector(
       'input'
     ) as HTMLInputElement;
 
     const scaleToggleField = panelEl.querySelector(
-      '.js-panel__toggle-field-scale'
+      `.${panelClasses.TOGGLE_SCALE_FIELD}`
     ) as HTMLElement;
     const scaleToggleInput = scaleToggleField.querySelector(
       'input'
     ) as HTMLInputElement;
 
     const tooltipToggleField = panelEl.querySelector(
-      '.js-panel__toggle-field-tooltip'
+      `.${panelClasses.TOGGLE_TOOLTIP_FIELD}`
     ) as HTMLElement;
     const tooltipToggleInput = tooltipToggleField.querySelector(
       'input'
     ) as HTMLInputElement;
 
     const progressToggleField = panelEl.querySelector(
-      '.js-panel__toggle-field-progress'
+      `.${panelClasses.TOGGLE_PROGRESS_FIELD}`
     ) as HTMLElement;
     const progressToggleInput = progressToggleField.querySelector(
       'input'

@@ -35,13 +35,16 @@ const enum CSS_CLASSES {
 
 const enum panelClasses {
   PANEL = 'js-panel',
-  PANEL_ITEM = 'js-panel__item',
-  PANEL_ITEM_INPUT = 'js-panel__item-input',
-  PANEL_NEW_ITEM_INPUT = 'js-panel__new-item_input',
-  PANEL_ITEM_CHECKBOX = 'js-panel__item-checkbox',
-  PANEL_ADD_NEW_THUMB_BTN = 'js-panel__add-new_thumb-btn',
-  PANEL_DELETE_THUMB_BTN = 'js-panel__delete-thumb-btn',
-  PANEL_SWITCH_CONTAINER = 'js-panel__switch-container',
+  MIN_FIELD = 'js-panel__min-field',
+  MAX_FIELD = 'js-panel__max-field',
+  STEP_FIELD = 'js-panel__step-field',
+  SCALE_COUNTS_FIELD = 'js-panel__scale-counts-field',
+  THUMB_VALUES = 'js-panel__thumbs-values',
+  THUMB_VALUE_FIELD = 'js-panel__thumb-value-field',
+  TOGGLE_VERTICAL_FIELD = 'js-panel__toggle-vertical-field',
+  TOGGLE_SCALE_FIELD = 'js-panel__toggle-scale-field',
+  TOGGLE_TOOLTIP_FIELD = 'js-panel__toggle-tooltip-field',
+  TOGGLE_PROGRESS_FIELD = 'js-panel__toggle-progress-field',
 }
 
 export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES, panelClasses };
