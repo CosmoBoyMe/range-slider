@@ -1,5 +1,4 @@
 import { CSS_CLASSES } from '../../const';
-
 import type { ITooltipArguments } from '../../types';
 
 class Tooltip {

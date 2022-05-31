@@ -1,7 +1,6 @@
 import '@testing-library/jest-dom';
 
 import { Tooltip } from '../../../View/subView';
-
 import { CSS_CLASSES } from '../../../const';
 
 describe('Track class:', () => {

@@ -1,5 +1,4 @@
 import { ObserverTypes } from '../const';
-
 import type { observerFn, observers } from '../types';
 
 class Observer {

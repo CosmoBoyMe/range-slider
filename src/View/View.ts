@@ -3,13 +3,9 @@ import {
   findNearestIndexToValue,
   getCurrentValueToStep,
 } from '../helpers';
-
 import { IOptions, IViewInstances } from '../types';
-
 import { ObserverTypes, CSS_CLASSES } from '../const';
-
 import { Observer } from '../Observer/Observer';
-
 import { Scale, Track, Thumb, Progress } from './subView/index';
 
 class View extends Observer {

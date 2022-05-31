@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+
 import { Progress } from '../../../View/subView';
 
 describe('Progress class', () => {

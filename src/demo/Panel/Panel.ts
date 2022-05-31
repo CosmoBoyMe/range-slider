@@ -1,10 +1,7 @@
-import './style.scss';
-
-import { Slider } from '../../Slider';
-
 import type { IOptions, Entries } from '../../types';
-
 import { panelClasses } from '../../const';
+import { Slider } from '../../Slider';
+import './style.scss';
 
 interface IPanelElements {
   minInput: HTMLInputElement;

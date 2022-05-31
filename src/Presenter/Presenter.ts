@@ -1,7 +1,6 @@
 import type { Model } from '../Model/Model';
 import type { View } from '../View/View';
 import { ObserverTypes } from '../const';
-
 import type { IOptions, valuePayload } from '../types';
 
 class Presenter {
