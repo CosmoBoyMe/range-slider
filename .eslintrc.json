@@ -16,7 +16,12 @@
   },
   "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "import/prefer-default-export": 0,
     "import/no-unresolved": 0,
     "import/extensions": "off",
