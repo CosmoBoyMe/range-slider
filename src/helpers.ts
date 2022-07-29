@@ -10,12 +10,19 @@ const getClosestValue = (
   if (value >= max) {
     return max;
   }
+  if (Math.round(value) === max) {
+    return max;
+  }
 
   const range = Math.abs(min - value);
   const delta = Math.round(range / step);
-  const newValue = min + step * delta;
 
-  return Math.round(newValue * 100) / 100;
+  const newValue = min + step * delta;
+  const roundedValue = Math.round(newValue * 100) / 100;
+  if (roundedValue > max) {
+    return max;
+  }
+  return roundedValue;
 };
 
 const getCurrentValueToStep = (

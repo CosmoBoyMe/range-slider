@@ -115,32 +115,47 @@ class View extends Observer {
       return value;
     };
 
-    const handlerDocumentPointerMove = ({
-      clientX,
-      clientY,
-    }: PointerEvent): void => {
-      const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-      const validatedValue = validateValue(currentValue);
-      const currentThumb = this.thumbsInstance[index];
-      currentThumb.updatePosition(validatedValue);
-    };
-
-    const handlerDocumentPointerUp = ({
-      clientX,
-      clientY,
-    }: PointerEvent): void => {
+    const getNewValue = (clientX: number, clientY: number): number => {
       const { min, max, step, values } = this.options;
       const valueFromCoords = this.getCurrentValueFromCoords(clientX, clientY);
       const prevValue = values[index];
-      const currentValue = getCurrentValueToStep(
+      const newValue = getCurrentValueToStep(
         min,
         max,
         valueFromCoords,
         prevValue,
         step
       );
+      const validatedNewValue = validateValue(newValue);
+      return validatedNewValue;
+    };
+
+    const handlerDocumentPointerMove = ({
+      clientX,
+      clientY,
+    }: PointerEvent): void => {
+      const { values } = this.options;
+      const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
       const validatedValue = validateValue(currentValue);
-      this.notify(ObserverTypes.UPDATE_VALUE, { value: validatedValue, index });
+      const currentThumb = this.thumbsInstance[index];
+      currentThumb.updatePosition(validatedValue);
+
+      const newValue = getNewValue(clientX, clientY);
+      const prevValue = values[index];
+      if (newValue !== prevValue) {
+        this.notify(ObserverTypes.UPDATE_VALUE, {
+          value: newValue,
+          index,
+        });
+      }
+    };
+
+    const handlerDocumentPointerUp = ({
+      clientX,
+      clientY,
+    }: PointerEvent): void => {
+      const newValue = getNewValue(clientX, clientY);
+      this.notify(ObserverTypes.UPDATE_VALUE, { value: newValue, index });
 
       document.removeEventListener('pointerup', handlerDocumentPointerUp);
       document.removeEventListener('pointermove', handlerDocumentPointerMove);
@@ -271,6 +286,7 @@ class View extends Observer {
           enableTooltip: tooltip,
         })
     );
+
     this.toggleActiveThumb();
   }
 }
