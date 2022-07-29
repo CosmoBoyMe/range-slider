@@ -52,11 +52,14 @@ class Scale {
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
     const valuePercent = getPercentOfValue(pointValue, min, max);
+    const currentValueInPx = (278 / 100) * valuePercent;
     if (vertical) {
       pointEl.classList.add(CSS_CLASSES.SCALE_POINT_VERTICAL);
-      pointEl.style.bottom = `${valuePercent}%`;
+      pointEl.style.bottom = `${currentValueInPx}px`;
     } else {
-      pointEl.style.left = `${valuePercent}%`;
+      pointValue === max
+        ? (pointEl.style.right = `${0}%`)
+        : (pointEl.style.left = `${currentValueInPx}px`);
     }
     return pointEl;
   }
@@ -94,7 +97,10 @@ class Scale {
           currentItemRect.left > nextItemRect.right
         );
         if (isOverlap) {
-          if (scaleEl.contains(nextItem)) {
+          const lastItem = allPoints[allPoints.length - 1];
+          if (nextItem === lastItem) {
+            scaleEl.removeChild(allPoints[index]);
+          } else if (scaleEl.contains(nextItem)) {
             scaleEl.removeChild(nextItem);
           }
         }
@@ -109,16 +115,17 @@ class Scale {
     if (vertical) {
       scaleEl.classList.add(CSS_CLASSES.SCALE_VERTICAL);
     }
+
+    rootDom.append(scaleEl);
+
     const scaleValues = this.getScaleValues();
     const scalePoints = [];
     for (let i = 0; i < scaleCounts; i += 1) {
       const scalePoint = this.createScalePoint(scaleValues[i]);
       scalePoints.push(scalePoint);
     }
-
     scaleEl.append(...scalePoints);
     scaleEl.addEventListener('click', this.handleScaleClick);
-    rootDom.append(scaleEl);
     this.deleteScalePointsWhenPointOverlap();
   }
 }
