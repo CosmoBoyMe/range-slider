@@ -45,6 +45,8 @@ const enum panelClasses {
   TOGGLE_SCALE_FIELD = 'js-panel__toggle-scale-field',
   TOGGLE_TOOLTIP_FIELD = 'js-panel__toggle-tooltip-field',
   TOGGLE_PROGRESS_FIELD = 'js-panel__toggle-progress-field',
+  NEW_THUMB_FIELD = 'js-panel__add-new-thumb-field',
+  NEW_THUMB_BUTTON_FIELD = 'js-panel__add-new-thumb-button-field',
 }
 
 export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES, panelClasses };

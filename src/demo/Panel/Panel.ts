@@ -8,11 +8,13 @@ interface IPanelElements {
   maxInput: HTMLInputElement;
   stepInput: HTMLInputElement;
   scaleCountsInput: HTMLInputElement;
-  valuesInputs: NodeListOf<HTMLInputElement>;
+  valuesInputs: HTMLInputElement[];
   scaleToggleInput: HTMLInputElement;
   tooltipToggleInput: HTMLInputElement;
   progressToggleInput: HTMLInputElement;
   verticalToggleInput: HTMLInputElement;
+  newThumbInput: HTMLInputElement;
+  newThumbButton: HTMLButtonElement;
 }
 
 class Panel {
@@ -29,12 +31,12 @@ class Panel {
     this.slider = slider;
     this.options = slider.getOptions();
     this.slider.onChangeOptions(this.onChangeOptions.bind(this));
-    this.findElements();
+    this.initEl();
     this.bindListeners();
   }
 
-  private findElements(): void {
-    const { panelEl } = this;
+  private initEl(): void {
+    const { panelEl, options } = this;
 
     const minField = panelEl.querySelector(
       `.${panelClasses.MIN_FIELD}`
@@ -58,12 +60,16 @@ class Panel {
       'input'
     ) as HTMLInputElement;
 
-    const thumbsValuesField = panelEl.querySelector(
-      `.${panelClasses.THUMB_VALUES}`
-    ) as HTMLElement;
-    const thumbsValuesInputs = thumbsValuesField.querySelectorAll(
-      'input'
-    ) as NodeListOf<HTMLInputElement>;
+    const { values } = options;
+    const thumbsValuesInputs = values.map((value) => {
+      const thumbsField = this.createThumbsField('value', value);
+      const thumbsInputs = thumbsField.querySelector('input');
+      const thumbsValuesContainer = panelEl.querySelector(
+        `.${panelClasses.THUMB_VALUES}`
+      );
+      thumbsValuesContainer?.append(thumbsField);
+      return thumbsInputs as HTMLInputElement;
+    });
 
     const verticalToggleField = panelEl.querySelector(
       `.${panelClasses.TOGGLE_VERTICAL_FIELD}`
@@ -92,6 +98,21 @@ class Panel {
     const progressToggleInput = progressToggleField.querySelector(
       'input'
     ) as HTMLInputElement;
+
+    const newThumbInputField = panelEl.querySelector(
+      `.${panelClasses.NEW_THUMB_FIELD}`
+    ) as HTMLElement;
+    const newThumbInput = newThumbInputField.querySelector(
+      'input'
+    ) as HTMLInputElement;
+
+    const newThumbButtonField = panelEl.querySelector(
+      `.${panelClasses.NEW_THUMB_BUTTON_FIELD}`
+    ) as HTMLElement;
+    const newThumbButton = newThumbButtonField.querySelector(
+      'button'
+    ) as HTMLButtonElement;
+
     this.panelElements = {
       minInput,
       maxInput,
@@ -101,17 +122,34 @@ class Panel {
       verticalToggleInput,
       tooltipToggleInput,
       progressToggleInput,
+      newThumbInput,
+      newThumbButton,
       valuesInputs: thumbsValuesInputs,
     };
   }
 
-  private handlerItemInputBlur(event: Event, name: keyof IOptions) {
+  // eslint-disable-next-line class-methods-use-this
+  private createThumbsField(text: string, value: number): HTMLElement {
+    const labelEl = document.createElement('label');
+    const textEl = document.createElement('span');
+    const inputEl = document.createElement('input');
+    labelEl.classList.add('input-field__label');
+    textEl.classList.add('input-field__text');
+    inputEl.classList.add('input-field__input');
+    textEl.textContent = text;
+    inputEl.setAttribute('value', String(value));
+    inputEl.setAttribute('type', 'number');
+    labelEl.append(textEl, inputEl);
+    return labelEl;
+  }
+
+  private handlerItemInputChange(event: Event, name: keyof IOptions) {
     const inputEl = event.target as HTMLInputElement;
     const { value } = inputEl;
     this.slider.updateOptions({ [name]: Number(value) });
   }
 
-  private handlerThumbInputBlur(event: Event, index: number) {
+  private handlerThumbInputChange(event: Event, index: number) {
     const inputEl = event.target as HTMLInputElement;
     const { value } = inputEl;
     this.options.values[index] = Number(value);
@@ -124,6 +162,20 @@ class Panel {
   ): void {
     const { options } = this;
     this.slider.updateOptions({ [optionName]: !options[optionName] });
+  }
+
+  private handlerCreateNewThumbButtonClick(event: Event): void {
+    const { newThumbInput, valuesInputs } = this.panelElements;
+    const { value } = newThumbInput;
+    this.options.values.push(Number(value));
+    const thumbField = this.createThumbsField('value', Number(value));
+    const thumbInputs = thumbField.querySelector('input') as HTMLInputElement;
+    const thumbsValuesContainer = this.panelEl.querySelector(
+      `.${panelClasses.THUMB_VALUES}`
+    );
+    thumbsValuesContainer?.append(thumbField);
+    valuesInputs.push(thumbInputs);
+    this.slider.updateOptions({ values: this.options.values });
   }
 
   private onChangeOptions(newOptions: IOptions): void {
@@ -194,28 +246,29 @@ class Panel {
       tooltipToggleInput,
       progressToggleInput,
       verticalToggleInput,
+      newThumbButton,
     } = panelElements;
     const optionsKeys = Object.keys(this.options);
     optionsKeys.forEach((key) => {
       switch (key) {
         case 'min':
-          minInput.addEventListener('blur', (event) =>
-            this.handlerItemInputBlur(event, key)
+          minInput.addEventListener('change', (event) =>
+            this.handlerItemInputChange(event, key)
           );
           break;
         case 'max':
-          maxInput.addEventListener('blur', (event) =>
-            this.handlerItemInputBlur(event, key)
+          maxInput.addEventListener('change', (event) =>
+            this.handlerItemInputChange(event, key)
           );
           break;
         case 'step':
-          stepInput.addEventListener('blur', (event) =>
-            this.handlerItemInputBlur(event, key)
+          stepInput.addEventListener('change', (event) =>
+            this.handlerItemInputChange(event, key)
           );
           break;
         case 'scaleCounts':
-          scaleCountsInput.addEventListener('blur', (event) =>
-            this.handlerItemInputBlur(event, key)
+          scaleCountsInput.addEventListener('change', (event) =>
+            this.handlerItemInputChange(event, key)
           );
           break;
         case 'vertical':
@@ -241,8 +294,8 @@ class Panel {
         case 'values': {
           const values = this.options[key];
           values.forEach((value, index) => {
-            valuesInputs[index].addEventListener('blur', (event) =>
-              this.handlerThumbInputBlur(event, index)
+            valuesInputs[index].addEventListener('change', (event) =>
+              this.handlerThumbInputChange(event, index)
             );
           });
           break;
@@ -250,6 +303,9 @@ class Panel {
         default:
           throw new Error(`unexpected options key: ${key}`);
       }
+    });
+    newThumbButton.addEventListener('click', (event) => {
+      this.handlerCreateNewThumbButtonClick(event);
     });
   }
 }

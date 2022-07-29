@@ -14,9 +14,11 @@ mixin panel({ min=0, max=10, step=1, scaleCounts=11, values=[5, 6], vertical=tru
       .js-panel__scale-counts-field
         +input-field('scale counts', scaleCounts)
     .panel__thumbs-values.js-panel__thumbs-values
-      each value in values
-        .js-panel__thumb-value-field
-          +input-field('value', value)
+    .panel__add-new-thumb.js-panel__add-new-thumb
+      .panel__add-new-thumb-field.js-panel__add-new-thumb-field  
+        +input-field('new thumb')
+      .panel__add-new-thumb-button-field.js-panel__add-new-thumb-button-field
+        +button('+')
     .panel__toggles
       .js-panel__toggle-vertical-field
         +toggle-field('vertical', vertical)

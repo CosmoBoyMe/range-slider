@@ -44,4 +44,15 @@
     border-radius: 10px;
     row-gap: 5px;
   }
+
+  &__add-new-thumb {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    border: 1px solid #364d8b;
+    border-radius: 10px;
+    row-gap: 5px;
+  }
 }
