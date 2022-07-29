@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   touch-action: none;
 }
 
@@ -8,6 +9,8 @@ body, html {
 
     width: 100%;
     height: 100%;
+
+    border: 1px solid black;
   }
 
   &-track {
@@ -15,55 +18,54 @@ body, html {
 
     width: 100%;
     height: 15px;
-  
+
     cursor: pointer;
-  
+
     border-radius: 5px;
     background: #d6e2eb;
 
     &--vertical {
       z-index: 1000;
-    
+
       width: 15px;
       height: 100%;
     }
   }
-  
-  
+
   &-thumb {
     position: absolute;
     z-index: 1000;
     top: 50%;
-  
+
     width: 20px;
     height: 20px;
-  
+
     cursor: pointer;
-    transform: translate(-50%, -50%);
-  
+    transform: translate(0, -50%);
+
     border-radius: 50%;
     background: #6192e9;
 
     &--vertical {
       top: auto;
       left: 50%;
-    
-      transform: translate(-50%, 50%);
+
+      transform: translate(-50%, 0);
     }
 
     &--active {
       z-index: 99999;
     }
   }
-  
+
   &-scale {
     height: 100%;
     padding-top: 20px;
 
     &--vertical {
       position: absolute;
-      top: 10px;
-    
+      top: 0;
+
       padding-top: 0;
     }
 
@@ -71,9 +73,8 @@ body, html {
       position: absolute;
 
       padding: 2px;
-    
+
       cursor: pointer;
-      transform: translate(-50%);
       text-align: center;
 
       font-weight: bold;
@@ -81,19 +82,18 @@ body, html {
       &--vertical {
         right: calc(100% + 20px);
 
-        height: 20px;
+        padding: 0;
 
-        transform: none
-      } 
+        transform: none;
+      }
     }
   }
-  
-  
+
   &-progress {
     position: absolute;
-  
+
     height: 100%;
-  
+
     border-radius: 5px;
     background-color: skyblue;
 
@@ -102,27 +102,18 @@ body, html {
       height: auto;
     }
   }
-  
-  
+
   &-tooltip {
     position: relative;
     top: -40px;
-  
+
     width: max-content;
-    padding: 2px;
 
-    transform: translate(calc(-50% + 10px), 0);
-
-    text-align: center;
-
-    border: 1px solid red;
     border-radius: 10%;
 
     &--vertical {
       top: auto;
       left: 30px;
-
-      transform: translate(0, -1px);
     }
   }
 }

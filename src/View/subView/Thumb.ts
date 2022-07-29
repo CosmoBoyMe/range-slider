@@ -22,6 +22,10 @@ class Thumb {
 
   private tooltipInstance: Tooltip | null = null;
 
+  private lastOutsideValueTooltip: number | null = null;
+
+  private lastTranslateValue: number | null = null;
+
   handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 
   constructor({
@@ -72,25 +76,84 @@ class Thumb {
     this.updatePosition();
   }
 
-  public updatePosition(currentValue?: number): void {
-    const { value, min, max, isVertical, thumbEl } = this;
-    if (currentValue !== undefined) {
-      isVertical
-        ? (thumbEl.style.bottom = `${getPercentOfValue(
-            currentValue,
-            min,
-            max
-          )}%`)
-        : (thumbEl.style.left = `${getPercentOfValue(
-            currentValue,
-            min,
-            max
-          )}%`);
+  private checkTooltipOutsideBorder() {
+    const {
+      value,
+      lastOutsideValueTooltip,
+      isVertical,
+      tooltipInstance,
+      rootElement,
+    } = this;
+    if (tooltipInstance === null || isVertical) {
       return;
     }
-    isVertical
-      ? (thumbEl.style.bottom = `${getPercentOfValue(value, min, max)}%`)
-      : (thumbEl.style.left = `${getPercentOfValue(value, min, max)}%`);
+    const rootElWidth = rootElement.offsetWidth;
+    const rootRecLeft = rootElement.getBoundingClientRect().left;
+    const tooltipEl = tooltipInstance.getElement();
+    const tooltipRecRight = tooltipEl.getBoundingClientRect().right;
+    const tooltipEndPositionPx = tooltipRecRight - rootRecLeft;
+    const tooltipOutsideInPX = rootElWidth - tooltipEndPositionPx;
+    const isTooltipOnOutside = tooltipOutsideInPX < 0;
+    if (isTooltipOnOutside && this.lastTranslateValue === null) {
+      const translateValue = tooltipOutsideInPX;
+      this.lastTranslateValue = translateValue;
+      const translateProperty = `translate(${translateValue}px, 0)`;
+      tooltipEl.style.setProperty('transform', translateProperty);
+      this.lastOutsideValueTooltip = value;
+    } else if (
+      lastOutsideValueTooltip !== null &&
+      this.lastTranslateValue !== null &&
+      this.lastTranslateValue < 0
+    ) {
+      const isTooltipNotOutside =
+        this.lastTranslateValue + tooltipOutsideInPX > 0;
+      if (isTooltipNotOutside) {
+        this.lastOutsideValueTooltip = null;
+        this.lastTranslateValue = null;
+        tooltipEl.style.removeProperty('transform');
+        return;
+      }
+      this.lastTranslateValue += tooltipOutsideInPX;
+      const translateProperty = `translate(${this.lastTranslateValue}px, 0)`;
+      tooltipEl.style.setProperty('transform', translateProperty);
+      this.lastOutsideValueTooltip = value;
+    } else {
+      this.lastOutsideValueTooltip = null;
+      this.lastTranslateValue = null;
+      tooltipEl.style.removeProperty('transform');
+    }
+  }
+
+  public updatePosition(currentValue?: number): void {
+    const { value, min, max, isVertical, thumbEl, rootElement } = this;
+    const rootWidth = rootElement?.offsetWidth;
+    if (rootWidth !== null && rootWidth !== undefined) {
+      const thumbWidth = thumbEl.offsetWidth;
+      const rootWidthWithoutThumbWidth = rootWidth - thumbWidth;
+      if (currentValue !== undefined) {
+        const currentValueInPercent = getPercentOfValue(currentValue, min, max);
+        const currentValueInPx =
+          (rootWidthWithoutThumbWidth / 100) * currentValueInPercent;
+        if (isVertical) {
+          thumbEl.style.bottom = `${currentValueInPercent}%`;
+          thumbEl.style.transform = `translate(-50%, ${currentValueInPercent}%)`;
+        } else {
+          thumbEl.style.left = `${currentValueInPx}px`;
+          thumbEl.style.removeProperty('transform');
+        }
+      }
+      const valueInPercent = getPercentOfValue(value, min, max);
+      const valueInPx = (rootWidthWithoutThumbWidth / 100) * valueInPercent;
+      if (isVertical) {
+        thumbEl.style.bottom = `${valueInPercent}%`;
+        thumbEl.style.transform = `translate(-50%, ${valueInPercent}%)`;
+      } else {
+        thumbEl.style.left = `${valueInPx}px`;
+        thumbEl.style.removeProperty('transform');
+      }
+
+      this.checkTooltipOutsideBorder();
+    }
   }
 
   public addActiveClass(): void {
@@ -118,13 +181,12 @@ class Thumb {
     if (isVertical) {
       this.toggleVerticalClass();
     }
-
-    this.updatePosition();
     thumbEl.addEventListener('pointerdown', (event) =>
       handleThumbPointerDown(event, index)
     );
 
     rootElement.append(thumbEl);
+    this.updatePosition();
   }
 }
 
