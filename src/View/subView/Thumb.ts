@@ -68,6 +68,10 @@ class Thumb {
     return this.value;
   }
 
+  public getTooltipInstance(): Tooltip | null {
+    return this.tooltipInstance;
+  }
+
   public updateValue(newValue: number): void {
     this.value = newValue;
     if (this.tooltipInstance) {

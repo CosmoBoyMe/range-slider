@@ -151,4 +151,73 @@ describe('Thumb class:', () => {
     thumb.updatePosition();
     expect(thumbElement).toHaveStyle('left: 30%');
   });
+
+  test('checkTooltipOutsideBorder: tooltip should not going outside by initialization', () => {
+    const thumb = new Thumb({
+      rootElement,
+      value: 1000000,
+      min: 1,
+      max: 10,
+      index: 0,
+      handleThumbMouseDown: (event, index) => undefined,
+      isVertical: false,
+      enableTooltip: true,
+    });
+    const tooltipEl = thumb.getTooltipInstance().getElement();
+    tooltipEl.getBoundingClientRect = () => ({
+      right: 10,
+    });
+    thumb.checkTooltipOutsideBorder();
+    expect(tooltipEl).toHaveStyle('transform: translate(-10px, 0)');
+  });
+
+  test('checkTooltipOutsideBorder: tooltip should not going outside after initialization', () => {
+    const thumb = new Thumb({
+      rootElement,
+      value: 1000000,
+      min: 1,
+      max: 10,
+      index: 0,
+      handleThumbMouseDown: (event, index) => undefined,
+      isVertical: false,
+      enableTooltip: true,
+    });
+    const tooltipEl = thumb.getTooltipInstance().getElement();
+    tooltipEl.getBoundingClientRect = () => ({
+      right: 10,
+    });
+    thumb.checkTooltipOutsideBorder();
+    expect(tooltipEl).toHaveStyle('transform: translate(-10px, 0)');
+
+    tooltipEl.getBoundingClientRect = () => ({
+      right: 1000,
+    });
+    thumb.checkTooltipOutsideBorder();
+    expect(tooltipEl).toHaveStyle('transform: translate(-1010px, 0)');
+  });
+
+  test('checkTooltipOutsideBorder: tooltip should not have transform style', () => {
+    const thumb = new Thumb({
+      rootElement,
+      value: 1000000,
+      min: 1,
+      max: 10,
+      index: 0,
+      handleThumbMouseDown: (event, index) => undefined,
+      isVertical: false,
+      enableTooltip: true,
+    });
+    const tooltipEl = thumb.getTooltipInstance().getElement();
+    tooltipEl.getBoundingClientRect = () => ({
+      right: 10,
+    });
+    thumb.checkTooltipOutsideBorder();
+    expect(tooltipEl).toHaveStyle('transform: translate(-10px, 0)');
+
+    tooltipEl.getBoundingClientRect = () => ({
+      right: -11,
+    });
+    thumb.checkTooltipOutsideBorder();
+    expect(tooltipEl).not.toHaveStyle('transform: translate(-10px, 0)');
+  });
 });

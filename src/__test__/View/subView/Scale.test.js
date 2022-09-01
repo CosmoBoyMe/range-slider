@@ -8,22 +8,19 @@ describe('Scale class:', () => {
   let rootElement;
   let scale;
   let scaleEl;
-
-  beforeAll(() => {
+  beforeEach(() => {
     rootElement = document.createElement('div');
     scale = new Scale({
       rootDom: rootElement,
       min: 1,
       max: 10,
       step: 1,
-      scaleCounts: 10,
+      scaleCounts: 4,
       vertical: false,
-      scale: true,
-      handleScalePointClick: (event) => undefined,
+      handleScaleClick: (event) => undefined,
     });
     scaleEl = scale.getElement();
   });
-
   test('root element must contain scale element', () => {
     expect(rootElement).toContainElement(scaleEl);
   });
@@ -52,17 +49,17 @@ describe('Scale class:', () => {
   });
 
   test('deleteScalePointsWhenPointOverlap: should not delete point if not overlap', () => {
-    const firstPoint = document.createElement('div');
-    firstPoint.classList.add(CSS_CLASSES.SCALE_POINT);
-    firstPoint.getBoundingClientRect = () => ({
+    const customPoint = document.createElement('div');
+    customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
+    customPoint.getBoundingClientRect = () => ({
       top: 100,
       bottom: 100,
       left: 100,
       right: 100,
     });
-    scaleEl.append(firstPoint);
+    scaleEl.append(customPoint);
     scale.deleteScalePointsWhenPointOverlap();
-    expect(scaleEl).toContainElement(firstPoint);
+    expect(scaleEl).toContainElement(customPoint);
   });
 
   test('deleteScalePointsWhenPointOverlap: should delete overlap point', () => {
@@ -75,7 +72,8 @@ describe('Scale class:', () => {
       right: 0,
     });
     scaleEl.append(customPoint);
+    expect(scaleEl.children.length).toBe(2);
     scale.deleteScalePointsWhenPointOverlap();
-    expect(scaleEl).not.toContainElement(customPoint);
+    expect(scaleEl.children.length).toBe(1);
   });
 });

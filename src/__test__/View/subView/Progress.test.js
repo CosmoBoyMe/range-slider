@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { Progress } from '../../../View/subView';
 
 describe('Progress class', () => {
-  let rootElement = document.createElement('div');
+  let rootElement;
   let progress;
   let progressEl;
   beforeEach(() => {
