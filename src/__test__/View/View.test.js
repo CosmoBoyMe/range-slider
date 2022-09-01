@@ -205,6 +205,8 @@ describe('View class:', () => {
   });
 
   test('thumb position should update by pointermove', () => {
+    const model = new Model(optionWithOneValue);
+    const presenter = new Presenter(model, view);
     const thumbsInstances = view.getAllInstance().thumbs;
     const sliderElement = view.getSliderElement();
     const firstThumbElement = thumbsInstances[0].getElement();
@@ -222,6 +224,25 @@ describe('View class:', () => {
     expect(firstThumbElement).toHaveStyle('bottom: 0%');
     document.dispatchEvent(new MouseEvent('pointermove', { clientY: 7 }));
     expect(firstThumbElement).toHaveStyle('bottom: 30%');
+  });
+
+  test('view should not notify if thumb value not updated ', () => {
+    const thumbsInstances = view.getAllInstance().thumbs;
+    const sliderElement = view.getSliderElement();
+    const firstThumbElement = thumbsInstances[0].getElement();
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      value: 10,
+    });
+    sliderElement.getBoundingClientRect = () => ({
+      top: 0,
+      bottom: 10,
+    });
+    firstThumbElement.dispatchEvent(new Event('pointerdown'));
+    document.dispatchEvent(new MouseEvent('pointermove', { clientY: 5 }));
+    const cb = jest.fn();
+    view.subscribe(ObserverTypes.UPDATE_VALUE, cb);
+    expect(cb).not.toBeCalled();
   });
 
   test('ondragstart event on thumb should be false', () => {

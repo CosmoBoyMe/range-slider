@@ -135,11 +135,6 @@ class View extends Observer {
       clientY,
     }: PointerEvent): void => {
       const { values } = this.options;
-      const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-      const validatedValue = validateValue(currentValue);
-      const currentThumb = this.thumbsInstance[index];
-      currentThumb.updatePosition(validatedValue);
-
       const newValue = getNewValue(clientX, clientY);
       const prevValue = values[index];
       if (newValue !== prevValue) {

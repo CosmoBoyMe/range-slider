@@ -26,9 +26,17 @@ describe('getClosestValue func:', () => {
     const closestValue = getClosestValue(0, 10, 20, 1);
     expect(closestValue).toBe(10);
   });
+  test('closest value should be max value by round', () => {
+    const closestValue = getClosestValue(0, 10, 9.9, 1);
+    expect(closestValue).toBe(10);
+  });
   test('closest value should be rounded to step', () => {
     const closestValue = getClosestValue(0, 10, 4.5, 1);
     expect(closestValue).toBe(5);
+  });
+  test('closest value should be not greater max value', () => {
+    const closestValue = getClosestValue(0, 10, 9, 11);
+    expect(closestValue).toBe(10);
   });
 });
 

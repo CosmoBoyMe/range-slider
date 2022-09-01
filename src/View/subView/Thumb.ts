@@ -83,6 +83,7 @@ class Thumb {
       isVertical,
       tooltipInstance,
       rootElement,
+      lastTranslateValue,
     } = this;
     if (tooltipInstance === null || isVertical) {
       return;
@@ -94,7 +95,7 @@ class Thumb {
     const tooltipEndPositionPx = tooltipRecRight - rootRecLeft;
     const tooltipOutsideInPX = rootElWidth - tooltipEndPositionPx;
     const isTooltipOnOutside = tooltipOutsideInPX < 0;
-    if (isTooltipOnOutside && this.lastTranslateValue === null) {
+    if (isTooltipOnOutside && lastTranslateValue === null) {
       const translateValue = tooltipOutsideInPX;
       this.lastTranslateValue = translateValue;
       const translateProperty = `translate(${translateValue}px, 0)`;
@@ -124,36 +125,18 @@ class Thumb {
     }
   }
 
-  public updatePosition(currentValue?: number): void {
-    const { value, min, max, isVertical, thumbEl, rootElement } = this;
-    const rootWidth = rootElement?.offsetWidth;
-    if (rootWidth !== null && rootWidth !== undefined) {
-      const thumbWidth = thumbEl.offsetWidth;
-      const rootWidthWithoutThumbWidth = rootWidth - thumbWidth;
-      if (currentValue !== undefined) {
-        const currentValueInPercent = getPercentOfValue(currentValue, min, max);
-        const currentValueInPx =
-          (rootWidthWithoutThumbWidth / 100) * currentValueInPercent;
-        if (isVertical) {
-          thumbEl.style.bottom = `${currentValueInPercent}%`;
-          thumbEl.style.transform = `translate(-50%, ${currentValueInPercent}%)`;
-        } else {
-          thumbEl.style.left = `${currentValueInPx}px`;
-          thumbEl.style.removeProperty('transform');
-        }
-      }
-      const valueInPercent = getPercentOfValue(value, min, max);
-      const valueInPx = (rootWidthWithoutThumbWidth / 100) * valueInPercent;
-      if (isVertical) {
-        thumbEl.style.bottom = `${valueInPercent}%`;
-        thumbEl.style.transform = `translate(-50%, ${valueInPercent}%)`;
-      } else {
-        thumbEl.style.left = `${valueInPx}px`;
-        thumbEl.style.removeProperty('transform');
-      }
-
-      this.checkTooltipOutsideBorder();
+  private updatePosition(): void {
+    const { value, min, max, isVertical, thumbEl } = this;
+    const valueInPercent = getPercentOfValue(value, min, max);
+    if (isVertical) {
+      thumbEl.style.bottom = `${valueInPercent}%`;
+      thumbEl.style.transform = `translate(-50%, ${valueInPercent}%)`;
+    } else {
+      thumbEl.style.left = `${valueInPercent}%`;
+      thumbEl.style.transform = `translate(-${valueInPercent}%, -50%)`;
     }
+
+    this.checkTooltipOutsideBorder();
   }
 
   public addActiveClass(): void {

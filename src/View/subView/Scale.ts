@@ -52,14 +52,17 @@ class Scale {
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
     const valuePercent = getPercentOfValue(pointValue, min, max);
-    const currentValueInPx = (278 / 100) * valuePercent;
     if (vertical) {
       pointEl.classList.add(CSS_CLASSES.SCALE_POINT_VERTICAL);
-      pointEl.style.bottom = `${currentValueInPx}px`;
+      pointEl.style.bottom = `${valuePercent}%`;
+      pointEl.style.transform = `translate(0, ${valuePercent}%)`;
+    } else if (pointValue === max) {
+      pointEl.style.right = `${0}%`;
+      pointEl.style.transform = `translate(0)`;
     } else {
-      pointValue === max
-        ? (pointEl.style.right = `${0}%`)
-        : (pointEl.style.left = `${currentValueInPx}px`);
+      const offsetToThumb = (20 / 100) * valuePercent;
+      pointEl.style.left = `calc(${valuePercent}% - ${offsetToThumb}px)`;
+      pointEl.style.transform = 'none';
     }
     return pointEl;
   }
@@ -99,9 +102,9 @@ class Scale {
         if (isOverlap) {
           const lastItem = allPoints[allPoints.length - 1];
           if (nextItem === lastItem) {
-            scaleEl.removeChild(allPoints[index]);
+            allPoints[index].remove();
           } else if (scaleEl.contains(nextItem)) {
-            scaleEl.removeChild(nextItem);
+            nextItem.remove();
           }
         }
       }

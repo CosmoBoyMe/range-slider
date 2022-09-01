@@ -113,16 +113,21 @@ describe('Thumb class:', () => {
   });
 
   test('updatePosition: should update thumb position', () => {
-    thumbInstance.updatePosition(10);
-    expect(thumbEl).toHaveStyle('bottom: 100%');
-    thumbInstance.updatePosition(3);
+    thumbInstance.value = 9;
+    thumbInstance.updatePosition();
+    expect(thumbEl).toHaveStyle({ bottom: '90%' });
+    thumbInstance.value = 3;
+    thumbInstance.updatePosition();
     expect(thumbEl).toHaveStyle('bottom: 30%');
   });
 
   test('updatePosition: should update thumb position by vertical', () => {
-    thumbInstance.updatePosition(10);
+    expect(thumbEl).toHaveStyle('bottom: 50%');
+    thumbInstance.value = 10;
+    thumbInstance.updatePosition();
     expect(thumbEl).toHaveStyle('bottom: 100%');
-    thumbInstance.updatePosition(3);
+    thumbInstance.value = 3;
+    thumbInstance.updatePosition();
     expect(thumbEl).toHaveStyle('bottom: 30%');
   });
 
@@ -139,9 +144,11 @@ describe('Thumb class:', () => {
     });
     const thumbElement = thumb.getElement();
     expect(thumbElement).toHaveStyle('left: 50%');
-    thumb.updatePosition(10);
+    thumb.value = 10;
+    thumb.updatePosition();
     expect(thumbElement).toHaveStyle('left: 100%');
-    thumb.updatePosition(3);
+    thumb.value = 3;
+    thumb.updatePosition();
     expect(thumbElement).toHaveStyle('left: 30%');
   });
 });

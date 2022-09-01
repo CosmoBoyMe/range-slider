@@ -10,10 +10,6 @@ const getClosestValue = (
   if (value >= max) {
     return max;
   }
-  if (Math.round(value) === max) {
-    return max;
-  }
-
   const range = Math.abs(min - value);
   const delta = Math.round(range / step);
 
@@ -21,6 +17,13 @@ const getClosestValue = (
   const roundedValue = Math.round(newValue * 100) / 100;
   if (roundedValue > max) {
     return max;
+  }
+  if (value + step >= max) {
+    const differenceValueToStartValue = Math.abs(value - roundedValue);
+    const differenceValueFromEndValue = Math.abs(max - Math.round(value));
+    if (differenceValueToStartValue > differenceValueFromEndValue) {
+      return max;
+    }
   }
   return roundedValue;
 };
