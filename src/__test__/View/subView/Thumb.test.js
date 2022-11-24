@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@testing-library/jest-dom";
 
-import { Thumb } from "../../../View/subView";
 import { CSS_CLASSES } from "../../../const";
+import { Thumb } from "../../../View/subView";
 
 describe("Thumb class:", () => {
   let rootElement;

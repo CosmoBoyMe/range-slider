@@ -1,11 +1,11 @@
+import "../index";
 import type { IOptions } from "../types";
 import { Slider } from "../Slider";
-import "../index";
+import "./style.scss";
 import { Panel } from "./Panel/Panel";
 import "./components/button/button.scss";
 import "./components/input-field/input-field.scss";
 import "./components/toggle-field/toggle-field.scss";
-import "./style.scss";
 
 const demoElements = document.querySelectorAll(
   ".demo"

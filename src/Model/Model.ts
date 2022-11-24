@@ -1,7 +1,7 @@
-import { getClosestValue } from "../helpers";
-import { Observer } from "../Observer/Observer";
-import { ObserverTypes, DEFAULT_OPTIONS } from "../const";
 import type { IOptions } from "../types";
+import { getClosestValue } from "../helpers";
+import { ObserverTypes, DEFAULT_OPTIONS } from "../const";
+import { Observer } from "../Observer/Observer";
 
 class Model extends Observer {
   options: IOptions;

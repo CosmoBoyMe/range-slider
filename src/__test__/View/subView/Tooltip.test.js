@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 
-import { Tooltip } from "../../../View/subView";
 import { CSS_CLASSES } from "../../../const";
+import { Tooltip } from "../../../View/subView";
 
 describe("Track class:", () => {
   let rootElement;

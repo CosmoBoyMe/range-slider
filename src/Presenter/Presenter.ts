@@ -1,7 +1,7 @@
-import type { Model } from "../Model/Model";
-import type { View } from "../View/View";
 import { ObserverTypes } from "../const";
 import type { IOptions, valuePayload } from "../types";
+import type { Model } from "../Model/Model";
+import type { View } from "../View/View";
 
 class Presenter {
   private modelInstance: Model;

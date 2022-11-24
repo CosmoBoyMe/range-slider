@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 
-import { Scale } from "../../../View/subView";
 import { CSS_CLASSES } from "../../../const";
+import { Scale } from "../../../View/subView";
 
 describe("Scale class:", () => {
   let rootElement;

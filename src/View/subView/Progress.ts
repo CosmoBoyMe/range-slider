@@ -1,6 +1,5 @@
 import { getPercentOfValue } from "../../helpers";
 import { CSS_CLASSES } from "../../const";
-
 import type { IProgressArguments } from "../../types";
 
 class Progress {
