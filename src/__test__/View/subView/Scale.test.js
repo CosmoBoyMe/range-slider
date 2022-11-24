@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
-import { Scale } from '../../../View/subView';
-import { CSS_CLASSES } from '../../../const';
+import { Scale } from "../../../View/subView";
+import { CSS_CLASSES } from "../../../const";
 
-describe('Scale class:', () => {
+describe("Scale class:", () => {
   let rootElement;
   let scale;
   let scaleEl;
   beforeEach(() => {
-    rootElement = document.createElement('div');
+    rootElement = document.createElement("div");
     scale = new Scale({
       rootDom: rootElement,
       min: 1,
@@ -17,20 +16,20 @@ describe('Scale class:', () => {
       step: 1,
       scaleCounts: 4,
       vertical: false,
-      handleScaleClick: (event) => undefined,
+      handleScaleClick: () => undefined,
     });
     scaleEl = scale.getElement();
   });
-  test('root element must contain scale element', () => {
+  test("root element must contain scale element", () => {
     expect(rootElement).toContainElement(scaleEl);
   });
 
-  test('scale element must be remove from root element', () => {
+  test("scale element must be remove from root element", () => {
     scale.destroy();
     expect(rootElement).not.toContainElement(scaleEl);
   });
 
-  test('scale element must have vertical class', () => {
+  test("scale element must have vertical class", () => {
     const scaleVertical = new Scale({
       rootDom: rootElement,
       min: 1,
@@ -38,18 +37,18 @@ describe('Scale class:', () => {
       step: 1,
       scaleCounts: 10,
       vertical: true,
-      handleScalePointClick: (event) => undefined,
+      handleScalePointClick: () => undefined,
     });
     const scaleVerticalElement = scaleVertical.getElement();
     expect(scaleVerticalElement).toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
   });
 
-  test('scale element must not have vertical class', () => {
+  test("scale element must not have vertical class", () => {
     expect(scaleEl).not.toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
   });
 
-  test('deleteScalePointsWhenPointOverlap: should not delete point if not overlap', () => {
-    const customPoint = document.createElement('div');
+  test("deleteScalePointsWhenPointOverlap: should not delete point if not overlap", () => {
+    const customPoint = document.createElement("div");
     customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
     customPoint.getBoundingClientRect = () => ({
       top: 100,
@@ -62,8 +61,8 @@ describe('Scale class:', () => {
     expect(scaleEl).toContainElement(customPoint);
   });
 
-  test('deleteScalePointsWhenPointOverlap: should delete overlap point', () => {
-    const customPoint = document.createElement('div');
+  test("deleteScalePointsWhenPointOverlap: should delete overlap point", () => {
+    const customPoint = document.createElement("div");
     customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
     customPoint.getBoundingClientRect = () => ({
       top: 0,

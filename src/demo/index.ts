@@ -1,14 +1,14 @@
-import type { IOptions } from '../types';
-import { Slider } from '../Slider';
-import '../index';
-import { Panel } from './Panel/Panel';
-import './components/button/button.scss';
-import './components/input-field/input-field.scss';
-import './components/toggle-field/toggle-field.scss';
-import './style.scss';
+import type { IOptions } from "../types";
+import { Slider } from "../Slider";
+import "../index";
+import { Panel } from "./Panel/Panel";
+import "./components/button/button.scss";
+import "./components/input-field/input-field.scss";
+import "./components/toggle-field/toggle-field.scss";
+import "./style.scss";
 
 const demoElements = document.querySelectorAll(
-  '.demo'
+  ".demo"
 ) as NodeListOf<HTMLElement>;
 
 const customOptionsFirst: Partial<IOptions> = {
@@ -57,8 +57,8 @@ const optionsArray = [
 ];
 
 demoElements.forEach((item, index) => {
-  const sliderEl = item.querySelector('.slider') as HTMLElement;
-  const panelEl = item.querySelector('.panel') as HTMLElement;
+  const sliderEl = item.querySelector(".slider") as HTMLElement;
+  const panelEl = item.querySelector(".panel") as HTMLElement;
   const slider = $(sliderEl).rangeSlider(optionsArray[index]) as Slider;
   // eslint-disable-next-line no-new
   new Panel(panelEl, slider);

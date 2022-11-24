@@ -1,5 +1,5 @@
-import type { IOptions } from './types';
-import { Slider } from './Slider';
+import type { IOptions } from "./types";
+import { Slider } from "./Slider";
 
 declare global {
   interface JQuery {

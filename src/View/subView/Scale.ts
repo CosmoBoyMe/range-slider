@@ -1,11 +1,11 @@
-import { getPercentOfValue, getClosestValue } from '../../helpers';
-import { CSS_CLASSES } from '../../const';
-import type { IScaleArguments } from '../../types';
+import { getPercentOfValue, getClosestValue } from "../../helpers";
+import { CSS_CLASSES } from "../../const";
+import type { IScaleArguments } from "../../types";
 
 class Scale {
   rootDom: HTMLElement;
 
-  scaleEl: HTMLDivElement = document.createElement('div');
+  scaleEl: HTMLDivElement = document.createElement("div");
 
   min: number;
 
@@ -48,7 +48,7 @@ class Scale {
 
   private createScalePoint(pointValue: number): HTMLDivElement {
     const { min, max, vertical } = this;
-    const pointEl = document.createElement('div');
+    const pointEl = document.createElement("div");
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
     const valuePercent = getPercentOfValue(pointValue, min, max);
@@ -62,7 +62,7 @@ class Scale {
     } else {
       const offsetToThumb = (20 / 100) * valuePercent;
       pointEl.style.left = `calc(${valuePercent}% - ${offsetToThumb}px)`;
-      pointEl.style.transform = 'none';
+      pointEl.style.transform = "none";
     }
     return pointEl;
   }
@@ -128,7 +128,7 @@ class Scale {
       scalePoints.push(scalePoint);
     }
     scaleEl.append(...scalePoints);
-    scaleEl.addEventListener('click', this.handleScaleClick);
+    scaleEl.addEventListener("click", this.handleScaleClick);
     this.deleteScalePointsWhenPointOverlap();
   }
 }

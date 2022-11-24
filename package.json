@@ -10,6 +10,7 @@
     "test": "jest",
     "style": "stylelint \"**/*.scss\" --fix",
     "lint": "eslint \"*/**/*.{js,ts}\" --quiet --fix",
+    "prettier": "prettier --write \"**/*.{ts,js,pug}\"",
     "deploy": "gh-pages -d dist",
     "prepare": "husky install"
   },
@@ -67,8 +68,9 @@
     "webpack-livereload-plugin": "^3.0.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "npm run lint",
-    "**/*.scss": "npm run style"
+    "*.{js,ts,}": "npm run lint",
+    "**/*.scss": "npm run style",
+    "**/*.{ts,js,pug}": "npm run prettier"
   },
   "dependencies": {
     "gh-pages": "^4.0.0",

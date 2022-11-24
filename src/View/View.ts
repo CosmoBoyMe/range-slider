@@ -2,14 +2,14 @@ import {
   getClosestValue,
   findNearestIndexToValue,
   getCurrentValueToStep,
-} from '../helpers';
-import { IOptions, IViewInstances } from '../types';
-import { ObserverTypes, CSS_CLASSES } from '../const';
-import { Observer } from '../Observer/Observer';
-import { Scale, Track, Thumb, Progress } from './subView/index';
+} from "../helpers";
+import { IOptions, IViewInstances } from "../types";
+import { ObserverTypes, CSS_CLASSES } from "../const";
+import { Observer } from "../Observer/Observer";
+import { Scale, Track, Thumb, Progress } from "./subView/index";
 
 class View extends Observer {
-  private sliderElement: HTMLDivElement = document.createElement('div');
+  private sliderElement: HTMLDivElement = document.createElement("div");
 
   private options: IOptions;
 
@@ -152,12 +152,12 @@ class View extends Observer {
       const newValue = getNewValue(clientX, clientY);
       this.notify(ObserverTypes.UPDATE_VALUE, { value: newValue, index });
 
-      document.removeEventListener('pointerup', handlerDocumentPointerUp);
-      document.removeEventListener('pointermove', handlerDocumentPointerMove);
+      document.removeEventListener("pointerup", handlerDocumentPointerUp);
+      document.removeEventListener("pointermove", handlerDocumentPointerMove);
     };
 
-    document.addEventListener('pointermove', handlerDocumentPointerMove);
-    document.addEventListener('pointerup', handlerDocumentPointerUp);
+    document.addEventListener("pointermove", handlerDocumentPointerMove);
+    document.addEventListener("pointerup", handlerDocumentPointerUp);
 
     const { target } = event;
     if (target) {

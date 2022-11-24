@@ -1,13 +1,13 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
-import { Progress } from '../../../View/subView';
+import { Progress } from "../../../View/subView";
 
-describe('Progress class', () => {
+describe("Progress class", () => {
   let rootElement;
   let progress;
   let progressEl;
   beforeEach(() => {
-    rootElement = document.createElement('div');
+    rootElement = document.createElement("div");
     progress = new Progress({
       rootElement,
       values: [10],
@@ -19,16 +19,16 @@ describe('Progress class', () => {
     progressEl = progress.getElement();
   });
 
-  test('rootElement must not contain progress element', () => {
+  test("rootElement must not contain progress element", () => {
     progress.destroy();
     expect(rootElement).not.toContainElement(progressEl);
   });
 
-  test('rootElement must contain progress element', () => {
+  test("rootElement must contain progress element", () => {
     expect(rootElement).toContainElement(progressEl);
   });
 
-  test('progress element must update progress width', () => {
+  test("progress element must update progress width", () => {
     const { width } = progressEl.style;
     const parsedWidth = Number(parseInt(width, 10));
     expect(parsedWidth).toBe(50);
@@ -38,7 +38,7 @@ describe('Progress class', () => {
     expect(newParsedWidth).toBe(25);
   });
 
-  test('progress element must update progress height', () => {
+  test("progress element must update progress height", () => {
     const verticalProgress = new Progress({
       rootElement,
       values: [10],
@@ -57,7 +57,7 @@ describe('Progress class', () => {
     expect(newParsedHeight).toBe(25);
   });
 
-  test('progress element must update progress width by range', () => {
+  test("progress element must update progress width by range", () => {
     const rangeProgress = new Progress({
       rootElement,
       values: [5, 10],
@@ -77,7 +77,7 @@ describe('Progress class', () => {
     expect(newParsedHWidth).toBe(100);
   });
 
-  test('progress element must update progress height by range', () => {
+  test("progress element must update progress height by range", () => {
     const verticalAndRangeProgress = new Progress({
       rootElement,
       values: [5, 10],

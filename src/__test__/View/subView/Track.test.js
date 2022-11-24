@@ -1,14 +1,14 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
-import { Track } from '../../../View/subView';
+import { Track } from "../../../View/subView";
 
-describe('Track class:', () => {
+describe("Track class:", () => {
   let rootElement;
   beforeEach(() => {
-    rootElement = document.createElement('div');
+    rootElement = document.createElement("div");
   });
 
-  test('should destroy element', () => {
+  test("should destroy element", () => {
     const track = new Track({
       element: rootElement,
       isVertical: false,
@@ -20,7 +20,7 @@ describe('Track class:', () => {
     expect(rootElement).not.toContainElement(trackElement);
   });
 
-  test('should be in root element', () => {
+  test("should be in root element", () => {
     const track = new Track({
       element: rootElement,
       isVertical: true,

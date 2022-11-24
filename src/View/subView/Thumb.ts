@@ -1,12 +1,12 @@
-import { getPercentOfValue } from '../../helpers';
-import { CSS_CLASSES } from '../../const';
-import type { IThumbArguments } from '../../types';
-import { Tooltip } from './Tooltip';
+import { getPercentOfValue } from "../../helpers";
+import { CSS_CLASSES } from "../../const";
+import type { IThumbArguments } from "../../types";
+import { Tooltip } from "./Tooltip";
 
 class Thumb {
   private rootElement: HTMLElement;
 
-  private thumbEl: HTMLDivElement = document.createElement('div');
+  private thumbEl: HTMLDivElement = document.createElement("div");
 
   private value: number;
 
@@ -103,7 +103,7 @@ class Thumb {
       const translateValue = tooltipOutsideInPX;
       this.lastTranslateValue = translateValue;
       const translateProperty = `translate(${translateValue}px, 0)`;
-      tooltipEl.style.setProperty('transform', translateProperty);
+      tooltipEl.style.setProperty("transform", translateProperty);
       this.lastOutsideValueTooltip = value;
     } else if (
       lastOutsideValueTooltip !== null &&
@@ -115,17 +115,17 @@ class Thumb {
       if (isTooltipNotOutside) {
         this.lastOutsideValueTooltip = null;
         this.lastTranslateValue = null;
-        tooltipEl.style.removeProperty('transform');
+        tooltipEl.style.removeProperty("transform");
         return;
       }
       this.lastTranslateValue += tooltipOutsideInPX;
       const translateProperty = `translate(${this.lastTranslateValue}px, 0)`;
-      tooltipEl.style.setProperty('transform', translateProperty);
+      tooltipEl.style.setProperty("transform", translateProperty);
       this.lastOutsideValueTooltip = value;
     } else {
       this.lastOutsideValueTooltip = null;
       this.lastTranslateValue = null;
-      tooltipEl.style.removeProperty('transform');
+      tooltipEl.style.removeProperty("transform");
     }
   }
 
@@ -168,7 +168,7 @@ class Thumb {
     if (isVertical) {
       this.toggleVerticalClass();
     }
-    thumbEl.addEventListener('pointerdown', (event) =>
+    thumbEl.addEventListener("pointerdown", (event) =>
       handleThumbPointerDown(event, index)
     );
 

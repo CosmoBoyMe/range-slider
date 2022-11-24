@@ -2,7 +2,5 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "semi": true,
-  "singleQuote": true,
-  "printWidth": 80,
-  "max-len": ["error", { "code": 80, "ignoreComments": true }]
+  "printWidth": 80
 }

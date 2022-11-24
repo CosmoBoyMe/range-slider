@@ -1,6 +1,7 @@
-import { getPercentOfValue } from '../../helpers';
-import { CSS_CLASSES } from '../../const';
-import type { IProgressArguments } from '../../types';
+import { getPercentOfValue } from "../../helpers";
+import { CSS_CLASSES } from "../../const";
+
+import type { IProgressArguments } from "../../types";
 
 class Progress {
   private rootElement: HTMLElement;
@@ -15,7 +16,7 @@ class Progress {
 
   private vertical: boolean;
 
-  private progressEl: HTMLDivElement = document.createElement('div');
+  private progressEl: HTMLDivElement = document.createElement("div");
 
   constructor({
     rootElement,
@@ -85,8 +86,8 @@ class Progress {
         : (progressEl.style.left = `${positionInPercent}%`);
     } else {
       vertical
-        ? (progressEl.style.bottom = '0%')
-        : (progressEl.style.left = '0%');
+        ? (progressEl.style.bottom = "0%")
+        : (progressEl.style.left = "0%");
     }
   }
 

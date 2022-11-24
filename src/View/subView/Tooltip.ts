@@ -1,5 +1,5 @@
-import { CSS_CLASSES } from '../../const';
-import type { ITooltipArguments } from '../../types';
+import { CSS_CLASSES } from "../../const";
+import type { ITooltipArguments } from "../../types";
 
 class Tooltip {
   private rootElement: HTMLElement;
@@ -8,7 +8,7 @@ class Tooltip {
 
   private isVertical: boolean;
 
-  private tooltipEl: HTMLDivElement = document.createElement('div');
+  private tooltipEl: HTMLDivElement = document.createElement("div");
 
   constructor({ rootElement, value, isVertical }: ITooltipArguments) {
     this.rootElement = rootElement;

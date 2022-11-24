@@ -1,5 +1,5 @@
-import { CSS_CLASSES } from '../../const';
-import type { ITrackArguments } from '../../types';
+import { CSS_CLASSES } from "../../const";
+import type { ITrackArguments } from "../../types";
 
 class Track {
   private element: HTMLElement;
@@ -8,7 +8,7 @@ class Track {
 
   private handleTrackClick: (event: MouseEvent) => void;
 
-  private trackElement: HTMLDivElement = document.createElement('div');
+  private trackElement: HTMLDivElement = document.createElement("div");
 
   constructor({ element, isVertical, handleTrackClick }: ITrackArguments) {
     this.element = element;
@@ -33,7 +33,7 @@ class Track {
     const { trackElement, element } = this;
 
     trackElement.classList.add(CSS_CLASSES.TRACK);
-    trackElement.addEventListener('pointerdown', this.handleTrackClick);
+    trackElement.addEventListener("pointerdown", this.handleTrackClick);
     if (this.isVertical) {
       this.toggleVerticalClass();
     }
