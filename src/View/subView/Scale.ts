@@ -1,5 +1,5 @@
 import { getPercentOfValue, getClosestValue } from "../../helpers";
-import { CSS_CLASSES } from "../../const";
+import { SliderClasses } from "../../const";
 import type { IScaleArguments } from "../../types";
 
 class Scale {
@@ -48,12 +48,12 @@ class Scale {
 
   private createScalePoint(pointValue: number): HTMLDivElement {
     const { min, max, vertical } = this;
-    const pointEl = document.createElement("div");
+    pointElement.classList.add(SliderClasses.SCALE_POINT);
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
     const valuePercent = getPercentOfValue(pointValue, min, max);
     if (this.isVertical) {
-      pointEl.classList.add(CSS_CLASSES.SCALE_POINT_VERTICAL);
+      pointElement.classList.add(SliderClasses.SCALE_POINT_VERTICAL);
       pointEl.style.bottom = `${valuePercent}%`;
       pointEl.style.transform = `translate(0, ${valuePercent}%)`;
     } else if (pointValue === max) {
@@ -112,7 +112,9 @@ class Scale {
   }
 
   private render(): void {
+    this.scaleElement.classList.add(SliderClasses.SCALE);
     if (this.isVertical) {
+      this.scaleElement.classList.add(SliderClasses.SCALE_VERTICAL);
     }
 
     rootDom.append(scaleEl);

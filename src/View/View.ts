@@ -4,7 +4,7 @@ import {
   getCurrentValueToStep,
 } from "../helpers";
 import { IOptions, IViewInstances } from "../types";
-import { ObserverTypes, CSS_CLASSES } from "../const";
+import { ObserverTypes, SliderClasses } from "../const";
 import { Observer } from "../Observer/Observer";
 import { Scale, Track, Thumb, Progress } from "./subView/index";
 
@@ -176,7 +176,7 @@ class View extends Observer {
   private handleScaleClick(event: MouseEvent): void {
     const { target } = event;
     const isTargetScalePoint = (target as HTMLDivElement).classList.contains(
-      CSS_CLASSES.SCALE_POINT
+      SliderClasses.SCALE_POINT
     );
     if (isTargetScalePoint) {
       const value = Number((target as HTMLDivElement).textContent);

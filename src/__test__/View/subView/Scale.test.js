@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-import { CSS_CLASSES } from "../../../const";
+import { SliderClasses } from "../../../const";
 import { Scale } from "../../../View/subView";
 
 describe("Scale class:", () => {
@@ -40,16 +40,16 @@ describe("Scale class:", () => {
       handleScalePointClick: () => undefined,
     });
     const scaleVerticalElement = scaleVertical.getElement();
-    expect(scaleVerticalElement).toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
+    expect(scaleVerticalElement).toHaveClass(SliderClasses.SCALE_VERTICAL);
   });
 
   test("scale element must not have vertical class", () => {
-    expect(scaleEl).not.toHaveClass(CSS_CLASSES.SCALE_VERTICAL);
+    expect(scaleElement).not.toHaveClass(SliderClasses.SCALE_VERTICAL);
   });
 
   test("deleteScalePointsWhenPointOverlap: should not delete point if not overlap", () => {
     const customPoint = document.createElement("div");
-    customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
+    customPointElement.classList.add(SliderClasses.SCALE_POINT);
     customPoint.getBoundingClientRect = () => ({
       top: 100,
       bottom: 100,
@@ -63,7 +63,7 @@ describe("Scale class:", () => {
 
   test("deleteScalePointsWhenPointOverlap: should delete overlap point", () => {
     const customPoint = document.createElement("div");
-    customPoint.classList.add(CSS_CLASSES.SCALE_POINT);
+    customPointElement.classList.add(SliderClasses.SCALE_POINT);
     customPoint.getBoundingClientRect = () => ({
       top: 0,
       bottom: 0,

@@ -1,4 +1,4 @@
-import { CSS_CLASSES } from "../../const";
+import { SliderClasses } from "../../const";
 import type { ITooltipArguments } from "../../types";
 
 class Tooltip {
@@ -31,7 +31,7 @@ class Tooltip {
   }
 
   public toggleVerticalClass(): void {
-    this.tooltipEl.classList.toggle(CSS_CLASSES.TOOLTIP_VERTICAL);
+    this.tooltipElement.classList.toggle(SliderClasses.TOOLTIP_VERTICAL);
   }
 
   private updateInnerText(): void {
@@ -39,9 +39,7 @@ class Tooltip {
   }
 
   private render(): void {
-    const { tooltipEl } = this;
-    tooltipEl.classList.add(CSS_CLASSES.TOOLTIP);
-    tooltipEl.textContent = String(this.value);
+    this.tooltipElement.classList.add(SliderClasses.TOOLTIP);
     if (this.isVertical) {
       this.toggleVerticalClass();
     }

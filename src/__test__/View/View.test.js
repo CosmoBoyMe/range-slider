@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@testing-library/jest-dom";
 
-import { ObserverTypes, CSS_CLASSES } from "../../const";
+import { ObserverTypes, SliderClasses } from "../../const";
 import { View } from "../../View/View";
 import { Model } from "../../Model/Model";
 import { Presenter } from "../../Presenter/Presenter";
@@ -87,7 +87,7 @@ describe("View class:", () => {
     const scaleInstance = view.getAllInstance().scale;
     const scaleElement = scaleInstance.getElement();
     const scalePointElement = scaleElement.querySelector(
-      `.${CSS_CLASSES.SCALE_POINT}`
+      `.${SliderClasses.SCALE_POINT}`
     );
     const cb = jest.fn();
     view.subscribe(ObserverTypes.UPDATE_VALUE, cb);
@@ -106,7 +106,7 @@ describe("View class:", () => {
     const scaleInstance = viewInstance.getAllInstance().scale;
     const scaleElement = scaleInstance.getElement();
     const scalePointElement = scaleElement.querySelector(
-      `.${CSS_CLASSES.SCALE_POINT}`
+      `.${SliderClasses.SCALE_POINT}`
     );
     const cb = jest.fn();
     viewInstance.subscribe(ObserverTypes.UPDATE_VALUE, cb);
@@ -260,8 +260,8 @@ describe("View class:", () => {
     const thumbsInstances = viewInstance.getAllInstance().thumbs;
     const firstThumbElement = thumbsInstances[0].getElement();
     const secondThumbElement = thumbsInstances[1].getElement();
-    expect(firstThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
-    expect(secondThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(firstThumbElement).toHaveClass(SliderClasses.THUMB_ACTIVE);
+    expect(secondThumbElement).not.toHaveClass(SliderClasses.THUMB_ACTIVE);
   });
 
   test("toggleActiveThumb: clicked thumb should have active class", () => {
@@ -273,11 +273,11 @@ describe("View class:", () => {
     const firstThumbElement = thumbsInstances[0].getElement();
     const secondThumbElement = thumbsInstances[1].getElement();
     model.updateValue({ value: 5, index: 1 });
-    expect(firstThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
-    expect(secondThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(firstThumbElement).not.toHaveClass(SliderClasses.THUMB_ACTIVE);
+    expect(secondThumbElement).toHaveClass(SliderClasses.THUMB_ACTIVE);
     model.updateValue({ value: 7, index: 1 });
-    expect(firstThumbElement).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
-    expect(secondThumbElement).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(firstThumbElement).not.toHaveClass(SliderClasses.THUMB_ACTIVE);
+    expect(secondThumbElement).toHaveClass(SliderClasses.THUMB_ACTIVE);
   });
 
   test("document pointer move and pointer up should remove after thumb pointer up", () => {

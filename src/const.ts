@@ -16,7 +16,7 @@ const DEFAULT_OPTIONS = {
   withProgress: true,
 };
 
-const enum CSS_CLASSES {
+const enum SliderClasses {
   SLIDER = "js-custom-slider",
   TRACK = "js-track",
   TRACK_VERTICAL = "js-track--vertical",
@@ -33,7 +33,7 @@ const enum CSS_CLASSES {
   SCALE_POINT_VERTICAL = "js-scale__point--vertical",
 }
 
-const enum panelClasses {
+const enum PanelClasses {
   PANEL = "js-panel",
   MIN_FIELD = "js-panel__min-field",
   MAX_FIELD = "js-panel__max-field",
@@ -49,4 +49,4 @@ const enum panelClasses {
   NEW_THUMB_BUTTON_FIELD = "js-panel__add-new-thumb-button-field",
 }
 
-export { ObserverTypes, DEFAULT_OPTIONS, CSS_CLASSES, panelClasses };
+export { ObserverTypes, DEFAULT_OPTIONS, SliderClasses, PanelClasses };

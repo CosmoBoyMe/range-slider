@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@testing-library/jest-dom";
 
-import { CSS_CLASSES } from "../../../const";
+import { SliderClasses } from "../../../const";
 import { Thumb } from "../../../View/subView";
 
 describe("Thumb class:", () => {
@@ -52,15 +52,18 @@ describe("Thumb class:", () => {
   });
 
   test("thumb must update tooltip content text", () => {
-    const tooltipElement = rootElement.querySelector(`.${CSS_CLASSES.TOOLTIP}`);
+    const tooltipElement = rootElement.querySelector(
+      `.${SliderClasses.TOOLTIP}`
+    );
     expect(tooltipElement).toHaveTextContent(5);
     thumbInstance.updateValue(10);
     expect(tooltipElement).toHaveTextContent(10);
   });
 
   test("thumb must contain tooltip", () => {
-    const tooltipElement = thumbEl.querySelector(`.${CSS_CLASSES.TOOLTIP}`);
-    expect(thumbEl).toContainElement(tooltipElement);
+    const tooltipElement = thumbElement.querySelector(
+      `.${SliderClasses.TOOLTIP}`
+    );
   });
 
   test("thumb must not contain tooltip", () => {
@@ -74,15 +77,11 @@ describe("Thumb class:", () => {
       isVertical: true,
       withTooltip: false,
     });
-    const thumbElement = thumb.getElement();
-    const tooltipElement = thumbElement.querySelector(
-      `.${CSS_CLASSES.TOOLTIP}`
-    );
-    expect(thumbElement).not.toContainElement(tooltipElement);
+    const tooltipElement = thumbEl.querySelector(`.${SliderClasses.TOOLTIP}`);
   });
 
   test("thumb element must have vertical class", () => {
-    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_VERTICAL);
+    expect(thumbElement).toHaveClass(SliderClasses.THUMB_VERTICAL);
   });
 
   test("thumb element must not have vertical class", () => {
@@ -97,19 +96,19 @@ describe("Thumb class:", () => {
       withTooltip: false,
     });
     const thumbElement = thumb.getElement();
-    expect(thumbElement).not.toHaveClass(CSS_CLASSES.THUMB_VERTICAL);
+    expect(thumbEl).not.toHaveClass(SliderClasses.THUMB_VERTICAL);
   });
 
   test("setActiveClass: should add active class", () => {
     thumbInstance.addActiveClass();
-    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(thumbElement).toHaveClass(SliderClasses.THUMB_ACTIVE);
   });
 
   test("removeActiveClass: should remove active class", () => {
     thumbInstance.addActiveClass();
-    expect(thumbEl).toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(thumbElement).toHaveClass(SliderClasses.THUMB_ACTIVE);
     thumbInstance.removeActiveClass();
-    expect(thumbEl).not.toHaveClass(CSS_CLASSES.THUMB_ACTIVE);
+    expect(thumbElement).not.toHaveClass(SliderClasses.THUMB_ACTIVE);
   });
 
   test("updatePosition: should update thumb position", () => {

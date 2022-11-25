@@ -1,5 +1,5 @@
 import { getPercentOfValue } from "../../helpers";
-import { CSS_CLASSES } from "../../const";
+import { SliderClasses } from "../../const";
 import type { IProgressArguments } from "../../types";
 
 class Progress {
@@ -68,8 +68,9 @@ class Progress {
 
   private toggleVerticalClass(this: Progress): void {
     if (this.isVertical) {
+      this.progressElement.classList.add(SliderClasses.PROGRESS_VERTICAL);
     } else {
-      progressEl.classList.remove(CSS_CLASSES.PROGRESS_VERTICAL);
+      this.progressElement.classList.remove(SliderClasses.PROGRESS_VERTICAL);
     }
   }
 
@@ -84,8 +85,7 @@ class Progress {
   }
 
   private init(): void {
-    const { progressEl }: Progress = this;
-    progressEl.classList.add(CSS_CLASSES.PROGRESS);
+    this.progressElement.classList.add(SliderClasses.PROGRESS);
     this.updateProgressLength();
     this.updatePosition();
     this.rootElement.append(progressEl);

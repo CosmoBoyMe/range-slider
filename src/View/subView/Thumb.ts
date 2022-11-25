@@ -1,5 +1,5 @@
 import { getPercentOfValue } from "../../helpers";
-import { CSS_CLASSES } from "../../const";
+import { SliderClasses } from "../../const";
 import type { IThumbArguments } from "../../types";
 import { Tooltip } from "./Tooltip";
 
@@ -140,18 +140,11 @@ class Thumb {
   }
 
   private toggleVerticalClass(): void {
-    this.thumbEl.classList.toggle(CSS_CLASSES.THUMB_VERTICAL);
+    this.thumbElement.classList.toggle(SliderClasses.THUMB_VERTICAL);
   }
 
   private render(): void {
-    const {
-      rootElement,
-      thumbEl,
-      handleThumbPointerDown,
-      index,
-      isVertical,
-    }: Thumb = this;
-    thumbEl.classList.add(CSS_CLASSES.THUMB);
+    this.thumbElement.classList.add(SliderClasses.THUMB);
 
     if (this.isVertical) {
       this.toggleVerticalClass();

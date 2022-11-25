@@ -1,5 +1,5 @@
 import type { IOptions, Entries } from "../../types";
-import { panelClasses } from "../../const";
+import { PanelClasses } from "../../const";
 import { Slider } from "../../Slider";
 import "./style.scss";
 
@@ -35,26 +35,22 @@ class Panel {
     this.bindListeners();
   }
 
-  private initEl(): void {
-    const { panelEl, options } = this;
-
-    const minField = panelEl.querySelector(
-      `.${panelClasses.MIN_FIELD}`
+      `.js-${PanelClasses.MIN_FIELD}`
     ) as HTMLElement;
     const minInput = minField.querySelector("input") as HTMLInputElement;
 
     const maxField = panelEl.querySelector(
-      `.${panelClasses.MAX_FIELD}`
+      `.js-${PanelClasses.MAX_FIELD}`
     ) as HTMLElement;
     const maxInput = maxField.querySelector("input") as HTMLInputElement;
 
-    const stepField = panelEl.querySelector(
+    const stepField = this.panelElement.querySelector(
       `.${panelClasses.STEP_FIELD}`
     ) as HTMLElement;
     const stepInput = stepField.querySelector("input") as HTMLInputElement;
 
     const scaleCountsField = panelEl.querySelector(
-      `.${panelClasses.SCALE_COUNTS_FIELD}`
+      `.js-${PanelClasses.SCALE_COUNTS_FIELD}`
     ) as HTMLElement;
     const scaleCountsInput = scaleCountsField.querySelector(
       "input"
@@ -65,49 +61,49 @@ class Panel {
       const thumbsField = this.createThumbsField("value", value);
       const thumbsInputs = thumbsField.querySelector("input");
       const thumbsValuesContainer = panelEl.querySelector(
-        `.${panelClasses.THUMB_VALUES}`
+        `.js-${PanelClasses.THUMB_VALUES}`
       );
       thumbsValuesContainer?.append(thumbsField);
       return thumbsInputs as HTMLInputElement;
     });
 
     const verticalToggleField = panelEl.querySelector(
-      `.${panelClasses.TOGGLE_VERTICAL_FIELD}`
+      `.js-${PanelClasses.TOGGLE_VERTICAL_FIELD}`
     ) as HTMLElement;
     const verticalToggleInput = verticalToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
     const scaleToggleField = panelEl.querySelector(
-      `.${panelClasses.TOGGLE_SCALE_FIELD}`
+      `.js-${PanelClasses.TOGGLE_SCALE_FIELD}`
     ) as HTMLElement;
     const scaleToggleInput = scaleToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
     const tooltipToggleField = panelEl.querySelector(
-      `.${panelClasses.TOGGLE_TOOLTIP_FIELD}`
+      `.js-${PanelClasses.TOGGLE_TOOLTIP_FIELD}`
     ) as HTMLElement;
     const tooltipToggleInput = tooltipToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
     const progressToggleField = panelEl.querySelector(
-      `.${panelClasses.TOGGLE_PROGRESS_FIELD}`
+      `.js-${PanelClasses.TOGGLE_PROGRESS_FIELD}`
     ) as HTMLElement;
     const progressToggleInput = progressToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
     const newThumbInputField = panelEl.querySelector(
-      `.${panelClasses.NEW_THUMB_FIELD}`
+      `.js-${PanelClasses.NEW_THUMB_FIELD}`
     ) as HTMLElement;
     const newThumbInput = newThumbInputField.querySelector(
       "input"
     ) as HTMLInputElement;
 
     const newThumbButtonField = panelEl.querySelector(
-      `.${panelClasses.NEW_THUMB_BUTTON_FIELD}`
+      `.js-${PanelClasses.NEW_THUMB_BUTTON_FIELD}`
     ) as HTMLElement;
     const newThumbButton = newThumbButtonField.querySelector(
       "button"
@@ -171,7 +167,7 @@ class Panel {
     const thumbField = this.createThumbsField("value", Number(value));
     const thumbInputs = thumbField.querySelector("input") as HTMLInputElement;
     const thumbsValuesContainer = this.panelEl.querySelector(
-      `.${panelClasses.THUMB_VALUES}`
+      `.js-${PanelClasses.THUMB_VALUES}`
     );
     thumbsValuesContainer?.append(thumbField);
     valuesInputs.push(thumbInputs);

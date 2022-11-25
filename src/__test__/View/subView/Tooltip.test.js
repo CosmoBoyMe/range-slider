@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-import { CSS_CLASSES } from "../../../const";
+import { SliderClasses } from "../../../const";
 import { Tooltip } from "../../../View/subView";
 
 describe("Track class:", () => {
@@ -32,13 +32,13 @@ describe("Track class:", () => {
     expect(tooltipElement).toHaveTextContent(10);
   });
 
-  test(`muss have class ${CSS_CLASSES.TOOLTIP_VERTICAL}`, () => {
-    expect(tooltipElement).toHaveClass(CSS_CLASSES.TOOLTIP_VERTICAL);
+  test(`muss have class ${SliderClasses.TOOLTIP_VERTICAL}`, () => {
+    expect(tooltipElement).toHaveClass(SliderClasses.TOOLTIP_VERTICAL);
   });
 
-  test(`must not have a class ${CSS_CLASSES.TOOLTIP_VERTICAL}`, () => {
+  test(`must not have a class ${SliderClasses.TOOLTIP_VERTICAL}`, () => {
     tooltip = new Tooltip({ rootElement, value: 5, isVertical: false });
     tooltipElement = tooltip.getElement();
-    expect(tooltipElement).not.toHaveClass(CSS_CLASSES.TOOLTIP_VERTICAL);
+    expect(tooltipElement).not.toHaveClass(SliderClasses.TOOLTIP_VERTICAL);
   });
 });

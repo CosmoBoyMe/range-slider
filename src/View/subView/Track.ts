@@ -1,4 +1,4 @@
-import { CSS_CLASSES } from "../../const";
+import { SliderClasses } from "../../const";
 import type { ITrackArguments } from "../../types";
 
 class Track {
@@ -22,7 +22,7 @@ class Track {
   }
 
   public toggleVerticalClass(): void {
-    this.trackElement.classList.toggle(CSS_CLASSES.TRACK_VERTICAL);
+    this.trackElement.classList.toggle(SliderClasses.TRACK_VERTICAL);
   }
 
   public destroy(): void {
@@ -30,10 +30,7 @@ class Track {
   }
 
   private render(): void {
-    const { trackElement, element } = this;
-
-    trackElement.classList.add(CSS_CLASSES.TRACK);
-    trackElement.addEventListener("pointerdown", this.handleTrackClick);
+    this.trackElement.classList.add(SliderClasses.TRACK);
     if (this.isVertical) {
       this.toggleVerticalClass();
     }
