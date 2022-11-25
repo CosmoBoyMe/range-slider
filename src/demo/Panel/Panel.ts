@@ -139,22 +139,26 @@ class Panel {
     return labelEl;
   }
 
+  private handleItemInputChange(event: Event, name: keyof IOptions) {
     const inputElement = event.target as HTMLInputElement;
     this.slider.updateOptions({ [name]: Number(inputElement.value) });
   }
 
+  private handleThumbInputChange(event: Event, index: number) {
     const inputElement = event.target as HTMLInputElement;
     this.options.values[index] = Number(inputElement.value);
     this.slider.updateOptions({ values: this.options.values });
   }
 
-  private handlerToggleInputClick(
+  private handleToggleInputClick(
     event: MouseEvent,
     optionName: keyof IOptions
   ): void {
     this.slider.updateOptions({ [optionName]: !this.options[optionName] });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private handleCreateNewThumbButtonClick(event: Event): void {
     this.options.values.push(Number(this.panelElements.newThumbInput.value));
     const thumbField = this.createThumbsField(
       "value",
@@ -242,49 +246,49 @@ class Panel {
       switch (key) {
         case "min":
           minInput.addEventListener("change", (event) =>
-            this.handlerItemInputChange(event, key)
+            this.handleItemInputChange(event, key)
           );
           break;
         case "max":
           maxInput.addEventListener("change", (event) =>
-            this.handlerItemInputChange(event, key)
+            this.handleItemInputChange(event, key)
           );
           break;
         case "step":
           stepInput.addEventListener("change", (event) =>
-            this.handlerItemInputChange(event, key)
+            this.handleItemInputChange(event, key)
           );
           break;
         case "scaleCounts":
           scaleCountsInput.addEventListener("change", (event) =>
-            this.handlerItemInputChange(event, key)
+            this.handleItemInputChange(event, key)
           );
           break;
         case "isVertical":
           verticalToggleInput.addEventListener("click", (event) =>
-            this.handlerToggleInputClick(event, key)
+            this.handleToggleInputClick(event, key)
           );
           break;
         case "withProgress":
           progressToggleInput.addEventListener("click", (event) =>
-            this.handlerToggleInputClick(event, key)
+            this.handleToggleInputClick(event, key)
           );
           break;
         case "withTooltip":
           tooltipToggleInput.addEventListener("click", (event) =>
-            this.handlerToggleInputClick(event, key)
+            this.handleToggleInputClick(event, key)
           );
           break;
         case "withScale":
           scaleToggleInput.addEventListener("click", (event) =>
-            this.handlerToggleInputClick(event, key)
+            this.handleToggleInputClick(event, key)
           );
           break;
         case "values": {
           const values = this.options[key];
-          values.forEach((value, index) => {
+          values.forEach((_, index) => {
             valuesInputs[index].addEventListener("change", (event) =>
-              this.handlerThumbInputChange(event, index)
+              this.handleThumbInputChange(event, index)
             );
           });
           break;
@@ -294,7 +298,7 @@ class Panel {
       }
     });
     newThumbButton.addEventListener("click", (event) => {
-      this.handlerCreateNewThumbButtonClick(event);
+      this.handleCreateNewThumbButtonClick(event);
     });
   }
 }
