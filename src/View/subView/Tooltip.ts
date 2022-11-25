@@ -40,11 +40,12 @@ class Tooltip {
 
   private render(): void {
     this.tooltipElement.classList.add(SliderClasses.TOOLTIP);
+    this.tooltipElement.textContent = String(this.value);
     if (this.isVertical) {
       this.toggleVerticalClass();
     }
 
-    this.rootElement.append(tooltipEl);
+    this.rootElement.append(this.tooltipElement);
   }
 }
 

@@ -35,74 +35,74 @@ class Panel {
     this.bindListeners();
   }
 
+    const minField = this.panelElement.querySelector(
       `.js-${PanelClasses.MIN_FIELD}`
     ) as HTMLElement;
     const minInput = minField.querySelector("input") as HTMLInputElement;
 
-    const maxField = panelEl.querySelector(
+    const maxField = this.panelElement.querySelector(
       `.js-${PanelClasses.MAX_FIELD}`
     ) as HTMLElement;
     const maxInput = maxField.querySelector("input") as HTMLInputElement;
 
     const stepField = this.panelElement.querySelector(
-      `.${panelClasses.STEP_FIELD}`
+      `.js-${PanelClasses.STEP_FIELD}`
     ) as HTMLElement;
     const stepInput = stepField.querySelector("input") as HTMLInputElement;
 
-    const scaleCountsField = panelEl.querySelector(
+    const scaleCountsField = this.panelElement.querySelector(
       `.js-${PanelClasses.SCALE_COUNTS_FIELD}`
     ) as HTMLElement;
     const scaleCountsInput = scaleCountsField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const { values } = options;
-    const thumbsValuesInputs = values.map((value) => {
+    const thumbsValuesInputs = this.options.values.map((value) => {
       const thumbsField = this.createThumbsField("value", value);
       const thumbsInputs = thumbsField.querySelector("input");
-      const thumbsValuesContainer = panelEl.querySelector(
+      const thumbsValuesContainer = this.panelElement.querySelector(
         `.js-${PanelClasses.THUMB_VALUES}`
       );
       thumbsValuesContainer?.append(thumbsField);
       return thumbsInputs as HTMLInputElement;
     });
 
-    const verticalToggleField = panelEl.querySelector(
+    const verticalToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_VERTICAL_FIELD}`
     ) as HTMLElement;
     const verticalToggleInput = verticalToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const scaleToggleField = panelEl.querySelector(
+    const scaleToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_SCALE_FIELD}`
     ) as HTMLElement;
     const scaleToggleInput = scaleToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const tooltipToggleField = panelEl.querySelector(
+    const tooltipToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_TOOLTIP_FIELD}`
     ) as HTMLElement;
     const tooltipToggleInput = tooltipToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const progressToggleField = panelEl.querySelector(
+    const progressToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_PROGRESS_FIELD}`
     ) as HTMLElement;
     const progressToggleInput = progressToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const newThumbInputField = panelEl.querySelector(
+    const newThumbInputField = this.panelElement.querySelector(
       `.js-${PanelClasses.NEW_THUMB_FIELD}`
     ) as HTMLElement;
     const newThumbInput = newThumbInputField.querySelector(
       "input"
     ) as HTMLInputElement;
 
-    const newThumbButtonField = panelEl.querySelector(
+    const newThumbButtonField = this.panelElement.querySelector(
       `.js-${PanelClasses.NEW_THUMB_BUTTON_FIELD}`
     ) as HTMLElement;
     const newThumbButton = newThumbButtonField.querySelector(
@@ -139,16 +139,12 @@ class Panel {
     return labelEl;
   }
 
-  private handlerItemInputChange(event: Event, name: keyof IOptions) {
-    const inputEl = event.target as HTMLInputElement;
-    const { value } = inputEl;
-    this.slider.updateOptions({ [name]: Number(value) });
+    const inputElement = event.target as HTMLInputElement;
+    this.slider.updateOptions({ [name]: Number(inputElement.value) });
   }
 
-  private handlerThumbInputChange(event: Event, index: number) {
-    const inputEl = event.target as HTMLInputElement;
-    const { value } = inputEl;
-    this.options.values[index] = Number(value);
+    const inputElement = event.target as HTMLInputElement;
+    this.options.values[index] = Number(inputElement.value);
     this.slider.updateOptions({ values: this.options.values });
   }
 
@@ -156,21 +152,20 @@ class Panel {
     event: MouseEvent,
     optionName: keyof IOptions
   ): void {
-    const { options } = this;
-    this.slider.updateOptions({ [optionName]: !options[optionName] });
+    this.slider.updateOptions({ [optionName]: !this.options[optionName] });
   }
 
-  private handlerCreateNewThumbButtonClick(event: Event): void {
-    const { newThumbInput, valuesInputs } = this.panelElements;
-    const { value } = newThumbInput;
-    this.options.values.push(Number(value));
-    const thumbField = this.createThumbsField("value", Number(value));
+    this.options.values.push(Number(this.panelElements.newThumbInput.value));
+    const thumbField = this.createThumbsField(
+      "value",
+      Number(this.panelElements.newThumbInput.value)
+    );
     const thumbInputs = thumbField.querySelector("input") as HTMLInputElement;
     const thumbsValuesContainer = this.panelEl.querySelector(
       `.js-${PanelClasses.THUMB_VALUES}`
     );
     thumbsValuesContainer?.append(thumbField);
-    valuesInputs.push(thumbInputs);
+    this.panelElements.valuesInputs.push(thumbInputs);
     this.slider.updateOptions({ values: this.options.values });
   }
 
@@ -180,7 +175,6 @@ class Panel {
   }
 
   private updateInputFieldsValues(): void {
-    const { panelElements } = this;
     const {
       minInput,
       maxInput,
@@ -191,7 +185,7 @@ class Panel {
       tooltipToggleInput,
       progressToggleInput,
       verticalToggleInput,
-    } = panelElements;
+    } = this.panelElements;
     const entriesOptions = Object.entries(this.options) as Entries<IOptions>;
     entriesOptions.forEach(([key, value]) => {
       switch (key) {
@@ -231,7 +225,6 @@ class Panel {
   }
 
   private bindListeners(): void {
-    const { panelElements } = this;
     const {
       minInput,
       maxInput,
@@ -243,7 +236,7 @@ class Panel {
       progressToggleInput,
       verticalToggleInput,
       newThumbButton,
-    } = panelElements;
+    } = this.panelElements;
     const optionsKeys = Object.keys(this.options);
     optionsKeys.forEach((key) => {
       switch (key) {

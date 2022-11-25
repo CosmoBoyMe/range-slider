@@ -31,10 +31,11 @@ class Track {
 
   private render(): void {
     this.trackElement.classList.add(SliderClasses.TRACK);
+    this.trackElement.addEventListener("pointerdown", this.handleTrackClick);
     if (this.isVertical) {
       this.toggleVerticalClass();
     }
-    element.append(trackElement);
+    this.rootElement.append(this.trackElement);
   }
 }
 

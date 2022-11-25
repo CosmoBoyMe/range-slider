@@ -13,13 +13,11 @@ class Model extends Observer {
   }
 
   public getOptions(): IOptions {
-    const { options } = this;
-    return JSON.parse(JSON.stringify(options));
+    return JSON.parse(JSON.stringify(this.options));
   }
 
   public updateValue({ value, index }: { value: number; index: number }): void {
-    const { values } = this.options;
-    const newValues = [...values];
+    const newValues = [...this.options.values];
     newValues[index] = value;
     this.setNewOptions({ values: newValues });
     this.notify(ObserverTypes.VALUE_UPDATED, { value, index });

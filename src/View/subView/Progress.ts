@@ -52,18 +52,22 @@ class Progress {
     const { progressEl, values, min, max, range, vertical }: Progress = this;
     let progressLengthInPercent;
     if (this.withRange) {
-      const minValue = Math.min(...values);
-      const maxValue = Math.max(...values);
-      const minValueInPercent = getPercentOfValue(minValue, min, max);
-      const maxValueInPercent = getPercentOfValue(maxValue, min, max);
+      const minValue = Math.min(...this.values);
+      const maxValue = Math.max(...this.values);
+      const minValueInPercent = getPercentOfValue(minValue, this.min, this.max);
+      const maxValueInPercent = getPercentOfValue(maxValue, this.min, this.max);
       progressLengthInPercent = maxValueInPercent - minValueInPercent;
     } else {
-      progressLengthInPercent = getPercentOfValue(values[0], min, max);
+      progressLengthInPercent = getPercentOfValue(
+        this.values[0],
+        this.min,
+        this.max
+      );
     }
 
     this.isVertical
-      ? (progressEl.style.height = `${progressLengthInPercent}%`)
-      : (progressEl.style.width = `${progressLengthInPercent}%`);
+      ? (this.progressElement.style.height = `${progressLengthInPercent}%`)
+      : (this.progressElement.style.width = `${progressLengthInPercent}%`);
   }
 
   private toggleVerticalClass(this: Progress): void {
@@ -76,11 +80,15 @@ class Progress {
 
   private updatePosition(): void {
     if (this.withRange) {
-      this.isVertical;
+      const minValue = Math.min(...this.values);
+      const positionInPercent = getPercentOfValue(minValue, this.min, this.max);
+      this.isVertical
+        ? (this.progressElement.style.bottom = `${positionInPercent}%`)
+        : (this.progressElement.style.left = `${positionInPercent}%`);
     } else {
       this.isVertical
-        ? (progressEl.style.bottom = "0%")
-        : (progressEl.style.left = "0%");
+        ? (this.progressElement.style.bottom = "0%")
+        : (this.progressElement.style.left = "0%");
     }
   }
 
@@ -88,7 +96,7 @@ class Progress {
     this.progressElement.classList.add(SliderClasses.PROGRESS);
     this.updateProgressLength();
     this.updatePosition();
-    this.rootElement.append(progressEl);
+    this.rootElement.append(this.progressElement);
     this.toggleVerticalClass();
   }
 }

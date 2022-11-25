@@ -84,21 +84,21 @@ class Thumb {
     if (this.tooltipInstance === null || this.isVertical) {
       return;
     }
-    const rootElWidth = rootElement.offsetWidth;
-    const rootRecLeft = rootElement.getBoundingClientRect().left;
-    const tooltipEl = tooltipInstance.getElement();
+    const rootElWidth = this.rootElement.offsetWidth;
+    const rootRecLeft = this.rootElement.getBoundingClientRect().left;
+    const tooltipEl = this.tooltipInstance.getElement();
     const tooltipRecRight = tooltipEl.getBoundingClientRect().right;
     const tooltipEndPositionPx = tooltipRecRight - rootRecLeft;
     const tooltipOutsideInPX = rootElWidth - tooltipEndPositionPx;
     const isTooltipOnOutside = tooltipOutsideInPX < 0;
-    if (isTooltipOnOutside && lastTranslateValue === null) {
+    if (isTooltipOnOutside && this.lastTranslateValue === null) {
       const translateValue = tooltipOutsideInPX;
       this.lastTranslateValue = translateValue;
       const translateProperty = `translate(${translateValue}px, 0)`;
       tooltipEl.style.setProperty("transform", translateProperty);
-      this.lastOutsideValueTooltip = value;
+      this.lastOutsideValueTooltip = this.value;
     } else if (
-      lastOutsideValueTooltip !== null &&
+      this.lastOutsideValueTooltip !== null &&
       this.lastTranslateValue !== null &&
       this.lastTranslateValue < 0
     ) {
@@ -113,7 +113,7 @@ class Thumb {
       this.lastTranslateValue += tooltipOutsideInPX;
       const translateProperty = `translate(${this.lastTranslateValue}px, 0)`;
       tooltipEl.style.setProperty("transform", translateProperty);
-      this.lastOutsideValueTooltip = value;
+      this.lastOutsideValueTooltip = this.value;
     } else {
       this.lastOutsideValueTooltip = null;
       this.lastTranslateValue = null;
@@ -122,10 +122,13 @@ class Thumb {
   }
 
   private updatePosition(): void {
+    const valueInPercent = getPercentOfValue(this.value, this.min, this.max);
     if (this.isVertical) {
+      this.thumbElement.style.bottom = `${valueInPercent}%`;
+      this.thumbElement.style.transform = `translate(-50%, ${valueInPercent}%)`;
     } else {
-      thumbEl.style.left = `${valueInPercent}%`;
-      thumbEl.style.transform = `translate(-${valueInPercent}%, -50%)`;
+      this.thumbElement.style.left = `${valueInPercent}%`;
+      this.thumbElement.style.transform = `translate(-${valueInPercent}%, -50%)`;
     }
 
     this.checkTooltipOutsideBorder();
@@ -149,11 +152,11 @@ class Thumb {
     if (this.isVertical) {
       this.toggleVerticalClass();
     }
-    thumbEl.addEventListener("pointerdown", (event) =>
-      handleThumbPointerDown(event, index)
+    this.thumbElement.addEventListener("pointerdown", (event) =>
+      this.handleThumbPointerDown(event, this.index)
     );
 
-    rootElement.append(thumbEl);
+    this.rootElement.append(this.thumbElement);
     this.updatePosition();
   }
 }

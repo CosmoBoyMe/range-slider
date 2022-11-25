@@ -47,38 +47,41 @@ class Scale {
   }
 
   private createScalePoint(pointValue: number): HTMLDivElement {
-    const { min, max, vertical } = this;
+    const pointElement = document.createElement("div");
     pointElement.classList.add(SliderClasses.SCALE_POINT);
-    pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
-    pointEl.innerHTML = String(pointValue);
-    const valuePercent = getPercentOfValue(pointValue, min, max);
+    pointElement.innerHTML = String(pointValue);
+
+    const valueInPercent = getPercentOfValue(pointValue, this.min, this.max);
     if (this.isVertical) {
       pointElement.classList.add(SliderClasses.SCALE_POINT_VERTICAL);
-      pointEl.style.bottom = `${valuePercent}%`;
-      pointEl.style.transform = `translate(0, ${valuePercent}%)`;
-    } else if (pointValue === max) {
-      pointEl.style.right = `${0}%`;
-      pointEl.style.transform = `translate(0)`;
+      pointElement.style.bottom = `${valueInPercent}%`;
+      pointElement.style.transform = `translate(0, ${valueInPercent}%)`;
+    } else if (pointValue === this.max) {
+      pointElement.style.right = "0%";
+      pointElement.style.transform = `translate(0)`;
     } else {
-      const offsetToThumb = (20 / 100) * valuePercent;
-      pointEl.style.left = `calc(${valuePercent}% - ${offsetToThumb}px)`;
-      pointEl.style.transform = "none";
+      const offsetToThumb = (20 / 100) * valueInPercent;
+      pointElement.style.left = `calc(${valueInPercent}% - ${offsetToThumb}px)`;
+      pointElement.style.transform = "none";
     }
-    return pointEl;
+    return pointElement;
   }
 
   private getScaleValues(): number[] {
-    const { min, max, scaleCounts, step } = this;
-
     const values: number[] = [];
-    const partsCountWithoutStart = scaleCounts - 1;
-    const partStep = (max - min) / partsCountWithoutStart;
-    for (let i = 0; i <= partsCountWithoutStart; i += 1) {
+    const partsCountWithoutStart = this.scaleCounts - 1;
+    const partStep = (this.max - this.min) / partsCountWithoutStart;
+    for (let index = 0; index <= partsCountWithoutStart; index += 1) {
       let value;
-      if (i === partsCountWithoutStart) {
-        value = max;
+      if (index === partsCountWithoutStart) {
+        value = this.max;
       } else {
-        value = getClosestValue(min, max, min + partStep * i, step);
+        value = getClosestValue(
+          this.min,
+          this.max,
+          this.min + partStep * index,
+          this.step
+        );
       }
       values.push(value);
     }
@@ -86,8 +89,7 @@ class Scale {
   }
 
   private deleteScalePointsWhenPointOverlap(this: Scale): void {
-    const { scaleEl } = this;
-    const allPoints = [...scaleEl.children];
+    const allPoints = [...this.scaleElement.children];
     allPoints.forEach((item, index) => {
       const currentItemRect = item.getBoundingClientRect();
       for (let i = index + 1; i < allPoints.length; i += 1) {
@@ -103,7 +105,7 @@ class Scale {
           const lastItem = allPoints[allPoints.length - 1];
           if (nextItem === lastItem) {
             allPoints[index].remove();
-          } else if (scaleEl.contains(nextItem)) {
+          } else if (this.scaleElement.contains(nextItem)) {
             nextItem.remove();
           }
         }
@@ -117,7 +119,7 @@ class Scale {
       this.scaleElement.classList.add(SliderClasses.SCALE_VERTICAL);
     }
 
-    rootDom.append(scaleEl);
+    this.rootElement.append(this.scaleElement);
 
     const scaleValues = this.getScaleValues();
     const scalePoints = [];
@@ -125,8 +127,8 @@ class Scale {
       const scalePoint = this.createScalePoint(scaleValues[i]);
       scalePoints.push(scalePoint);
     }
-    scaleEl.append(...scalePoints);
-    scaleEl.addEventListener("click", this.handleScaleClick);
+    this.scaleElement.append(...scalePoints);
+    this.scaleElement.addEventListener("click", this.handleScaleClick);
     this.deleteScalePointsWhenPointOverlap();
   }
 }
