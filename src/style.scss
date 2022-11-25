@@ -1,116 +1,108 @@
-body,
-html {
-  touch-action: none;
+.custom-slider {
+  position: relative;
+
+  z-index: 9999999;
+
+  width: 100%;
+  height: 100%;
 }
 
-.js {
-  &-custom-slider {
-    position: relative;
+.track {
+  position: relative;
 
-    z-index: 9999999;
+  width: 100%;
+  height: 15px;
 
-    width: 100%;
-    height: 100%;
-  }
+  cursor: pointer;
 
-  &-track {
-    position: relative;
+  border-radius: 5px;
+  background: #d6e2eb;
 
-    width: 100%;
-    height: 15px;
-
-    cursor: pointer;
-
-    border-radius: 5px;
-    background: #d6e2eb;
-
-    &--vertical {
-      z-index: 1000;
-
-      width: 15px;
-      height: 100%;
-    }
-  }
-
-  &-thumb {
-    position: absolute;
+  &_position_vertical {
     z-index: 1000;
-    top: 50%;
 
-    width: 20px;
-    height: 20px;
-
-    cursor: pointer;
-
-    border-radius: 50%;
-    background: #6192e9;
-
-    &--vertical {
-      top: auto;
-      left: 50%;
-    }
-
-    &--active {
-      z-index: 99999;
-    }
-  }
-
-  &-scale {
+    width: 15px;
     height: 100%;
-    margin-top: 20px;
+  }
+}
 
-    &--vertical {
-      position: absolute;
-      top: 0;
+.thumb {
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
 
-      margin-top: 0;
-    }
+  width: 20px;
+  height: 20px;
 
-    &__point {
-      position: absolute;
+  cursor: pointer;
 
-      padding: 2px;
+  border-radius: 50%;
+  background: #6192e9;
 
-      cursor: pointer;
-      text-align: center;
-
-      font-weight: bold;
-
-      &--vertical {
-        right: calc(100% + 20px);
-
-        padding: 0;
-
-        // transform: none;
-      }
-    }
+  &_position_vertical {
+    top: auto;
+    left: 50%;
   }
 
-  &-progress {
+  &_active {
+    z-index: 99999;
+  }
+}
+
+.scale {
+  height: 100%;
+  margin-top: 20px;
+
+  &_position_vertical {
+    position: absolute;
+    top: 0;
+
+    margin-top: 0;
+  }
+
+  &__point {
     position: absolute;
 
-    height: 100%;
+    padding: 2px;
 
-    border-radius: 5px;
-    background-color: skyblue;
+    cursor: pointer;
+    text-align: center;
 
-    &--vertical {
-      width: 100%;
-      height: auto;
+    font-weight: bold;
+
+    &_position_vertical {
+      right: calc(100% + 20px);
+
+      padding: 0;
+
     }
   }
+}
 
-  &-tooltip {
-    position: relative;
-    top: -40px;
+.progress {
+  position: absolute;
 
-    width: max-content;
+  height: 100%;
 
-    border-radius: 10%;
+  border-radius: 5px;
+  background-color: skyblue;
 
-    &--vertical {
-      top: auto;
-      left: 30px;
-    }
+  &_position_vertical {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.tooltip {
+  position: relative;
+  top: -40px;
+
+  width: max-content;
+
+  border-radius: 10%;
+
+  &_position_vertical {
+    top: auto;
+    left: 30px;
   }
 }

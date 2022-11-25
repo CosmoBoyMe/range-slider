@@ -8,7 +8,7 @@ import "./components/input-field/input-field.scss";
 import "./components/toggle-field/toggle-field.scss";
 
 const demoElements = document.querySelectorAll(
-  ".demo"
+  ".js-demo"
 ) as NodeListOf<HTMLElement>;
 
 const customOptionsFirst: Partial<IOptions> = {
@@ -57,8 +57,8 @@ const optionsArray = [
 ];
 
 demoElements.forEach((item, index) => {
-  const sliderEl = item.querySelector(".slider") as HTMLElement;
-  const panelEl = item.querySelector(".panel") as HTMLElement;
+  const sliderEl = item.querySelector(".js-slider") as HTMLElement;
+  const panelEl = item.querySelector(".js-panel") as HTMLElement;
   const slider = $(sliderEl).rangeSlider(optionsArray[index]) as Slider;
   // eslint-disable-next-line no-new
   new Panel(panelEl, slider);

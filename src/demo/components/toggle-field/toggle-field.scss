@@ -16,7 +16,7 @@
     margin-right: 15px;
   }
 
-  &__input_visually_hidden {
+  &__input_hidden {
     position: absolute;
 
     overflow: hidden;
@@ -41,7 +41,7 @@
 
     border-radius: 10px;
 
-    background-color: #CCC;
+    background-color: #ccc;
 
     &::after {
       position: absolute;
@@ -59,7 +59,7 @@
   }
 
   &__input:checked + &__slider {
-    background-color: #1D90FD;
+    background-color: #1d90fd;
 
     &::after {
       transform: translateX(18px);
