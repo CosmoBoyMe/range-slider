@@ -31,10 +31,11 @@ class Panel {
     this.slider = slider;
     this.options = slider.getOptions();
     this.slider.changeOptions(this.onChangeOptions.bind(this));
-    this.initEl();
+    this.initElements();
     this.bindListeners();
   }
 
+  private initElements(): void {
     const minField = this.panelElement.querySelector(
       `.js-${PanelClasses.MIN_FIELD}`
     ) as HTMLElement;
