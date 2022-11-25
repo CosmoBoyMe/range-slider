@@ -5,12 +5,12 @@ import { Scale } from "../../../View/subView";
 
 describe("Scale class:", () => {
   let rootElement;
-  let scale;
-  let scaleEl;
+  let scaleInstance;
+  let scaleElement;
   beforeEach(() => {
     rootElement = document.createElement("div");
-    scale = new Scale({
-      rootDom: rootElement,
+    scaleInstance = new Scale({
+      rootElement,
       min: 1,
       max: 10,
       step: 1,
@@ -18,20 +18,21 @@ describe("Scale class:", () => {
       isVertical: false,
       handleScaleClick: () => undefined,
     });
-    scaleEl = scale.getElement();
+    scaleElement = scaleInstance.getElement();
   });
+
   test("root element must contain scale element", () => {
-    expect(rootElement).toContainElement(scaleEl);
+    expect(rootElement).toContainElement(scaleElement);
   });
 
   test("scale element must be remove from root element", () => {
-    scale.destroy();
-    expect(rootElement).not.toContainElement(scaleEl);
+    scaleInstance.destroy();
+    expect(rootElement).not.toContainElement(scaleElement);
   });
 
   test("scale element must have vertical class", () => {
-    const scaleVertical = new Scale({
-      rootDom: rootElement,
+    const scaleVerticalInstance = new Scale({
+      rootElement,
       min: 1,
       max: 10,
       step: 1,
@@ -39,7 +40,7 @@ describe("Scale class:", () => {
       isVertical: true,
       handleScalePointClick: () => undefined,
     });
-    const scaleVerticalElement = scaleVertical.getElement();
+    const scaleVerticalElement = scaleVerticalInstance.getElement();
     expect(scaleVerticalElement).toHaveClass(SliderClasses.SCALE_VERTICAL);
   });
 
@@ -48,31 +49,31 @@ describe("Scale class:", () => {
   });
 
   test("deleteScalePointsWhenPointOverlap: should not delete point if not overlap", () => {
-    const customPoint = document.createElement("div");
+    const customPointElement = document.createElement("div");
     customPointElement.classList.add(SliderClasses.SCALE_POINT);
-    customPoint.getBoundingClientRect = () => ({
+    customPointElement.getBoundingClientRect = () => ({
       top: 100,
       bottom: 100,
       left: 100,
       right: 100,
     });
-    scaleEl.append(customPoint);
-    scale.deleteScalePointsWhenPointOverlap();
-    expect(scaleEl).toContainElement(customPoint);
+    scaleElement.append(customPointElement);
+    scaleInstance.deleteScalePointsWhenPointOverlap();
+    expect(scaleElement).toContainElement(customPointElement);
   });
 
   test("deleteScalePointsWhenPointOverlap: should delete overlap point", () => {
-    const customPoint = document.createElement("div");
+    const customPointElement = document.createElement("div");
     customPointElement.classList.add(SliderClasses.SCALE_POINT);
-    customPoint.getBoundingClientRect = () => ({
+    customPointElement.getBoundingClientRect = () => ({
       top: 0,
       bottom: 0,
       left: 0,
       right: 0,
     });
-    scaleEl.append(customPoint);
-    expect(scaleEl.children.length).toBe(2);
-    scale.deleteScalePointsWhenPointOverlap();
-    expect(scaleEl.children.length).toBe(1);
+    scaleElement.append(customPointElement);
+    expect(scaleElement.children.length).toBe(2);
+    scaleInstance.deleteScalePointsWhenPointOverlap();
+    expect(scaleElement.children.length).toBe(1);
   });
 });

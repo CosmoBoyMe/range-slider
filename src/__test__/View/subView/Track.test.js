@@ -10,7 +10,7 @@ describe("Track class:", () => {
 
   test("should destroy element", () => {
     const track = new Track({
-      element: rootElement,
+      rootElement,
       isVertical: false,
       handleTrackClick: () => undefined,
     });
@@ -22,7 +22,7 @@ describe("Track class:", () => {
 
   test("should be in root element", () => {
     const track = new Track({
-      element: rootElement,
+      rootElement,
       isVertical: true,
       handleTrackClick: () => undefined,
     });

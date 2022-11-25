@@ -2,7 +2,7 @@ import { SliderClasses } from "../../const";
 import type { ITrackArguments } from "../../types";
 
 class Track {
-  private element: HTMLElement;
+  private rootElement: HTMLElement;
 
   private isVertical: boolean;
 
@@ -10,8 +10,8 @@ class Track {
 
   private trackElement: HTMLDivElement = document.createElement("div");
 
-  constructor({ element, isVertical, handleTrackClick }: ITrackArguments) {
-    this.element = element;
+  constructor({ rootElement, isVertical, handleTrackClick }: ITrackArguments) {
+    this.rootElement = rootElement;
     this.handleTrackClick = handleTrackClick;
     this.isVertical = isVertical;
     this.render();

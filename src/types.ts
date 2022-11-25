@@ -22,7 +22,7 @@ interface IProgressArguments {
 }
 
 interface IScaleArguments {
-  rootDom: HTMLElement;
+  rootElement: HTMLElement;
   min: number;
   max: number;
   step: number;
@@ -43,7 +43,7 @@ interface IThumbArguments {
 }
 
 interface ITrackArguments {
-  element: HTMLElement;
+  rootElement: HTMLElement;
   isVertical: boolean;
   handleTrackClick: (event: MouseEvent) => void;
 }

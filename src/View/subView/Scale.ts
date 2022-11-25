@@ -3,9 +3,9 @@ import { SliderClasses } from "../../const";
 import type { IScaleArguments } from "../../types";
 
 class Scale {
-  rootDom: HTMLElement;
+  rootElement: HTMLElement;
 
-  scaleEl: HTMLDivElement = document.createElement("div");
+  scaleElement: HTMLDivElement = document.createElement("div");
 
   min: number;
 
@@ -20,7 +20,7 @@ class Scale {
   handleScaleClick: (event: MouseEvent) => void;
 
   constructor({
-    rootDom,
+    rootElement,
     min,
     max,
     step,
@@ -28,7 +28,7 @@ class Scale {
     isVertical,
     handleScaleClick,
   }: IScaleArguments) {
-    this.rootDom = rootDom;
+    this.rootElement = rootElement;
     this.min = min;
     this.max = max;
     this.step = step;
@@ -39,11 +39,11 @@ class Scale {
   }
 
   public destroy(): void {
-    this.scaleEl.remove();
+    this.scaleElement.remove();
   }
 
   public getElement(): HTMLDivElement {
-    return this.scaleEl;
+    return this.scaleElement;
   }
 
   private createScalePoint(pointValue: number): HTMLDivElement {
@@ -92,8 +92,8 @@ class Scale {
     const allPoints = [...this.scaleElement.children];
     allPoints.forEach((item, index) => {
       const currentItemRect = item.getBoundingClientRect();
-      for (let i = index + 1; i < allPoints.length; i += 1) {
-        const nextItem = allPoints[i];
+      for (let j = index + 1; j < allPoints.length; j += 1) {
+        const nextItem = allPoints[j];
         const nextItemRect = nextItem.getBoundingClientRect();
         const isOverlap = !(
           currentItemRect.top > nextItemRect.bottom ||
@@ -123,8 +123,8 @@ class Scale {
 
     const scaleValues = this.getScaleValues();
     const scalePoints = [];
-    for (let i = 0; i < scaleCounts; i += 1) {
-      const scalePoint = this.createScalePoint(scaleValues[i]);
+    for (let index = 0; index < this.scaleCounts; index += 1) {
+      const scalePoint = this.createScalePoint(scaleValues[index]);
       scalePoints.push(scalePoint);
     }
     this.scaleElement.append(...scalePoints);

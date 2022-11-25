@@ -50,15 +50,15 @@ const getCurrentValueToStep = (
   return Math.round(newValue * 100) / 100;
 };
 
-const findNearestIndexToValue = (arr: number[], value: number): number => {
-  if (arr.length === 0) {
+const findNearestIndexToValue = (array: number[], value: number): number => {
+  if (array.length === 0) {
     return -1;
   }
-  const nearestValue = arr.reduce((prev, curr) =>
+  const nearestValue = array.reduce((prev, curr) =>
     Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
   );
 
-  const allIndexOfNearestValue = arr.reduce<number[]>((prev, curr, index) => {
+  const allIndexOfNearestValue = array.reduce<number[]>((prev, curr, index) => {
     if (curr === nearestValue) {
       prev.push(index);
       return prev;

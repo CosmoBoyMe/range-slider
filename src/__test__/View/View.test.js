@@ -68,12 +68,6 @@ describe("View class:", () => {
     expect(newOptions).toEqual(customOptions);
   });
 
-  test("element should contain slider element", () => {
-    const sliderElement = view.getSliderElement();
-    expect(element).toContainElement(sliderElement);
-    expect(element).not.toBeEmptyDOMElement;
-  });
-
   test("pointerdown on track should update value", () => {
     const trackInstance = view.getAllInstance().track;
     const trackElement = trackInstance.getElement();
@@ -141,7 +135,7 @@ describe("View class:", () => {
     const presenter = new Presenter(model, viewInstance);
     const thumbsInstances = viewInstance.getAllInstance().thumbs;
     const secondThumbElement = thumbsInstances[1].getElement();
-    const sliderElement = viewInstance.getSliderElement();
+    const sliderElement = viewInstance.getRootElement();
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
       configurable: true,
       value: 10,
@@ -163,7 +157,7 @@ describe("View class:", () => {
     const presenter = new Presenter(model, viewInstance);
     const thumbsInstances = viewInstance.getAllInstance().thumbs;
     const firstThumbElement = thumbsInstances[0].getElement();
-    const sliderElement = viewInstance.getSliderElement();
+    const sliderElement = viewInstance.getRootElement();
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
       configurable: true,
       value: 10,
@@ -185,7 +179,7 @@ describe("View class:", () => {
     const presenter = new Presenter(model, viewInstance);
     const thumbsInstances = viewInstance.getAllInstance().thumbs;
     const thumbElement = thumbsInstances[0].getElement();
-    const sliderElement = viewInstance.getSliderElement();
+    const sliderElement = viewInstance.getRootElement();
     Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
       configurable: true,
       value: 10,
@@ -208,7 +202,7 @@ describe("View class:", () => {
     const model = new Model(optionWithOneValue);
     const presenter = new Presenter(model, view);
     const thumbsInstances = view.getAllInstance().thumbs;
-    const sliderElement = view.getSliderElement();
+    const sliderElement = view.getRootElement();
     const firstThumbElement = thumbsInstances[0].getElement();
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
       configurable: true,
@@ -228,7 +222,7 @@ describe("View class:", () => {
 
   test("view should not notify if thumb value not updated ", () => {
     const thumbsInstances = view.getAllInstance().thumbs;
-    const sliderElement = view.getSliderElement();
+    const sliderElement = view.getRootElement();
     const firstThumbElement = thumbsInstances[0].getElement();
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
       configurable: true,
@@ -306,7 +300,7 @@ describe("View class:", () => {
   });
 
   test("getCurrentValueFromCoords method", () => {
-    const sliderElement = view.getSliderElement();
+    const sliderElement = view.getRootElement();
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
       configurable: true,
       value: 100,

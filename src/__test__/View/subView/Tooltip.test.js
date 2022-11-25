@@ -5,13 +5,13 @@ import { Tooltip } from "../../../View/subView";
 
 describe("Track class:", () => {
   let rootElement;
-  let tooltip;
+  let tooltipInstance;
   let tooltipElement;
 
   beforeEach(() => {
     rootElement = document.createElement("div");
-    tooltip = new Tooltip({ rootElement, value: 5, isVertical: true });
-    tooltipElement = tooltip.getElement();
+    tooltipInstance = new Tooltip({ rootElement, value: 5, isVertical: true });
+    tooltipElement = tooltipInstance.getElement();
   });
 
   test("root element should contain tooltip element", () => {
@@ -19,7 +19,7 @@ describe("Track class:", () => {
   });
 
   test("should destroy element", () => {
-    tooltip.destroy();
+    tooltipInstance.destroy();
     expect(rootElement).not.toContainElement(tooltipElement);
   });
 
@@ -28,7 +28,7 @@ describe("Track class:", () => {
   });
 
   test("text should be updated", () => {
-    tooltip.updateValue(10);
+    tooltipInstance.updateValue(10);
     expect(tooltipElement).toHaveTextContent(10);
   });
 
@@ -37,8 +37,8 @@ describe("Track class:", () => {
   });
 
   test(`must not have a class ${SliderClasses.TOOLTIP_VERTICAL}`, () => {
-    tooltip = new Tooltip({ rootElement, value: 5, isVertical: false });
-    tooltipElement = tooltip.getElement();
+    tooltipInstance = new Tooltip({ rootElement, value: 5, isVertical: false });
+    tooltipElement = tooltipInstance.getElement();
     expect(tooltipElement).not.toHaveClass(SliderClasses.TOOLTIP_VERTICAL);
   });
 });

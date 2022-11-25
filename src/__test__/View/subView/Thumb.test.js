@@ -7,7 +7,7 @@ import { Thumb } from "../../../View/subView";
 describe("Thumb class:", () => {
   let rootElement;
   let thumbInstance;
-  let thumbEl;
+  let thumbElement;
 
   beforeEach(() => {
     rootElement = document.createElement("div");
@@ -21,11 +21,11 @@ describe("Thumb class:", () => {
       isVertical: true,
       withTooltip: true,
     });
-    thumbEl = thumbInstance.getElement();
+    thumbElement = thumbInstance.getElement();
   });
 
   test("root element should contain thumb element", () => {
-    expect(rootElement).toContainElement(thumbEl);
+    expect(rootElement).toContainElement(thumbElement);
   });
 
   test("root element to be empty element", () => {
@@ -64,6 +64,7 @@ describe("Thumb class:", () => {
     const tooltipElement = thumbElement.querySelector(
       `.${SliderClasses.TOOLTIP}`
     );
+    expect(thumbElement).toContainElement(tooltipElement);
   });
 
   test("thumb must not contain tooltip", () => {
@@ -77,7 +78,9 @@ describe("Thumb class:", () => {
       isVertical: true,
       withTooltip: false,
     });
+    const thumbEl = thumb.getElement();
     const tooltipElement = thumbEl.querySelector(`.${SliderClasses.TOOLTIP}`);
+    expect(thumbEl).not.toContainElement(tooltipElement);
   });
 
   test("thumb element must have vertical class", () => {
@@ -95,7 +98,7 @@ describe("Thumb class:", () => {
       isVertical: false,
       withTooltip: false,
     });
-    const thumbElement = thumb.getElement();
+    const thumbEl = thumb.getElement();
     expect(thumbEl).not.toHaveClass(SliderClasses.THUMB_VERTICAL);
   });
 
@@ -114,20 +117,20 @@ describe("Thumb class:", () => {
   test("updatePosition: should update thumb position", () => {
     thumbInstance.value = 9;
     thumbInstance.updatePosition();
-    expect(thumbEl).toHaveStyle({ bottom: "90%" });
+    expect(thumbElement).toHaveStyle({ bottom: "90%" });
     thumbInstance.value = 3;
     thumbInstance.updatePosition();
-    expect(thumbEl).toHaveStyle("bottom: 30%");
+    expect(thumbElement).toHaveStyle("bottom: 30%");
   });
 
   test("updatePosition: should update thumb position by vertical", () => {
-    expect(thumbEl).toHaveStyle("bottom: 50%");
+    expect(thumbElement).toHaveStyle("bottom: 50%");
     thumbInstance.value = 10;
     thumbInstance.updatePosition();
-    expect(thumbEl).toHaveStyle("bottom: 100%");
+    expect(thumbElement).toHaveStyle("bottom: 100%");
     thumbInstance.value = 3;
     thumbInstance.updatePosition();
-    expect(thumbEl).toHaveStyle("bottom: 30%");
+    expect(thumbElement).toHaveStyle("bottom: 30%");
   });
 
   test("updatePosition: should update thumb position by horizontal", () => {
@@ -141,14 +144,14 @@ describe("Thumb class:", () => {
       isVertical: false,
       withTooltip: false,
     });
-    const thumbElement = thumb.getElement();
-    expect(thumbElement).toHaveStyle("left: 50%");
+    const thumbEl = thumb.getElement();
+    expect(thumbEl).toHaveStyle("left: 50%");
     thumb.value = 10;
     thumb.updatePosition();
-    expect(thumbElement).toHaveStyle("left: 100%");
+    expect(thumbEl).toHaveStyle("left: 100%");
     thumb.value = 3;
     thumb.updatePosition();
-    expect(thumbElement).toHaveStyle("left: 30%");
+    expect(thumbEl).toHaveStyle("left: 30%");
   });
 
   test("checkTooltipOutsideBorder: tooltip should not going outside by initialization", () => {

@@ -9,7 +9,7 @@ import { Observer } from "../Observer/Observer";
 import { Scale, Track, Thumb, Progress } from "./subView/index";
 
 class View extends Observer {
-  private sliderElement: HTMLDivElement = document.createElement("div");
+  private rootElement: HTMLElement;
 
   private options: IOptions;
 
@@ -25,10 +25,9 @@ class View extends Observer {
 
   private lastClickedThumbIndex: number | null = null;
 
-  constructor(domRoot: HTMLElement, options: IOptions) {
+  constructor(rootElement: HTMLElement, options: IOptions) {
     super();
-    this.sliderElement.classList.add(CSS_CLASSES.SLIDER);
-    domRoot.append(this.sliderElement);
+    this.rootElement = rootElement;
     this.options = JSON.parse(JSON.stringify(options));
     this.render();
   }
@@ -61,19 +60,19 @@ class View extends Observer {
     return this.options;
   }
 
-  public getSliderElement(): HTMLDivElement {
-    return this.sliderElement;
+  public getRootElement(): HTMLElement {
+    return this.rootElement;
   }
 
   private getCurrentValueFromCoords(clientX: number, clientY: number): number {
     const { min, max, isVertical } = this.options;
     const coords = isVertical ? clientY : clientX;
     const startEdgeCoords = isVertical
-      ? this.sliderElement.getBoundingClientRect().bottom
-      : this.sliderElement.getBoundingClientRect().left;
+      ? this.rootElement.getBoundingClientRect().bottom
+      : this.rootElement.getBoundingClientRect().left;
     const maxOffsetInPx = isVertical
-      ? this.sliderElement.offsetHeight
-      : this.sliderElement.offsetWidth;
+      ? this.rootElement.offsetHeight
+      : this.rootElement.offsetWidth;
     let offsetInPx = isVertical
       ? startEdgeCoords - coords
       : coords - startEdgeCoords;
@@ -238,7 +237,7 @@ class View extends Observer {
 
     const isRange = values.length > 1;
     this.track = new Track({
-      element: this.sliderElement,
+      rootElement: this.rootElement,
       isVertical,
       handleTrackClick: this.handleTrackClick.bind(this),
     });
@@ -258,7 +257,7 @@ class View extends Observer {
 
     if (withScale) {
       this.scaleInstance = new Scale({
-        rootDom: this.sliderElement,
+        rootElement: this.rootElement,
         min,
         max,
         step,

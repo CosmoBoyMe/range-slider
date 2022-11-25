@@ -8,7 +8,7 @@ class Tooltip {
 
   private isVertical: boolean;
 
-  private tooltipEl: HTMLDivElement = document.createElement("div");
+  private tooltipElement: HTMLDivElement = document.createElement("div");
 
   constructor({ rootElement, value, isVertical }: ITooltipArguments) {
     this.rootElement = rootElement;
@@ -18,11 +18,11 @@ class Tooltip {
   }
 
   public destroy(): void {
-    this.tooltipEl.remove();
+    this.tooltipElement.remove();
   }
 
   public getElement(): HTMLDivElement {
-    return this.tooltipEl;
+    return this.tooltipElement;
   }
 
   public updateValue(newValue: number): void {
@@ -35,7 +35,7 @@ class Tooltip {
   }
 
   private updateInnerText(): void {
-    this.tooltipEl.textContent = String(this.value);
+    this.tooltipElement.textContent = String(this.value);
   }
 
   private render(): void {

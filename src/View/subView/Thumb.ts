@@ -6,7 +6,7 @@ import { Tooltip } from "./Tooltip";
 class Thumb {
   private rootElement: HTMLElement;
 
-  private thumbEl: HTMLDivElement = document.createElement("div");
+  private thumbElement: HTMLDivElement = document.createElement("div");
 
   private value: number;
 
@@ -48,7 +48,7 @@ class Thumb {
     this.isVertical = isVertical;
     if (this.withTooltip) {
       this.tooltipInstance = new Tooltip({
-        rootElement: this.thumbEl,
+        rootElement: this.thumbElement,
         value,
         isVertical,
       });
@@ -57,11 +57,11 @@ class Thumb {
   }
 
   public getElement(): HTMLDivElement {
-    return this.thumbEl;
+    return this.thumbElement;
   }
 
   public destroy(): void {
-    this.thumbEl.remove();
+    this.thumbElement.remove();
   }
 
   public getValue(): number {

@@ -20,17 +20,17 @@ interface IPanelElements {
 class Panel {
   private slider: Slider;
 
-  private panelEl: HTMLElement;
+  private panelElement: HTMLElement;
 
   private options: IOptions;
 
   private panelElements!: IPanelElements;
 
-  constructor(panelEl: HTMLElement, slider: Slider) {
-    this.panelEl = panelEl;
+  constructor(panelElement: HTMLElement, slider: Slider) {
+    this.panelElement = panelElement;
     this.slider = slider;
     this.options = slider.getOptions();
-    this.slider.onChangeOptions(this.onChangeOptions.bind(this));
+    this.slider.changeOptions(this.onChangeOptions.bind(this));
     this.initEl();
     this.bindListeners();
   }
@@ -161,7 +161,7 @@ class Panel {
       Number(this.panelElements.newThumbInput.value)
     );
     const thumbInputs = thumbField.querySelector("input") as HTMLInputElement;
-    const thumbsValuesContainer = this.panelEl.querySelector(
+    const thumbsValuesContainer = this.panelElement.querySelector(
       `.js-${PanelClasses.THUMB_VALUES}`
     );
     thumbsValuesContainer?.append(thumbField);

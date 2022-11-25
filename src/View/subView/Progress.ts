@@ -15,7 +15,7 @@ class Progress {
 
   private isVertical: boolean;
 
-  private progressEl: HTMLDivElement = document.createElement("div");
+  private progressElement: HTMLDivElement = document.createElement("div");
 
   constructor({
     rootElement,
@@ -41,11 +41,11 @@ class Progress {
   }
 
   public destroy(): void {
-    this.progressEl.remove();
+    this.progressElement.remove();
   }
 
   public getElement(): HTMLDivElement {
-    return this.progressEl;
+    return this.progressElement;
   }
 
   private updateProgressLength(): void {
