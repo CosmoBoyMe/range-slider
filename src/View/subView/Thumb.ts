@@ -80,6 +80,14 @@ class Thumb {
     this.updatePosition();
   }
 
+  public addActiveClass(): void {
+    this.thumbElement.classList.add(SliderClasses.THUMB_ACTIVE);
+  }
+
+  public removeActiveClass(): void {
+    this.thumbElement.classList.remove(SliderClasses.THUMB_ACTIVE);
+  }
+
   private checkTooltipOutsideBorder() {
     if (this.tooltipInstance === null || this.isVertical) {
       return;
@@ -132,14 +140,6 @@ class Thumb {
     }
 
     this.checkTooltipOutsideBorder();
-  }
-
-  public addActiveClass(): void {
-    this.thumbEl.classList.add(CSS_CLASSES.THUMB_ACTIVE);
-  }
-
-  public removeActiveClass(): void {
-    this.thumbEl.classList.remove(CSS_CLASSES.THUMB_ACTIVE);
   }
 
   private toggleVerticalClass(): void {
