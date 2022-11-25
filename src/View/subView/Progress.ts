@@ -49,7 +49,6 @@ class Progress {
   }
 
   private updateProgressLength(): void {
-    const { progressEl, values, min, max, range, vertical }: Progress = this;
     let progressLengthInPercent;
     if (this.withRange) {
       const minValue = Math.min(...this.values);
