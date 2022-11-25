@@ -13,8 +13,8 @@ describe("Progress class", () => {
       values: [10],
       min: 0,
       max: 20,
-      range: false,
-      vertical: false,
+      withRange: false,
+      isVertical: false,
     });
     progressEl = progress.getElement();
   });
@@ -44,8 +44,8 @@ describe("Progress class", () => {
       values: [10],
       min: 0,
       max: 20,
-      range: false,
-      vertical: true,
+      withRange: false,
+      isVertical: true,
     });
     const verticalProgressEl = verticalProgress.getElement();
     const { height } = verticalProgressEl.style;
@@ -63,8 +63,8 @@ describe("Progress class", () => {
       values: [5, 10],
       min: 0,
       max: 20,
-      range: true,
-      vertical: false,
+      withRange: true,
+      isVertical: false,
     });
     const rangeProgressEl = rangeProgress.getElement();
 
@@ -83,8 +83,8 @@ describe("Progress class", () => {
       values: [5, 10],
       min: 0,
       max: 20,
-      range: true,
-      vertical: true,
+      withRange: true,
+      isVertical: true,
     });
     const verticalAndRangeProgressEl = verticalAndRangeProgress.getElement();
 

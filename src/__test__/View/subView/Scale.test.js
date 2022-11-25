@@ -15,7 +15,7 @@ describe("Scale class:", () => {
       max: 10,
       step: 1,
       scaleCounts: 4,
-      vertical: false,
+      isVertical: false,
       handleScaleClick: () => undefined,
     });
     scaleEl = scale.getElement();
@@ -36,7 +36,7 @@ describe("Scale class:", () => {
       max: 10,
       step: 1,
       scaleCounts: 10,
-      vertical: true,
+      isVertical: true,
       handleScalePointClick: () => undefined,
     });
     const scaleVerticalElement = scaleVertical.getElement();

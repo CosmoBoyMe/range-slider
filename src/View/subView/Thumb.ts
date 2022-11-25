@@ -18,7 +18,7 @@ class Thumb {
 
   private isVertical: boolean;
 
-  private enableTooltip: boolean;
+  private withTooltip: boolean;
 
   private tooltipInstance: Tooltip | null = null;
 
@@ -36,7 +36,7 @@ class Thumb {
     handleThumbPointerDown,
     index,
     isVertical,
-    enableTooltip,
+    withTooltip,
   }: IThumbArguments) {
     this.rootElement = rootElement;
     this.value = value;
@@ -44,9 +44,9 @@ class Thumb {
     this.max = max;
     this.handleThumbPointerDown = handleThumbPointerDown;
     this.index = index;
-    this.enableTooltip = enableTooltip;
+    this.withTooltip = withTooltip;
     this.isVertical = isVertical;
-    if (this.enableTooltip) {
+    if (this.withTooltip) {
       this.tooltipInstance = new Tooltip({
         rootElement: this.thumbEl,
         value,
@@ -81,15 +81,7 @@ class Thumb {
   }
 
   private checkTooltipOutsideBorder() {
-    const {
-      value,
-      lastOutsideValueTooltip,
-      isVertical,
-      tooltipInstance,
-      rootElement,
-      lastTranslateValue,
-    } = this;
-    if (tooltipInstance === null || isVertical) {
+    if (this.tooltipInstance === null || this.isVertical) {
       return;
     }
     const rootElWidth = rootElement.offsetWidth;
@@ -130,11 +122,7 @@ class Thumb {
   }
 
   private updatePosition(): void {
-    const { value, min, max, isVertical, thumbEl } = this;
-    const valueInPercent = getPercentOfValue(value, min, max);
-    if (isVertical) {
-      thumbEl.style.bottom = `${valueInPercent}%`;
-      thumbEl.style.transform = `translate(-50%, ${valueInPercent}%)`;
+    if (this.isVertical) {
     } else {
       thumbEl.style.left = `${valueInPercent}%`;
       thumbEl.style.transform = `translate(-${valueInPercent}%, -50%)`;
@@ -165,7 +153,7 @@ class Thumb {
     }: Thumb = this;
     thumbEl.classList.add(CSS_CLASSES.THUMB);
 
-    if (isVertical) {
+    if (this.isVertical) {
       this.toggleVerticalClass();
     }
     thumbEl.addEventListener("pointerdown", (event) =>

@@ -12,10 +12,10 @@ const demoElements = document.querySelectorAll(
 ) as NodeListOf<HTMLElement>;
 
 const customOptionsFirst: Partial<IOptions> = {
-  tooltip: false,
-  progress: false,
-  scale: false,
-  vertical: false,
+  withTooltip: false,
+  withProgress: false,
+  withScale: false,
+  isVertical: false,
 };
 
 const customOptionsSecond: Partial<IOptions> = {
@@ -29,9 +29,9 @@ const customOptionsThird: Partial<IOptions> = {
   min: -100,
   max: -10,
   step: 0.33,
-  vertical: false,
+  isVertical: false,
   scaleCounts: 2,
-  progress: false,
+  withProgress: false,
   values: [-33.01, -55.12],
 };
 
@@ -40,9 +40,9 @@ const customOptionsFourth: Partial<IOptions> = {
   max: 10000,
   step: 0.33,
   scaleCounts: 5,
-  tooltip: false,
-  vertical: false,
-  scale: true,
+  withTooltip: false,
+  isVertical: false,
+  withScale: true,
   values: [33, 5000, 3000, 6534, 4043],
 };
 

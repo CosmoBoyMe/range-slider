@@ -5,10 +5,10 @@ interface IOptions {
   max: number;
   step: number;
   scaleCounts: number;
-  vertical: boolean;
-  scale: boolean;
-  tooltip: boolean;
-  progress: boolean;
+  isVertical: boolean;
+  withScale: boolean;
+  withTooltip: boolean;
+  withProgress: boolean;
   values: number[];
 }
 
@@ -17,8 +17,8 @@ interface IProgressArguments {
   values: number[];
   min: number;
   max: number;
-  range: boolean;
-  vertical: boolean;
+  withRange: boolean;
+  isVertical: boolean;
 }
 
 interface IScaleArguments {
@@ -27,7 +27,7 @@ interface IScaleArguments {
   max: number;
   step: number;
   scaleCounts: number;
-  vertical: boolean;
+  isVertical: boolean;
   handleScaleClick: (event: MouseEvent) => void;
 }
 
@@ -38,7 +38,7 @@ interface IThumbArguments {
   max: number;
   index: number;
   isVertical: boolean;
-  enableTooltip: boolean;
+  withTooltip: boolean;
   handleThumbPointerDown: (event: MouseEvent, index: number) => void;
 }
 

@@ -19,7 +19,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: true,
-      enableTooltip: true,
+      withTooltip: true,
     });
     thumbEl = thumbInstance.getElement();
   });
@@ -42,7 +42,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: true,
-      enableTooltip: false,
+      withTooltip: false,
     });
     const value = thumb.getValue();
     expect(value).toBe(5);
@@ -72,7 +72,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: true,
-      enableTooltip: false,
+      withTooltip: false,
     });
     const thumbElement = thumb.getElement();
     const tooltipElement = thumbElement.querySelector(
@@ -94,7 +94,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: false,
-      enableTooltip: false,
+      withTooltip: false,
     });
     const thumbElement = thumb.getElement();
     expect(thumbElement).not.toHaveClass(CSS_CLASSES.THUMB_VERTICAL);
@@ -140,7 +140,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: false,
-      enableTooltip: false,
+      withTooltip: false,
     });
     const thumbElement = thumb.getElement();
     expect(thumbElement).toHaveStyle("left: 50%");
@@ -161,7 +161,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: false,
-      enableTooltip: true,
+      withTooltip: true,
     });
     const tooltipEl = thumb.getTooltipInstance().getElement();
     tooltipEl.getBoundingClientRect = () => ({
@@ -180,7 +180,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: (event, index) => undefined,
       isVertical: false,
-      enableTooltip: true,
+      withTooltip: true,
     });
     const tooltipEl = thumb.getTooltipInstance().getElement();
     tooltipEl.getBoundingClientRect = () => ({
@@ -205,7 +205,7 @@ describe("Thumb class:", () => {
       index: 0,
       handleThumbMouseDown: () => undefined,
       isVertical: false,
-      enableTooltip: true,
+      withTooltip: true,
     });
     const tooltipEl = thumb.getTooltipInstance().getElement();
     tooltipEl.getBoundingClientRect = () => ({

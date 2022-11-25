@@ -211,16 +211,16 @@ class Panel {
         case "scaleCounts":
           scaleCountsInput.value = String(value);
           break;
-        case "vertical":
+        case "isVertical":
           verticalToggleInput.checked = value;
           break;
-        case "progress":
+        case "withProgress":
           progressToggleInput.checked = value;
           break;
-        case "tooltip":
+        case "withTooltip":
           tooltipToggleInput.checked = value;
           break;
-        case "scale":
+        case "withScale":
           scaleToggleInput.checked = value;
           break;
         case "values":
@@ -271,22 +271,22 @@ class Panel {
             this.handlerItemInputChange(event, key)
           );
           break;
-        case "vertical":
+        case "isVertical":
           verticalToggleInput.addEventListener("click", (event) =>
             this.handlerToggleInputClick(event, key)
           );
           break;
-        case "progress":
+        case "withProgress":
           progressToggleInput.addEventListener("click", (event) =>
             this.handlerToggleInputClick(event, key)
           );
           break;
-        case "tooltip":
+        case "withTooltip":
           tooltipToggleInput.addEventListener("click", (event) =>
             this.handlerToggleInputClick(event, key)
           );
           break;
-        case "scale":
+        case "withScale":
           scaleToggleInput.addEventListener("click", (event) =>
             this.handlerToggleInputClick(event, key)
           );

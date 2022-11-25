@@ -15,7 +15,7 @@ class Scale {
 
   scaleCounts: number;
 
-  vertical: boolean;
+  isVertical: boolean;
 
   handleScaleClick: (event: MouseEvent) => void;
 
@@ -25,14 +25,14 @@ class Scale {
     max,
     step,
     scaleCounts,
-    vertical,
+    isVertical,
     handleScaleClick,
   }: IScaleArguments) {
     this.rootDom = rootDom;
     this.min = min;
     this.max = max;
     this.step = step;
-    this.vertical = vertical;
+    this.isVertical = isVertical;
     this.scaleCounts = scaleCounts;
     this.handleScaleClick = handleScaleClick;
     this.render();
@@ -52,7 +52,7 @@ class Scale {
     pointEl.classList.add(CSS_CLASSES.SCALE_POINT);
     pointEl.innerHTML = String(pointValue);
     const valuePercent = getPercentOfValue(pointValue, min, max);
-    if (vertical) {
+    if (this.isVertical) {
       pointEl.classList.add(CSS_CLASSES.SCALE_POINT_VERTICAL);
       pointEl.style.bottom = `${valuePercent}%`;
       pointEl.style.transform = `translate(0, ${valuePercent}%)`;
@@ -112,11 +112,7 @@ class Scale {
   }
 
   private render(): void {
-    const { rootDom, scaleEl, scaleCounts, vertical } = this;
-
-    scaleEl.classList.add(CSS_CLASSES.SCALE);
-    if (vertical) {
-      scaleEl.classList.add(CSS_CLASSES.SCALE_VERTICAL);
+    if (this.isVertical) {
     }
 
     rootDom.append(scaleEl);

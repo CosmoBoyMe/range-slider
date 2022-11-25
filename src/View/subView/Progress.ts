@@ -11,9 +11,9 @@ class Progress {
 
   private max: number;
 
-  private range: boolean;
+  private withRange: boolean;
 
-  private vertical: boolean;
+  private isVertical: boolean;
 
   private progressEl: HTMLDivElement = document.createElement("div");
 
@@ -22,15 +22,15 @@ class Progress {
     values,
     min,
     max,
-    range,
-    vertical,
+    withRange,
+    isVertical,
   }: IProgressArguments) {
     this.rootElement = rootElement;
     this.values = values;
     this.min = min;
     this.max = max;
-    this.range = range;
-    this.vertical = vertical;
+    this.withRange = withRange;
+    this.isVertical = isVertical;
     this.init();
   }
 
@@ -51,7 +51,7 @@ class Progress {
   private updateProgressLength(): void {
     const { progressEl, values, min, max, range, vertical }: Progress = this;
     let progressLengthInPercent;
-    if (range) {
+    if (this.withRange) {
       const minValue = Math.min(...values);
       const maxValue = Math.max(...values);
       const minValueInPercent = getPercentOfValue(minValue, min, max);
@@ -61,30 +61,23 @@ class Progress {
       progressLengthInPercent = getPercentOfValue(values[0], min, max);
     }
 
-    vertical
+    this.isVertical
       ? (progressEl.style.height = `${progressLengthInPercent}%`)
       : (progressEl.style.width = `${progressLengthInPercent}%`);
   }
 
   private toggleVerticalClass(this: Progress): void {
-    const { progressEl, vertical } = this;
-    if (vertical) {
-      progressEl.classList.add(CSS_CLASSES.PROGRESS_VERTICAL);
+    if (this.isVertical) {
     } else {
       progressEl.classList.remove(CSS_CLASSES.PROGRESS_VERTICAL);
     }
   }
 
   private updatePosition(): void {
-    const { min, max, values, progressEl, range, vertical }: Progress = this;
-    if (range) {
-      const minValue = Math.min(...values);
-      const positionInPercent = getPercentOfValue(minValue, min, max);
-      vertical
-        ? (progressEl.style.bottom = `${positionInPercent}%`)
-        : (progressEl.style.left = `${positionInPercent}%`);
+    if (this.withRange) {
+      this.isVertical;
     } else {
-      vertical
+      this.isVertical
         ? (progressEl.style.bottom = "0%")
         : (progressEl.style.left = "0%");
     }

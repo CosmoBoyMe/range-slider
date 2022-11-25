@@ -66,15 +66,15 @@ class View extends Observer {
   }
 
   private getCurrentValueFromCoords(clientX: number, clientY: number): number {
-    const { min, max, vertical } = this.options;
-    const coords = vertical ? clientY : clientX;
-    const startEdgeCoords = vertical
+    const { min, max, isVertical } = this.options;
+    const coords = isVertical ? clientY : clientX;
+    const startEdgeCoords = isVertical
       ? this.sliderElement.getBoundingClientRect().bottom
       : this.sliderElement.getBoundingClientRect().left;
-    const maxOffsetInPx = vertical
+    const maxOffsetInPx = isVertical
       ? this.sliderElement.offsetHeight
       : this.sliderElement.offsetWidth;
-    let offsetInPx = vertical
+    let offsetInPx = isVertical
       ? startEdgeCoords - coords
       : coords - startEdgeCoords;
 
@@ -230,40 +230,40 @@ class View extends Observer {
       step,
       values,
       scaleCounts,
-      vertical,
-      tooltip,
-      scale,
-      progress,
+      isVertical,
+      withTooltip,
+      withScale,
+      withProgress,
     } = this.options;
 
     const isRange = values.length > 1;
     this.track = new Track({
       element: this.sliderElement,
-      isVertical: vertical,
+      isVertical,
       handleTrackClick: this.handleTrackClick.bind(this),
     });
 
     const trackElement = this.track.getElement();
 
-    if (progress) {
+    if (withProgress) {
       this.progressInstance = new Progress({
         rootElement: trackElement,
         values,
         min,
         max,
-        range: isRange,
-        vertical,
+        withRange: isRange,
+        isVertical,
       });
     }
 
-    if (scale) {
+    if (withScale) {
       this.scaleInstance = new Scale({
         rootDom: this.sliderElement,
         min,
         max,
         step,
         scaleCounts,
-        vertical,
+        isVertical,
         handleScaleClick: this.handleScaleClick.bind(this),
       });
     }
@@ -277,8 +277,8 @@ class View extends Observer {
           max,
           handleThumbPointerDown: this.handleThumbPointerDown.bind(this),
           index,
-          isVertical: vertical,
-          enableTooltip: tooltip,
+          isVertical,
+          withTooltip,
         })
     );
 

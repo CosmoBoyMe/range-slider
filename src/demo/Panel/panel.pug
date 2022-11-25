@@ -2,7 +2,7 @@ include ../components/button/button.pug
 include ../components/input-field/input-field.pug
 include ../components/toggle-field/toggle-field.pug
 
-mixin panel({ min = 0, max = 10, step = 1, scaleCounts = 11, values = [5, 6], vertical = true, scale = true, tooltip = true, progress = true } = {})
+mixin panel({ min = 0, max = 10, step = 1, scaleCounts = 11, values = [5, 6], isVertical = true, withScale = true, withTooltip = true, withProgress = true } = {})
   .panel
     .panel__fields
       .js-panel__min-field
@@ -21,10 +21,10 @@ mixin panel({ min = 0, max = 10, step = 1, scaleCounts = 11, values = [5, 6], ve
         +button("+")
     .panel__toggles
       .js-panel__toggle-vertical-field
-        +toggle-field("vertical", vertical)
+        +toggle-field("vertical", isVertical)
       .js-panel__toggle-scale-field
-        +toggle-field("scale", scale)
+        +toggle-field("scale", withScale)
       .js-panel__toggle-tooltip-field
-        +toggle-field("tooltip", tooltip)
+        +toggle-field("tooltip", withTooltip)
       .js-panel__toggle-progress-field
-        +toggle-field("progress", progress)
+        +toggle-field("progress", withProgress)

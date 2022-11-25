@@ -5,10 +5,10 @@ const defaultOptions = {
   max: 10,
   step: 1,
   scaleCounts: 11,
-  vertical: true,
-  scale: true,
-  tooltip: true,
-  progress: true,
+  isVertical: true,
+  withScale: true,
+  withTooltip: true,
+  withProgress: true,
   values: [5, 6],
 };
 

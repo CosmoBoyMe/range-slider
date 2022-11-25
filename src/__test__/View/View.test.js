@@ -12,10 +12,10 @@ describe("View class:", () => {
     max: 10,
     step: 1,
     scaleCounts: 11,
-    vertical: true,
-    scale: true,
-    tooltip: true,
-    progress: true,
+    isVertical: true,
+    withScale: true,
+    withTooltip: true,
+    withProgress: true,
     values: [5, 6],
   };
 
@@ -24,10 +24,10 @@ describe("View class:", () => {
     max: 20,
     step: 5,
     scaleCounts: 11,
-    vertical: false,
-    scale: false,
-    tooltip: true,
-    progress: false,
+    isVertical: false,
+    withScale: false,
+    withTooltip: true,
+    withProgress: false,
     values: [-5, 0, 10, 15],
   };
 
@@ -36,10 +36,10 @@ describe("View class:", () => {
     max: 10,
     step: 1,
     scaleCounts: 11,
-    vertical: false,
-    scale: true,
-    tooltip: false,
-    progress: false,
+    isVertical: false,
+    withScale: true,
+    withTooltip: false,
+    withProgress: false,
     values: [1],
   };
 

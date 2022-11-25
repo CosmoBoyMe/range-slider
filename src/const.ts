@@ -10,10 +10,10 @@ const DEFAULT_OPTIONS = {
   step: 1,
   scaleCounts: 11,
   values: [5, 6],
-  vertical: true,
-  scale: true,
-  tooltip: true,
-  progress: true,
+  isVertical: true,
+  withScale: true,
+  withTooltip: true,
+  withProgress: true,
 };
 
 const enum CSS_CLASSES {
