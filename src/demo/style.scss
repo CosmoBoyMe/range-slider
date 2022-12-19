@@ -24,11 +24,12 @@ body {
 
   margin-bottom: 100px;
   column-gap: 100px;
+
+  &__slider {
+    width: 300px;
+    height: 300px;
+  
+    border: 1px solid black;
+  }
 }
 
-.slider {
-  width: 300px;
-  height: 300px;
-
-  border: 1px solid black;
-}

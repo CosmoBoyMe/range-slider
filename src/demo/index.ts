@@ -46,7 +46,7 @@ const customOptionsFourth: Partial<IOptions> = {
   values: [33, 5000, 3000, 6534, 4043],
 };
 
-const customOptionsFive = { values: [1] };
+const customOptionsFive: Partial<IOptions> = { values: [1] };
 
 const optionsArray = [
   customOptionsFirst,
@@ -57,8 +57,8 @@ const optionsArray = [
 ];
 
 demoElements.forEach((item, index) => {
-  const sliderEl = item.querySelector(".js-slider") as HTMLElement;
-  const panelEl = item.querySelector(".js-panel") as HTMLElement;
+  const sliderEl = item.querySelector(".js-demo__slider") as HTMLElement;
+  const panelEl = item.querySelector(".js-demo__panel") as HTMLElement;
   const slider = $(sliderEl).rangeSlider(optionsArray[index]) as Slider;
   // eslint-disable-next-line no-new
   new Panel(panelEl, slider);
