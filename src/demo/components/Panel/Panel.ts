@@ -40,16 +40,19 @@ class Panel {
       `.js-${PanelClasses.MIN_FIELD}`
     ) as HTMLElement;
     const minInput = minField.querySelector("input") as HTMLInputElement;
+    minInput.value = String(this.options.min);
 
     const maxField = this.panelElement.querySelector(
       `.js-${PanelClasses.MAX_FIELD}`
     ) as HTMLElement;
     const maxInput = maxField.querySelector("input") as HTMLInputElement;
+    maxInput.value = String(this.options.max);
 
     const stepField = this.panelElement.querySelector(
       `.js-${PanelClasses.STEP_FIELD}`
     ) as HTMLElement;
     const stepInput = stepField.querySelector("input") as HTMLInputElement;
+    stepInput.value = String(this.options.step);
 
     const scaleCountsField = this.panelElement.querySelector(
       `.js-${PanelClasses.SCALE_COUNTS_FIELD}`
@@ -57,6 +60,7 @@ class Panel {
     const scaleCountsInput = scaleCountsField.querySelector(
       "input"
     ) as HTMLInputElement;
+    scaleCountsInput.value = String(this.options.scaleCounts);
 
     const thumbsValuesInputs = this.options.values.map((value) => {
       const thumbsField = this.createThumbsField("value", value);
@@ -74,6 +78,7 @@ class Panel {
     const verticalToggleInput = verticalToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
+    verticalToggleInput.checked = Boolean(this.options.isVertical);
 
     const scaleToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_SCALE_FIELD}`
@@ -81,6 +86,7 @@ class Panel {
     const scaleToggleInput = scaleToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
+    scaleToggleInput.checked = Boolean(this.options.withScale);
 
     const tooltipToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_TOOLTIP_FIELD}`
@@ -88,6 +94,7 @@ class Panel {
     const tooltipToggleInput = tooltipToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
+    scaleToggleInput.checked = Boolean(this.options.withTooltip);
 
     const progressToggleField = this.panelElement.querySelector(
       `.js-${PanelClasses.TOGGLE_PROGRESS_FIELD}`
@@ -95,6 +102,7 @@ class Panel {
     const progressToggleInput = progressToggleField.querySelector(
       "input"
     ) as HTMLInputElement;
+    scaleToggleInput.checked = Boolean(this.options.withProgress);
 
     const newThumbInputField = this.panelElement.querySelector(
       `.js-${PanelClasses.NEW_THUMB_FIELD}`

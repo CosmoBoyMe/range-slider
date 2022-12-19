@@ -2,17 +2,17 @@ include ../button/button.pug
 include ../input-field/input-field.pug
 include ../toggle-field/toggle-field.pug
 
-mixin panel({ min = 0, max = 10, step = 1, scaleCounts = 11, values = [5, 6], isVertical = true, withScale = true, withTooltip = true, withProgress = true } = {})
+mixin panel
   .panel.js-panel
     .panel__fields
       .panel__min-field.js-panel__min-field
-        +input-field("min value", min)
+        +input-field("min value")
       .panel__max-field.js-panel__max-field
-        +input-field("max value", max)
+        +input-field("max value")
       .panel__step-field.js-panel__step-field
-        +input-field("step", step)
+        +input-field("step")
       .panel__scale-counts-field.js-panel__scale-counts-field
-        +input-field("scale counts", scaleCounts)
+        +input-field("scale counts")
     .panel__thumbs-values.js-panel__thumbs-values
     .panel__add-new-thumb.js-panel__add-new-thumb
       .panel__add-new-thumb-field.js-panel__add-new-thumb-field
@@ -21,10 +21,10 @@ mixin panel({ min = 0, max = 10, step = 1, scaleCounts = 11, values = [5, 6], is
         +button("+")
     .panel__toggles
       .panel__toggle-vertical-field.js-panel__toggle-vertical-field
-        +toggle-field("vertical", isVertical)
+        +toggle-field("vertical")
       .panel__toggle-scale-field.js-panel__toggle-scale-field
-        +toggle-field("scale", withScale)
+        +toggle-field("scale")
       .panel__toggle-tooltip-field.js-panel__toggle-tooltip-field
-        +toggle-field("tooltip", withTooltip)
+        +toggle-field("tooltip")
       .panel__toggle-progress-field.js-panel__toggle-progress-field
-        +toggle-field("progress", withProgress)
+        +toggle-field("progress")
