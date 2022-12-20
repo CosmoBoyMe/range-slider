@@ -6,7 +6,7 @@ import {
 import { IOptions, IViewInstances } from "../types";
 import { ObserverTypes, SliderClasses } from "../const";
 import { Observer } from "../Observer/Observer";
-import { Scale, Track, Thumb, Progress } from "./subView/index";
+import { Scale, Track, Thumb, Progress } from "./subView";
 
 class View extends Observer {
   private rootElement: HTMLElement;

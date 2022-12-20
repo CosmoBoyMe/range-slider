@@ -16,5 +16,6 @@
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "skipLibCheck": true,
+    "moduleResolution": "node"
   },
 }
