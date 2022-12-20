@@ -1,4 +1,4 @@
-import { ObserverTypes } from "../const";
+import { ObserverTypes } from "../constants";
 import type { IOptions, valuePayload } from "../types";
 import type { Model } from "../Model/Model";
 import type { View } from "../View/View";

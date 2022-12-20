@@ -1,5 +1,5 @@
 import { getPercentOfValue, getClosestValue } from "../../helpers";
-import { SliderClasses } from "../../const";
+import { SliderClasses } from "../../constants";
 import type { IScaleArguments } from "../../types";
 
 class Scale {

@@ -1,4 +1,4 @@
-import type { Progress, Scale, Thumb, Track } from "./View/subView/index";
+import type { Progress, Scale, Thumb, Track } from "./View/subView";
 
 interface IOptions {
   min: number;

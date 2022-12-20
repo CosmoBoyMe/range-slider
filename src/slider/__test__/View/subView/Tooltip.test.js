@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-import { SliderClasses } from "../../../const";
+import { SliderClasses } from "../../../constants";
 import { Tooltip } from "../../../View/subView";
 
 describe("Track class:", () => {

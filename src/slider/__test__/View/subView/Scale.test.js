@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-import { SliderClasses } from "../../../const";
+import { SliderClasses } from "../../../constants";
 import { Scale } from "../../../View/subView";
 
 describe("Scale class:", () => {

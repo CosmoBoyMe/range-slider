@@ -1,4 +1,4 @@
-import { ObserverTypes } from "../const";
+import { ObserverTypes } from "../constants";
 import type { observerFn, observers } from "../types";
 
 class Observer {

@@ -1,5 +1,5 @@
 import { getPercentOfValue } from "../../helpers";
-import { SliderClasses } from "../../const";
+import { SliderClasses } from "../../constants";
 import type { IThumbArguments } from "../../types";
 import { Tooltip } from "./Tooltip";
 

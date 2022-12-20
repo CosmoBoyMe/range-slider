@@ -1,4 +1,4 @@
-import { ObserverTypes } from "../const";
+import { ObserverTypes } from "../constants";
 import { Model } from "../Model/Model";
 import { View } from "../View/View";
 import { Presenter } from "../Presenter/Presenter";

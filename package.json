@@ -5,7 +5,7 @@
     "node": "16.15.1"
   },
   "description": "simple range slider",
-  "main": "index.js",
+  "main": "src/slider/index.js",
   "scripts": {
     "start": "set NODE_ENV=development&&webpack serve",
     "demo": "set NODE_ENV=production&&webpack",

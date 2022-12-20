@@ -1,4 +1,4 @@
-import { SliderClasses } from "../../const";
+import { SliderClasses } from "../../constants";
 import type { ITrackArguments } from "../../types";
 
 class Track {

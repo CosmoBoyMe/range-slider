@@ -4,7 +4,7 @@ import {
   getCurrentValueToStep,
 } from "../helpers";
 import { IOptions, IViewInstances } from "../types";
-import { ObserverTypes, SliderClasses } from "../const";
+import { ObserverTypes, SliderClasses } from "../constants";
 import { Observer } from "../Observer/Observer";
 import { Scale, Track, Thumb, Progress } from "./subView";
 

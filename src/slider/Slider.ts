@@ -1,6 +1,6 @@
 import "./style.scss";
 import type { IOptions, onChangeOptionsFn } from "./types";
-import { ObserverTypes, SliderClasses } from "./const";
+import { ObserverTypes, SliderClasses } from "./constants";
 import { Presenter } from "./Presenter/Presenter";
 import { Model } from "./Model/Model";
 import { View } from "./View/View";
