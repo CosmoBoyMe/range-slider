@@ -1,11 +1,9 @@
 .input-field {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-  &__label {
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
-  }
+  width: 100%;
+  row-gap: 5px;
 
   &__input {
     padding: 7px;
