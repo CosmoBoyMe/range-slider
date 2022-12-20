@@ -14,6 +14,8 @@ class Slider {
 
   presenterInstance: Presenter;
 
+  notifyFn: null | (() => void) = null;
+
   constructor(rootElement: HTMLElement, options: Partial<IOptions> = {}) {
     this.sliderElement.classList.add(SliderClasses.SLIDER);
     rootElement.append(this.sliderElement);
@@ -30,13 +32,28 @@ class Slider {
     this.modelInstance.updateOptions(newOptions);
   }
 
-  public changeOptions(fn: onChangeOptionsFn): void {
+  public subscribe(fn: onChangeOptionsFn): void {
     const notifyFn = () => {
       fn(this.getOptions());
     };
 
+    this.notifyFn = notifyFn;
+
     this.modelInstance.subscribe(ObserverTypes.OPTIONS_CHANGED, notifyFn);
     this.modelInstance.subscribe(ObserverTypes.VALUE_UPDATED, notifyFn);
+  }
+
+  public unsubscribe(): void {
+    if (this.notifyFn !== null) {
+      this.modelInstance.unsubscribe(
+        ObserverTypes.OPTIONS_CHANGED,
+        this.notifyFn
+      );
+      this.modelInstance.unsubscribe(
+        ObserverTypes.VALUE_UPDATED,
+        this.notifyFn
+      );
+    }
   }
 
   public getOptions(): IOptions {

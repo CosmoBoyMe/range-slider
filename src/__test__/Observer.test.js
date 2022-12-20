@@ -50,4 +50,15 @@ describe("Observer class", () => {
     observer.notify(firstSubscriberType, mockData);
     expect(mockSubscriberFn.mock.calls[0][0]).toEqual(mockData);
   });
+
+  test("observer should unsubscribe", () => {
+    const mockSubscriberFn = jest.fn();
+    observer.subscribe(firstSubscriberType, mockSubscriberFn);
+    observer.notify(firstSubscriberType, {});
+    expect(mockSubscriberFn.mock.calls.length).toBe(1);
+    observer.unsubscribe(firstSubscriberType, mockSubscriberFn);
+    observer.notify(firstSubscriberType, {});
+    observer.notify(firstSubscriberType, {});
+    expect(mockSubscriberFn.mock.calls.length).toBe(1);
+  });
 });

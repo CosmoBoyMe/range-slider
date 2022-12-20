@@ -30,7 +30,7 @@ class Panel {
     this.panelElement = panelElement;
     this.slider = slider;
     this.options = slider.getOptions();
-    this.slider.changeOptions(this.onChangeOptions.bind(this));
+    this.slider.subscribe(this.onChangeOptions.bind(this));
     this.initElements();
     this.bindListeners();
   }

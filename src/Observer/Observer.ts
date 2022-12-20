@@ -8,6 +8,10 @@ class Observer {
     return this.observers;
   }
 
+  public unsubscribe<T>(type: ObserverTypes, observer: observerFn<T>): void {
+    this.observers[type] = this.observers[type].filter((fn) => fn !== observer);
+  }
+
   public subscribe<T>(type: ObserverTypes, observer: observerFn<T>): void {
     if (!this.observers[type]) {
       this.observers[type] = [observer];
