@@ -1,6 +1,9 @@
 {
   "name": "slider",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.15.1"
+  },
   "description": "simple range slider",
   "main": "index.js",
   "scripts": {
