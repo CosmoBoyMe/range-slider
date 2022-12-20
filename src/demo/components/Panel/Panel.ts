@@ -24,7 +24,7 @@ class Panel {
 
   private options: IOptions;
 
-  private panelElements!: IPanelElements;
+  private panelElements: Partial<IPanelElements> = {};
 
   constructor(panelElement: HTMLElement, slider: Slider) {
     this.panelElement = panelElement;
@@ -36,105 +36,118 @@ class Panel {
   }
 
   private initElements(): void {
-    const minField = this.panelElement.querySelector(
+    const minField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.MIN_FIELD}`
-    ) as HTMLElement;
-    const minInput = minField.querySelector("input") as HTMLInputElement;
-    minInput.value = String(this.options.min);
+    );
+    const minInput = minField?.querySelector<HTMLInputElement>("input");
+    if (minInput) {
+      this.panelElements.minInput = minInput;
+      minInput.value = String(this.options.min);
+    }
 
-    const maxField = this.panelElement.querySelector(
+    const maxField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.MAX_FIELD}`
-    ) as HTMLElement;
-    const maxInput = maxField.querySelector("input") as HTMLInputElement;
-    maxInput.value = String(this.options.max);
+    );
+    const maxInput = maxField?.querySelector<HTMLInputElement>("input");
+    if (maxInput) {
+      this.panelElements.maxInput = maxInput;
+      maxInput.value = String(this.options.max);
+    }
 
-    const stepField = this.panelElement.querySelector(
+    const stepField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.STEP_FIELD}`
-    ) as HTMLElement;
-    const stepInput = stepField.querySelector("input") as HTMLInputElement;
-    stepInput.value = String(this.options.step);
+    );
+    const stepInput = stepField?.querySelector<HTMLInputElement>("input");
+    if (stepInput) {
+      this.panelElements.stepInput = stepInput;
+      stepInput.value = String(this.options.step);
+    }
 
-    const scaleCountsField = this.panelElement.querySelector(
+    const scaleCountsField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.SCALE_COUNTS_FIELD}`
-    ) as HTMLElement;
-    const scaleCountsInput = scaleCountsField.querySelector(
-      "input"
-    ) as HTMLInputElement;
-    scaleCountsInput.value = String(this.options.scaleCounts);
+    );
+    const scaleCountsInput =
+      scaleCountsField?.querySelector<HTMLInputElement>("input");
+    if (scaleCountsInput) {
+      this.panelElements.scaleCountsInput = scaleCountsInput;
+      scaleCountsInput.value = String(this.options.scaleCounts);
+    }
 
-    const thumbsValuesInputs = this.options.values.map((value) => {
+    this.panelElements.valuesInputs = [];
+    this.options.values.forEach((value) => {
       const thumbsField = this.createThumbsField("value", value);
-      const thumbsInputs = thumbsField.querySelector("input");
-      const thumbsValuesContainer = this.panelElement.querySelector(
-        `.js-${PanelClasses.THUMB_VALUES}`
-      );
+      const thumbsInputs = thumbsField.querySelector<HTMLInputElement>("input");
+      const thumbsValuesContainer =
+        this.panelElement.querySelector<HTMLDivElement>(
+          `.js-${PanelClasses.THUMB_VALUES}`
+        );
       thumbsValuesContainer?.append(thumbsField);
-      return thumbsInputs as HTMLInputElement;
+      if (thumbsInputs) {
+        this.panelElements.valuesInputs?.push(thumbsInputs);
+      }
     });
 
-    const verticalToggleField = this.panelElement.querySelector(
+    const verticalToggleField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.TOGGLE_VERTICAL_FIELD}`
-    ) as HTMLElement;
-    const verticalToggleInput = verticalToggleField.querySelector(
-      "input"
-    ) as HTMLInputElement;
-    verticalToggleInput.checked = Boolean(this.options.isVertical);
+    );
+    const verticalToggleInput =
+      verticalToggleField?.querySelector<HTMLInputElement>("input");
+    if (verticalToggleInput) {
+      this.panelElements.verticalToggleInput = verticalToggleInput;
+      verticalToggleInput.checked = Boolean(this.options.isVertical);
+    }
 
-    const scaleToggleField = this.panelElement.querySelector(
+    const scaleToggleField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.TOGGLE_SCALE_FIELD}`
-    ) as HTMLElement;
-    const scaleToggleInput = scaleToggleField.querySelector(
-      "input"
-    ) as HTMLInputElement;
-    scaleToggleInput.checked = Boolean(this.options.withScale);
+    );
+    const scaleToggleInput =
+      scaleToggleField?.querySelector<HTMLInputElement>("input");
+    if (scaleToggleInput) {
+      this.panelElements.scaleToggleInput = scaleToggleInput;
+      scaleToggleInput.checked = Boolean(this.options.withScale);
+    }
 
-    const tooltipToggleField = this.panelElement.querySelector(
+    const tooltipToggleField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.TOGGLE_TOOLTIP_FIELD}`
-    ) as HTMLElement;
-    const tooltipToggleInput = tooltipToggleField.querySelector(
-      "input"
-    ) as HTMLInputElement;
-    scaleToggleInput.checked = Boolean(this.options.withTooltip);
+    );
+    const tooltipToggleInput =
+      tooltipToggleField?.querySelector<HTMLInputElement>("input");
+    if (tooltipToggleInput) {
+      this.panelElements.tooltipToggleInput = tooltipToggleInput;
+      tooltipToggleInput.checked = Boolean(this.options.withTooltip);
+    }
 
-    const progressToggleField = this.panelElement.querySelector(
+    const progressToggleField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.TOGGLE_PROGRESS_FIELD}`
-    ) as HTMLElement;
-    const progressToggleInput = progressToggleField.querySelector(
-      "input"
-    ) as HTMLInputElement;
-    scaleToggleInput.checked = Boolean(this.options.withProgress);
+    );
+    const progressToggleInput =
+      progressToggleField?.querySelector<HTMLInputElement>("input");
+    if (progressToggleInput) {
+      this.panelElements.progressToggleInput = progressToggleInput;
+      progressToggleInput.checked = Boolean(this.options.withProgress);
+    }
 
-    const newThumbInputField = this.panelElement.querySelector(
+    const newThumbInputField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.NEW_THUMB_FIELD}`
-    ) as HTMLElement;
-    const newThumbInput = newThumbInputField.querySelector(
-      "input"
-    ) as HTMLInputElement;
+    );
+    const newThumbInput =
+      newThumbInputField?.querySelector<HTMLInputElement>("input");
+    if (newThumbInput) {
+      this.panelElements.newThumbInput = newThumbInput;
+    }
 
-    const newThumbButtonField = this.panelElement.querySelector(
+    const newThumbButtonField = this.panelElement.querySelector<HTMLDivElement>(
       `.js-${PanelClasses.NEW_THUMB_BUTTON_FIELD}`
-    ) as HTMLElement;
-    const newThumbButton = newThumbButtonField.querySelector(
-      "button"
-    ) as HTMLButtonElement;
-
-    this.panelElements = {
-      minInput,
-      maxInput,
-      stepInput,
-      scaleCountsInput,
-      scaleToggleInput,
-      verticalToggleInput,
-      tooltipToggleInput,
-      progressToggleInput,
-      newThumbInput,
-      newThumbButton,
-      valuesInputs: thumbsValuesInputs,
-    };
+    );
+    const newThumbButton =
+      newThumbButtonField?.querySelector<HTMLButtonElement>("button");
+    if (newThumbButton) {
+      this.panelElements.newThumbButton = newThumbButton;
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private createThumbsField(text: string, value: number): HTMLElement {
+  private createThumbsField(text: string, value: number): HTMLLabelElement {
     const labelEl = document.createElement("label");
     const textEl = document.createElement("span");
     const inputEl = document.createElement("input");
@@ -148,15 +161,17 @@ class Panel {
     return labelEl;
   }
 
-  private handleItemInputChange(event: Event, name: keyof IOptions) {
-    const inputElement = event.target as HTMLInputElement;
-    this.slider.updateOptions({ [name]: Number(inputElement.value) });
+  private handleItemInputChange({ target }: Event, name: keyof IOptions) {
+    if (target instanceof HTMLInputElement) {
+      this.slider.updateOptions({ [name]: Number(target.value) });
+    }
   }
 
-  private handleThumbInputChange(event: Event, index: number) {
-    const inputElement = event.target as HTMLInputElement;
-    this.options.values[index] = Number(inputElement.value);
-    this.slider.updateOptions({ values: this.options.values });
+  private handleThumbInputChange({ target }: Event, index: number) {
+    if (target instanceof HTMLInputElement) {
+      this.options.values[index] = Number(target.value);
+      this.slider.updateOptions({ values: this.options.values });
+    }
   }
 
   private handleToggleInputClick(
@@ -168,18 +183,27 @@ class Panel {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private handleCreateNewThumbButtonClick(event: Event): void {
-    this.options.values.push(Number(this.panelElements.newThumbInput.value));
-    const thumbField = this.createThumbsField(
-      "value",
-      Number(this.panelElements.newThumbInput.value)
-    );
-    const thumbInputs = thumbField.querySelector("input") as HTMLInputElement;
-    const thumbsValuesContainer = this.panelElement.querySelector(
-      `.js-${PanelClasses.THUMB_VALUES}`
-    );
-    thumbsValuesContainer?.append(thumbField);
-    this.panelElements.valuesInputs.push(thumbInputs);
-    this.slider.updateOptions({ values: this.options.values });
+    if (this.panelElements.newThumbInput) {
+      this.options.values.push(Number(this.panelElements.newThumbInput.value));
+      const thumbField = this.createThumbsField(
+        "value",
+        Number(this.panelElements.newThumbInput.value)
+      );
+      const thumbInput = thumbField.querySelector<HTMLInputElement>(
+        "input"
+      ) as HTMLInputElement;
+      const thumbsValuesContainer =
+        this.panelElement.querySelector<HTMLDivElement>(
+          `.js-${PanelClasses.THUMB_VALUES}`
+        );
+      thumbsValuesContainer?.append(thumbField);
+      this.panelElements.valuesInputs?.push(thumbInput);
+      this.slider.updateOptions({ values: this.options.values });
+      this.panelElements.newThumbInput.value = "0";
+      thumbInput.addEventListener("change", (thumbEvent) =>
+        this.handleThumbInputChange(thumbEvent, this.options.values.length - 1)
+      );
+    }
   }
 
   private onChangeOptions(newOptions: IOptions): void {
@@ -203,32 +227,34 @@ class Panel {
     entriesOptions.forEach(([key, value]) => {
       switch (key) {
         case "min":
-          minInput.value = String(value);
+          if (minInput) minInput.value = String(value);
           break;
         case "max":
-          maxInput.value = String(value);
+          if (maxInput) maxInput.value = String(value);
           break;
         case "step":
-          stepInput.value = String(value);
+          if (stepInput) stepInput.value = String(value);
           break;
         case "scaleCounts":
-          scaleCountsInput.value = String(value);
+          if (scaleCountsInput) scaleCountsInput.value = String(value);
           break;
         case "isVertical":
-          verticalToggleInput.checked = value;
+          if (verticalToggleInput) verticalToggleInput.checked = value;
           break;
         case "withProgress":
-          progressToggleInput.checked = value;
+          if (progressToggleInput) progressToggleInput.checked = value;
           break;
         case "withTooltip":
-          tooltipToggleInput.checked = value;
+          if (tooltipToggleInput) tooltipToggleInput.checked = value;
           break;
         case "withScale":
-          scaleToggleInput.checked = value;
+          if (scaleToggleInput) scaleToggleInput.checked = value;
           break;
         case "values":
           value.forEach((currentValue, index) => {
-            valuesInputs[index].value = String(currentValue);
+            if (valuesInputs) {
+              valuesInputs[index].value = String(currentValue);
+            }
           });
           break;
         default:
@@ -254,51 +280,54 @@ class Panel {
     optionsKeys.forEach((key) => {
       switch (key) {
         case "min":
-          minInput.addEventListener("change", (event) =>
+          minInput?.addEventListener("change", (event) =>
             this.handleItemInputChange(event, key)
           );
           break;
         case "max":
-          maxInput.addEventListener("change", (event) =>
+          maxInput?.addEventListener("change", (event) =>
             this.handleItemInputChange(event, key)
           );
           break;
         case "step":
-          stepInput.addEventListener("change", (event) =>
+          stepInput?.addEventListener("change", (event) =>
             this.handleItemInputChange(event, key)
           );
           break;
         case "scaleCounts":
-          scaleCountsInput.addEventListener("change", (event) =>
+          scaleCountsInput?.addEventListener("change", (event) =>
             this.handleItemInputChange(event, key)
           );
+
           break;
         case "isVertical":
-          verticalToggleInput.addEventListener("click", (event) =>
+          verticalToggleInput?.addEventListener("click", (event) =>
             this.handleToggleInputClick(event, key)
           );
           break;
         case "withProgress":
-          progressToggleInput.addEventListener("click", (event) =>
+          progressToggleInput?.addEventListener("click", (event) =>
             this.handleToggleInputClick(event, key)
           );
           break;
         case "withTooltip":
-          tooltipToggleInput.addEventListener("click", (event) =>
+          tooltipToggleInput?.addEventListener("click", (event) =>
             this.handleToggleInputClick(event, key)
           );
           break;
         case "withScale":
-          scaleToggleInput.addEventListener("click", (event) =>
+          scaleToggleInput?.addEventListener("click", (event) =>
             this.handleToggleInputClick(event, key)
           );
           break;
         case "values": {
           const values = this.options[key];
           values.forEach((_, index) => {
-            valuesInputs[index].addEventListener("change", (event) =>
-              this.handleThumbInputChange(event, index)
-            );
+            if (valuesInputs) {
+              valuesInputs[index].addEventListener("change", (event) =>
+                this.handleThumbInputChange(event, index)
+              );
+            }
           });
           break;
         }
@@ -306,7 +335,7 @@ class Panel {
           throw new Error(`unexpected options key: ${key}`);
       }
     });
-    newThumbButton.addEventListener("click", (event) => {
+    newThumbButton?.addEventListener("click", (event) => {
       this.handleCreateNewThumbButtonClick(event);
     });
   }

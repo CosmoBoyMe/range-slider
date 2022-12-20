@@ -159,8 +159,8 @@ class View extends Observer {
     document.addEventListener("pointerup", handlerDocumentPointerUp);
 
     const { target } = event;
-    if (target) {
-      (target as HTMLDivElement).ondragstart = () => false;
+    if (target instanceof HTMLDivElement) {
+      target.ondragstart = () => false;
     }
   }
 
@@ -172,14 +172,15 @@ class View extends Observer {
     this.updateClickedValue(closestValue);
   }
 
-  private handleScaleClick(event: MouseEvent): void {
-    const { target } = event;
-    const isTargetScalePoint = (target as HTMLDivElement).classList.contains(
-      SliderClasses.SCALE_POINT
-    );
-    if (isTargetScalePoint) {
-      const value = Number((target as HTMLDivElement).textContent);
-      this.updateClickedValue(value);
+  private handleScaleClick({ target }: MouseEvent): void {
+    if (target instanceof HTMLDivElement) {
+      const isTargetScalePoint = target.classList.contains(
+        SliderClasses.SCALE_POINT
+      );
+      if (isTargetScalePoint) {
+        const value = Number(target.textContent);
+        this.updateClickedValue(value);
+      }
     }
   }
 

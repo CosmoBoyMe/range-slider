@@ -57,9 +57,11 @@ const optionsArray = [
 ];
 
 demoElements.forEach((item, index) => {
-  const sliderEl = item.querySelector(".js-demo__slider") as HTMLElement;
-  const panelEl = item.querySelector(".js-demo__panel") as HTMLElement;
-  const slider = $(sliderEl).rangeSlider(optionsArray[index]) as Slider;
-  // eslint-disable-next-line no-new
-  new Panel(panelEl, slider);
+  const sliderElement = item.querySelector<HTMLDivElement>(".js-demo__slider");
+  const panelElement = item.querySelector<HTMLDivElement>(".js-demo__panel");
+  if (sliderElement && panelElement) {
+    const slider = $(sliderElement).rangeSlider(optionsArray[index]) as Slider;
+    // eslint-disable-next-line no-new
+    new Panel(panelElement, slider);
+  }
 });
