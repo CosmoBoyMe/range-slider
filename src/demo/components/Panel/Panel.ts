@@ -151,9 +151,9 @@ class Panel {
     const labelEl = document.createElement("label");
     const textEl = document.createElement("span");
     const inputEl = document.createElement("input");
-    labelEl.classList.add("input-field__label");
-    textEl.classList.add("input-field__text");
-    inputEl.classList.add("input-field__input");
+    labelEl.classList.add(PanelClasses.THUMB_FIELD);
+    textEl.classList.add(PanelClasses.THUMB_FIELD_TEXT);
+    inputEl.classList.add(PanelClasses.THUMB_FIELD_INPUT);
     textEl.textContent = text;
     inputEl.setAttribute("value", String(value));
     inputEl.setAttribute("type", "number");

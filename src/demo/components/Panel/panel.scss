@@ -22,6 +22,21 @@
     row-gap: 5px;
   }
 
+  &__thumb-field {
+    display: flex;
+    flex-direction: column;
+  
+    width: 100%;
+    row-gap: 5px;
+  
+    &-input {
+      padding: 7px;
+  
+      border: 1px solid gray;
+      border-radius: 5px;
+    }
+  }
+
   &__toggles {
     display: grid;
     justify-content: space-between;
