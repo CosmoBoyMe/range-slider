@@ -322,4 +322,19 @@ describe("View class:", () => {
     view.handleThumbPointerDown(event, 1);
     expect(event.target).toBe(null);
   });
+
+  test("scale element should be html div element", () => {
+    const viewHandleScaleClick = view.handleScaleClick;
+    const scaleElement = document.createElement("span");
+    scaleElement.addEventListener("click", viewHandleScaleClick);
+    const cb = jest.fn();
+    view.subscribe(ObserverTypes.UPDATE_VALUE, cb);
+    expect(cb).not.toBeCalled();
+    scaleElement.dispatchEvent(
+      new MouseEvent("click", {
+        bubbles: true,
+      })
+    );
+    expect(cb).not.toBeCalled();
+  });
 });
