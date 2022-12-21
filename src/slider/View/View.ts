@@ -97,7 +97,7 @@ class View extends Observer {
     this.progressInstance?.destroy();
   }
 
-  private handleThumbPointerDown(event: MouseEvent, index: number): void {
+  private handleThumbPointerDown = (event: MouseEvent, index: number): void => {
     event.stopPropagation();
     event.preventDefault();
 
@@ -162,17 +162,20 @@ class View extends Observer {
     if (target instanceof HTMLDivElement) {
       target.ondragstart = () => false;
     }
-  }
+  };
 
-  public handleTrackClick(event: MouseEvent): void {
-    const { clientX, clientY } = event;
-    const { min, max, step } = this.options;
+  public handleTrackClick = ({ clientX, clientY }: MouseEvent): void => {
     const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-    const closestValue = getClosestValue(min, max, currentValue, step);
+    const closestValue = getClosestValue(
+      this.options.min,
+      this.options.max,
+      currentValue,
+      this.options.step
+    );
     this.updateClickedValue(closestValue);
-  }
+  };
 
-  private handleScaleClick({ target }: MouseEvent): void {
+  private handleScaleClick = ({ target }: MouseEvent): void => {
     if (target instanceof HTMLDivElement) {
       const isTargetScalePoint = target.classList.contains(
         SliderClasses.SCALE_POINT
@@ -182,28 +185,27 @@ class View extends Observer {
         this.updateClickedValue(value);
       }
     }
-  }
+  };
 
   private updateClickedValue(value: number): void {
-    const { values } = this.options;
     let handleIndex = 0;
 
-    if (values.length > 1) {
-      handleIndex = findNearestIndexToValue(values, value);
+    if (this.options.values.length > 1) {
+      handleIndex = findNearestIndexToValue(this.options.values, value);
     }
     this.notify(ObserverTypes.UPDATE_VALUE, { value, index: handleIndex });
   }
 
   private toggleActiveThumb(newClickedThumbIndex: null | number = null): void {
-    const { values, max } = this.options;
-    const { thumbWithMaxValueIndex } = this;
     const setActiveClassToThumbWithMaxValue = () => {
-      const index = values.findIndex((value) => value === max);
+      const index = this.options.values.findIndex(
+        (value) => value === this.options.max
+      );
       if (index === -1) {
-        this.thumbsInstance[thumbWithMaxValueIndex]?.removeActiveClass();
+        this.thumbsInstance[this.thumbWithMaxValueIndex]?.removeActiveClass();
         this.thumbWithMaxValueIndex = index;
       } else {
-        this.thumbsInstance[thumbWithMaxValueIndex]?.removeActiveClass();
+        this.thumbsInstance[this.thumbWithMaxValueIndex]?.removeActiveClass();
         this.thumbsInstance[index].addActiveClass();
         this.thumbWithMaxValueIndex = index;
       }
@@ -240,7 +242,7 @@ class View extends Observer {
     this.track = new Track({
       rootElement: this.rootElement,
       isVertical,
-      handleTrackClick: this.handleTrackClick.bind(this),
+      handleTrackClick: this.handleTrackClick,
     });
 
     const trackElement = this.track.getElement();
@@ -264,7 +266,7 @@ class View extends Observer {
         step,
         scaleCounts,
         isVertical,
-        handleScaleClick: this.handleScaleClick.bind(this),
+        handleScaleClick: this.handleScaleClick,
       });
     }
 
@@ -275,7 +277,7 @@ class View extends Observer {
           value,
           min,
           max,
-          handleThumbPointerDown: this.handleThumbPointerDown.bind(this),
+          handleThumbPointerDown: this.handleThumbPointerDown,
           index,
           isVertical,
           withTooltip,
