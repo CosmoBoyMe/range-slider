@@ -1,9 +1,9 @@
-import "./style.scss";
-import type { IOptions, onChangeOptionsFn } from "./types";
-import { ObserverTypes, SliderClasses } from "./constants";
 import { Presenter } from "./Presenter/Presenter";
 import { Model } from "./Model/Model";
 import { View } from "./View/View";
+import type { IOptions, onChangeOptionsFn } from "./types";
+import { ObserverTypes, SliderClasses } from "./constants";
+import "./style.scss";
 
 class Slider {
   private sliderElement = document.createElement("div");

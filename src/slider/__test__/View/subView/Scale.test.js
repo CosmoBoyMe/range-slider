@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 
-import { SliderClasses } from "../../../constants";
 import { Scale } from "../../../View/subView";
+import { SliderClasses } from "../../../constants";
 
 describe("Scale class:", () => {
   let rootElement;

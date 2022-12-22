@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@testing-library/jest-dom";
 
-import { SliderClasses } from "../../../constants";
 import { Thumb } from "../../../View/subView";
+import { SliderClasses } from "../../../constants";
 
 describe("Thumb class:", () => {
   let rootElement;

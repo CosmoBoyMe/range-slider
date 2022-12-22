@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "@testing-library/jest-dom";
 
-import { ObserverTypes, SliderClasses } from "../../constants";
 import { View } from "../../View/View";
 import { Model } from "../../Model/Model";
 import { Presenter } from "../../Presenter/Presenter";
+import { ObserverTypes, SliderClasses } from "../../constants";
 
 describe("View class:", () => {
   const defaultOptions = {

@@ -1,7 +1,7 @@
-import { ObserverTypes } from "../constants";
 import { Model } from "../Model/Model";
 import { View } from "../View/View";
 import { Presenter } from "../Presenter/Presenter";
+import { ObserverTypes } from "../constants";
 
 describe("Presenter class:", () => {
   let model;
