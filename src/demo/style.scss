@@ -1,15 +1,4 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: white;
-
-  font-family: 'Comic sans', Arial, sans-serif;
-  font-size: 18px;
-}
+@import './styles/settings';
 
 .container {
   max-width: 1440px;

@@ -1,0 +1,14 @@
+@mixin input-field {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  row-gap: 5px;
+}
+
+@mixin input {
+  padding: 7px;
+
+  border: 1px solid gray;
+  border-radius: 5px;
+}
