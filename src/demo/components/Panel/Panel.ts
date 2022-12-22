@@ -148,17 +148,17 @@ class Panel {
 
   // eslint-disable-next-line class-methods-use-this
   private createThumbsField(text: string, value: number): HTMLLabelElement {
-    const labelEl = document.createElement("label");
-    const textEl = document.createElement("span");
-    const inputEl = document.createElement("input");
-    labelEl.classList.add(PanelClasses.THUMB_FIELD);
-    textEl.classList.add(PanelClasses.THUMB_FIELD_TEXT);
-    inputEl.classList.add(PanelClasses.THUMB_FIELD_INPUT);
-    textEl.textContent = text;
-    inputEl.setAttribute("value", String(value));
-    inputEl.setAttribute("type", "number");
-    labelEl.append(textEl, inputEl);
-    return labelEl;
+    const labelElement = document.createElement("label");
+    const textElement = document.createElement("span");
+    const inputElement = document.createElement("input");
+    labelElement.classList.add(PanelClasses.THUMB_FIELD);
+    textElement.classList.add(PanelClasses.THUMB_FIELD_TEXT);
+    inputElement.classList.add(PanelClasses.THUMB_FIELD_INPUT);
+    textElement.textContent = text;
+    inputElement.setAttribute("value", String(value));
+    inputElement.setAttribute("type", "number");
+    labelElement.append(textElement, inputElement);
+    return labelElement;
   }
 
   private handleItemInputChange = (
