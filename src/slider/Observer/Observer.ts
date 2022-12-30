@@ -1,18 +1,18 @@
 import { ObserverTypes } from "../constants";
-import type { observerFn, observers } from "../types";
+import type { ObserverFn, Observers } from "../types";
 
 class Observer {
-  observers: observers = {};
+  observers: Observers = {};
 
-  public getObservers(): observers {
+  public getObservers(): Observers {
     return this.observers;
   }
 
-  public unsubscribe<T>(type: ObserverTypes, observer: observerFn<T>): void {
+  public unsubscribe<T>(type: ObserverTypes, observer: ObserverFn<T>): void {
     this.observers[type] = this.observers[type].filter((fn) => fn !== observer);
   }
 
-  public subscribe<T>(type: ObserverTypes, observer: observerFn<T>): void {
+  public subscribe<T>(type: ObserverTypes, observer: ObserverFn<T>): void {
     if (!this.observers[type]) {
       this.observers[type] = [observer];
     } else {

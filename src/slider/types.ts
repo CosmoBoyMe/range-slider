@@ -61,15 +61,15 @@ interface IViewInstances {
   scale: Scale | null;
 }
 
-type valuePayload = { value: number; index: number };
+type ValuePayload = { value: number; index: number };
 
 type Entries<T> = {
   [K in keyof T]: [K, T[K]];
 }[keyof T][];
 
-type observerFn<T> = (data: T) => void;
-type observers = Record<string, observerFn<any>[]>;
-type onChangeOptionsFn = (data: IOptions) => unknown;
+type ObserverFn<T> = (data: T) => void;
+type Observers = Record<string, ObserverFn<any>[]>;
+type OnChangeOptionsFn = (data: IOptions) => unknown;
 
 export type {
   IOptions,
@@ -79,9 +79,9 @@ export type {
   ITooltipArguments,
   IThumbArguments,
   IViewInstances,
-  valuePayload,
+  ValuePayload,
   Entries,
-  observerFn,
-  observers,
-  onChangeOptionsFn,
+  ObserverFn,
+  Observers,
+  OnChangeOptionsFn,
 };

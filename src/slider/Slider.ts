@@ -1,7 +1,7 @@
 import { Presenter } from "./Presenter/Presenter";
 import { Model } from "./Model/Model";
 import { View } from "./View/View";
-import type { IOptions, onChangeOptionsFn } from "./types";
+import type { IOptions, OnChangeOptionsFn } from "./types";
 import { ObserverTypes, SliderClasses } from "./constants";
 import "./style.scss";
 
@@ -32,7 +32,7 @@ class Slider {
     this.modelInstance.updateOptions(newOptions);
   }
 
-  public subscribe(fn: onChangeOptionsFn): void {
+  public subscribe(fn: OnChangeOptionsFn): void {
     const notifyFn = () => {
       fn(this.getOptions());
     };
