@@ -71,6 +71,17 @@ class View extends Observer {
     return this.rootElement;
   }
 
+  public handleTrackClick = ({ clientX, clientY }: MouseEvent): void => {
+    const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
+    const closestValue = getClosestValue(
+      this.options.min,
+      this.options.max,
+      currentValue,
+      this.options.step
+    );
+    this.updateClickedValue(closestValue);
+  };
+
   private getCurrentValueFromCoords(clientX: number, clientY: number): number {
     const { min, max, isVertical } = this.options;
     const coords = isVertical ? clientY : clientX;
@@ -169,17 +180,6 @@ class View extends Observer {
     if (target instanceof HTMLDivElement) {
       target.ondragstart = () => false;
     }
-  };
-
-  public handleTrackClick = ({ clientX, clientY }: MouseEvent): void => {
-    const currentValue = this.getCurrentValueFromCoords(clientX, clientY);
-    const closestValue = getClosestValue(
-      this.options.min,
-      this.options.max,
-      currentValue,
-      this.options.step
-    );
-    this.updateClickedValue(closestValue);
   };
 
   private handleScaleClick = ({ target }: MouseEvent): void => {

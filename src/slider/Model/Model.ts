@@ -23,15 +23,15 @@ class Model extends Observer {
     this.notify(ObserverTypes.VALUE_UPDATED, { value, index });
   }
 
-  private setNewOptions(newOptions: Partial<IOptions>): void {
-    const oldOptions = JSON.parse(JSON.stringify(this.options));
-    this.options = { ...oldOptions, ...newOptions };
-  }
-
   public updateOptions(newOptions: Partial<IOptions>): void {
     this.setNewOptions(newOptions);
     this.normalizeOptions();
     this.notify(ObserverTypes.OPTIONS_CHANGED, this.options);
+  }
+
+  private setNewOptions(newOptions: Partial<IOptions>): void {
+    const oldOptions = JSON.parse(JSON.stringify(this.options));
+    this.options = { ...oldOptions, ...newOptions };
   }
 
   private init(): void {
