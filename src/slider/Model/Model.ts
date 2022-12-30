@@ -4,7 +4,7 @@ import type { IOptions } from "../types/IOptions";
 import { ObserverTypes, DEFAULT_OPTIONS } from "../constants";
 
 class Model extends Observer {
-  options: IOptions;
+  private options: IOptions;
 
   constructor(options: Partial<IOptions>) {
     super();

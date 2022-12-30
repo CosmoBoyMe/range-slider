@@ -10,13 +10,13 @@ type OnChangeOptionsFn = (data: IOptions) => void;
 class Slider {
   private sliderElement = document.createElement("div");
 
-  modelInstance: Model;
+  private modelInstance: Model;
 
-  viewInstance: View;
+  private viewInstance: View;
 
-  presenterInstance: Presenter;
+  private presenterInstance: Presenter;
 
-  notifyFn: null | (() => void) = null;
+  private notifyFn: null | (() => void) = null;
 
   constructor(rootElement: HTMLElement, options: Partial<IOptions> = {}) {
     this.sliderElement.classList.add(SliderClasses.SLIDER);
