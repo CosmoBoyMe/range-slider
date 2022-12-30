@@ -63,4 +63,4 @@ class Slider {
   }
 }
 
-export { Slider };
+export { Slider, IOptions };

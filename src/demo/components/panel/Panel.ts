@@ -1,6 +1,6 @@
-import type { Slider } from "../../../slider/Slider";
+import type { Slider, IOptions } from "../../../slider/Slider";
 import { PanelClasses } from "../../constants";
-import type { IOptions, Entries } from "../../types";
+import type { Entries } from "../../types";
 import "./panel.scss";
 
 interface IPanelElements {
