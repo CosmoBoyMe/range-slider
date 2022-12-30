@@ -1,14 +1,12 @@
 import "../slider";
-import type { Slider, IOptions } from "../slider/Slider";
+import type { IOptions } from "../slider/Slider";
 import { Panel } from "./components/panel/Panel";
 import "./components/button/button.scss";
 import "./components/input-field/input-field.scss";
 import "./components/toggle-field/toggle-field.scss";
 import "./style.scss";
 
-const demoElements = document.querySelectorAll(
-  ".js-demo"
-) as NodeListOf<HTMLElement>;
+const demoElements = document.querySelectorAll(".js-demo");
 
 const customOptionsFirst: Partial<IOptions> = {
   withTooltip: false,
@@ -59,8 +57,10 @@ demoElements.forEach((item, index) => {
   const sliderElement = item.querySelector<HTMLDivElement>(".js-demo__slider");
   const panelElement = item.querySelector<HTMLDivElement>(".js-demo__panel");
   if (sliderElement && panelElement) {
-    const slider = $(sliderElement).rangeSlider(optionsArray[index]) as Slider;
-    // eslint-disable-next-line no-new
-    new Panel(panelElement, slider);
+    const slider = $(sliderElement).rangeSlider(optionsArray[index]);
+    if (slider) {
+      // eslint-disable-next-line no-new
+      new Panel(panelElement, slider);
+    }
   }
 });

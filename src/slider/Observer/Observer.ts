@@ -24,7 +24,7 @@ class Observer {
 
   public notify<T>(type: ObserverTypes, data: T): boolean {
     if (this.observers[type]) {
-      this.observers[type].forEach((observer) => observer(data));
+      this.observers[type].forEach((observer: ObserverFn<T>) => observer(data));
       return true;
     }
     return false;

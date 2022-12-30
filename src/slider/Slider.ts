@@ -5,7 +5,7 @@ import type { IOptions } from "./types/IOptions";
 import { ObserverTypes, SliderClasses } from "./constants";
 import "./style.scss";
 
-type OnChangeOptionsFn = (data: IOptions) => unknown;
+type OnChangeOptionsFn = (data: IOptions) => void;
 
 class Slider {
   private sliderElement = document.createElement("div");
