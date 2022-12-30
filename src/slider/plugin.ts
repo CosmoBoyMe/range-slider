@@ -3,7 +3,7 @@ import { Slider } from "./Slider";
 
 declare global {
   interface JQuery {
-    rangeSlider(option?: Partial<IOptions>): Slider | undefined;
+    rangeSlider(option?: Partial<IOptions>): Slider | null;
   }
 }
 
@@ -17,6 +17,6 @@ declare global {
     if (element) {
       return new Slider(element, option);
     }
-    return undefined;
+    return null;
   };
 })(jQuery);
