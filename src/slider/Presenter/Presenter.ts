@@ -3,7 +3,10 @@ import type { View } from "../View/View";
 import type { IOptions } from "../types/IOptions";
 import { ObserverTypes } from "../constants";
 
-type ValuePayload = { value: number; index: number };
+interface IValuePayload {
+  value: number;
+  index: number;
+}
 
 class Presenter {
   private modelInstance: Model;
@@ -33,14 +36,14 @@ class Presenter {
     );
     this.viewInstance.subscribe(
       ObserverTypes.UPDATE_VALUE,
-      (payload: ValuePayload) => {
+      (payload: IValuePayload) => {
         this.modelInstance.updateValue(payload);
       }
     );
 
     this.modelInstance.subscribe(
       ObserverTypes.VALUE_UPDATED,
-      (payload: ValuePayload) => {
+      (payload: IValuePayload) => {
         this.viewInstance.updateValue(payload);
       }
     );
