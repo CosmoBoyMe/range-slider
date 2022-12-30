@@ -1,7 +1,7 @@
 import "../slider";
 import type { IOptions } from "../slider/types";
 import type { Slider } from "../slider/Slider";
-import { Panel } from "./components/Panel/Panel";
+import { Panel } from "./components/panel/Panel";
 import "./components/button/button.scss";
 import "./components/input-field/input-field.scss";
 import "./components/toggle-field/toggle-field.scss";
