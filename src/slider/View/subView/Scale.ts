@@ -1,6 +1,15 @@
 import { getPercentOfValue, getClosestValue } from "../../helpers";
 import { SliderClasses } from "../../constants";
-import type { IScaleArguments } from "../../types";
+
+interface IScaleArguments {
+  rootElement: HTMLElement;
+  min: number;
+  max: number;
+  step: number;
+  scaleCounts: number;
+  isVertical: boolean;
+  handleScaleClick: (event: MouseEvent) => void;
+}
 
 class Scale {
   rootElement: HTMLElement;

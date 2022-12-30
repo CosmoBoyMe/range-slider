@@ -1,4 +1,4 @@
-import type { IOptions } from "./types";
+import type { IOptions } from "./types/IOptions";
 import { Slider } from "./Slider";
 
 declare global {

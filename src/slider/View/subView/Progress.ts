@@ -1,6 +1,14 @@
 import { getPercentOfValue } from "../../helpers";
 import { SliderClasses } from "../../constants";
-import type { IProgressArguments } from "../../types";
+
+interface IProgressArguments {
+  rootElement: HTMLElement;
+  values: number[];
+  min: number;
+  max: number;
+  withRange: boolean;
+  isVertical: boolean;
+}
 
 class Progress {
   private rootElement: HTMLElement;

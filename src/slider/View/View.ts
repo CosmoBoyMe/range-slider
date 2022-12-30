@@ -4,9 +4,16 @@ import {
   getCurrentValueToStep,
 } from "../helpers";
 import { Observer } from "../Observer/Observer";
-import { IOptions, IViewInstances } from "../types";
+import { IOptions } from "../types/IOptions";
 import { ObserverTypes, SliderClasses } from "../constants";
 import { Scale, Track, Thumb, Progress } from "./subView";
+
+interface IViewInstances {
+  track: Track | null;
+  thumbs: Thumb[];
+  progress: Progress | null;
+  scale: Scale | null;
+}
 
 class View extends Observer {
   private rootElement: HTMLElement;

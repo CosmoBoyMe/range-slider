@@ -1,7 +1,17 @@
 import { getPercentOfValue } from "../../helpers";
 import { SliderClasses } from "../../constants";
-import type { IThumbArguments } from "../../types";
 import { Tooltip } from "./Tooltip";
+
+interface IThumbArguments {
+  rootElement: HTMLElement;
+  value: number;
+  min: number;
+  max: number;
+  index: number;
+  isVertical: boolean;
+  withTooltip: boolean;
+  handleThumbPointerDown: (event: MouseEvent, index: number) => void;
+}
 
 class Thumb {
   private rootElement: HTMLElement;

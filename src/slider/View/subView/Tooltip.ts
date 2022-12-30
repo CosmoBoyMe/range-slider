@@ -1,5 +1,10 @@
 import { SliderClasses } from "../../constants";
-import type { ITooltipArguments } from "../../types";
+
+interface ITooltipArguments {
+  rootElement: HTMLElement;
+  value: number;
+  isVertical: boolean;
+}
 
 class Tooltip {
   private rootElement: HTMLElement;

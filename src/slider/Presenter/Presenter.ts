@@ -1,7 +1,9 @@
 import type { Model } from "../Model/Model";
 import type { View } from "../View/View";
+import type { IOptions } from "../types/IOptions";
 import { ObserverTypes } from "../constants";
-import type { IOptions, ValuePayload } from "../types";
+
+type ValuePayload = { value: number; index: number };
 
 class Presenter {
   private modelInstance: Model;

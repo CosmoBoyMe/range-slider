@@ -1,5 +1,7 @@
 import { ObserverTypes } from "../constants";
-import type { ObserverFn, Observers } from "../types";
+
+type ObserverFn<T> = (data: T) => void;
+type Observers = Record<string, ObserverFn<any>[]>;
 
 class Observer {
   observers: Observers = {};

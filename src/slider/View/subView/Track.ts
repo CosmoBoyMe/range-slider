@@ -1,5 +1,10 @@
 import { SliderClasses } from "../../constants";
-import type { ITrackArguments } from "../../types";
+
+interface ITrackArguments {
+  rootElement: HTMLElement;
+  isVertical: boolean;
+  handleTrackClick: (event: MouseEvent) => void;
+}
 
 class Track {
   private rootElement: HTMLElement;

@@ -1,9 +1,11 @@
 import { Presenter } from "./Presenter/Presenter";
 import { Model } from "./Model/Model";
 import { View } from "./View/View";
-import type { IOptions, OnChangeOptionsFn } from "./types";
+import type { IOptions } from "./types/IOptions";
 import { ObserverTypes, SliderClasses } from "./constants";
 import "./style.scss";
+
+type OnChangeOptionsFn = (data: IOptions) => unknown;
 
 class Slider {
   private sliderElement = document.createElement("div");
