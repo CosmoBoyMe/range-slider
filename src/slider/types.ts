@@ -63,10 +63,6 @@ interface IViewInstances {
 
 type ValuePayload = { value: number; index: number };
 
-type Entries<T> = {
-  [K in keyof T]: [K, T[K]];
-}[keyof T][];
-
 type ObserverFn<T> = (data: T) => void;
 type Observers = Record<string, ObserverFn<any>[]>;
 type OnChangeOptionsFn = (data: IOptions) => unknown;
@@ -80,7 +76,6 @@ export type {
   IThumbArguments,
   IViewInstances,
   ValuePayload,
-  Entries,
   ObserverFn,
   Observers,
   OnChangeOptionsFn,
